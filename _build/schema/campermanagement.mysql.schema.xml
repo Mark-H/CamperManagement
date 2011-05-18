@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="campermanagement" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM">
+    <object class="cmCamper" table="extra_campers" extends="xPDOSimpleObject">
+        <field key="brand" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="plate" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="car" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="engine" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="manufactured" dbtype="int" precision="10" phptype="string" null="false" default="" />
+        <field key="beds" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="periodiccheck" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="remarks" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+
+        <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="local" />
+        <aggregate alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
+    </object>
+
+    <object class="cmCamperOptions" table="extra_campers_optionslink" extends="xPDOSimpleObject">
+        <field key="camper" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+        <field key="option" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+
+        <aggregate alias="Campers" class="cmCamper" local="camper" foreign="id" cardinality="many" owner="foreign" />
+        <aggregate alias="Options" class="cmOption" local="owner" foreign="id" cardinality="one" owner="foreign" />
+    </object>
+
+    <object class="cmOption" table="extra_campers_options" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+
+        <aggregate alias="CamperOptions" class="cmCamperOptions" local="id" foreign="option" cardinality="many" owner="local" />
+    </object>
+
+    <object class="cmBrand" table="extra_campers_brands" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+
+        <aggregate alias="Campers" class="cmCamper" local="id" foreign="brand" cardinality="many" owner="foreign" />
+    </object>
+</model>
