@@ -15,6 +15,9 @@ $xpdo_meta_map['cmCamper']= array (
     'mileage' => 0,
     'periodiccheck' => 0,
     'remarks' => '',
+    'price' => 0,
+    'status' => 0,
+    'keynr' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -110,6 +113,30 @@ $xpdo_meta_map['cmCamper']= array (
       'null' => false,
       'default' => '',
     ),
+    'price' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '25',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
+    'status' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
+    'keynr' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
   ),
   'aggregates' => 
   array (
@@ -119,7 +146,7 @@ $xpdo_meta_map['cmCamper']= array (
       'local' => 'brand',
       'foreign' => 'id',
       'cardinality' => 'one',
-      'owner' => 'local',
+      'owner' => 'foreign',
     ),
     'CamperOptions' => 
     array (

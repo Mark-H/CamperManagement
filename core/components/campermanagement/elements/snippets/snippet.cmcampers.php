@@ -8,36 +8,53 @@ $base_path = !empty($base_path) ? $base_path : $modx->getOption('core_path').'co
 
 $modelPath = $base_path.'model/';
 $modx->addPackage('campermanagement',$modelPath);
-/*$manager = $modx->getManager();
+
+if ($_GET['createtables'] == 'do') {
+$manager = $modx->getManager();
 
 $manager->createObjectContainer('cmCamper');
 $manager->createObjectContainer('cmCamperOptions');
 $manager->createObjectContainer('cmOption');
-$manager->createObjectContainer('cmBrand');*/
+$manager->createObjectContainer('cmBrand');
+}
 
-echo $base_path;
-$c = $modx->newObject('cmCamper');
-$c->fromArray(array(
-    'brand' => 1,
-    'type' => 'Super snel',
-    'plate' => '-',
-    'car' => 'Suzuki Swift',
-    'engine' => '1.0 super',
-    'manufactured' => time('-10wks'),
-    'beds' => 4,
-    'weight' => 3543,
-    'mileage' => 245643,
-    'periodiccheck' => time('+2wks'),
-    'remarks' => 'Super conditie!!'
-));
-$brand = $modx->newObject('cmBrand');
-$brand->set('name','Swuzuki');
-$c->addOne($brand);
-$c->save();
+if ($_GET['new'] == 'camper') {
+    $c = $modx->newObject('cmCamper');
+    $c->fromArray(array(
+        'type' => 'Super snel',
+        'plate' => '-',
+        'car' => 'Suzuki Swift',
+        'engine' => '1.0 super',
+        'manufactured' => time('-10wks'),
+        'beds' => 4,
+        'weight' => 3543,
+        'mileage' => 245643,
+        'periodiccheck' => time('+2wks'),
+        'remarks' => 'Super conditie!!'
+    ));
+    $brand = 'zwasfi';
+    $br = $modx->getObject('cmBrand',array('name' => $brand));
+    if (!empty($br)) {
+        $c->addOne($br);
+    } else {
+        $br = $modx->newObject('cmBrand');
+        $br->set('name',$brand);
+        $c->addOne($br);
+    }
+    $c->save();
+}
+
 
 $campers = $modx->getCollection('cmCamper');
-echo 'Total: '.count($campers);
+echo '<pre>';
 foreach ($campers as $cmp) {
-    print_r($cmp->toArray());
+    $stuff = $cmp->toArray();
+    $stuff['brand'] = $cmp->getOne('Brand')->get('name');
+    $stuff['opts'] = $cmp->getMany('cmCamperOptions');
+    foreach ($stuff['opts'] as $opt) {
+        $stuff['options'] = $opt->toArray();
+    }
+    print_r($stuff);
 }
-echo 'Lol';
+echo '</pre>';
+return;
