@@ -76,18 +76,17 @@ Index Grid
 CamperMgmt.indexGrid = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-		url: CamperMgmt.config.connectorUrl,  //CamperMgmt.config.connectorUrl,
+		url: CamperMgmt.config.connectorUrl, 
 		id: 'index-grid',
 		baseParams: { action: 'mgr/index/getcampers' },
 		fields: ['id','brand','type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','keynr','owner','brand','options'],
 		paging: true,
 		autosave: false,
 		remoteSort: true,
-		//primaryKey: 'eventid',
 		items: [{
 			xtype: 'tbbutton',
 			text: 'Nieuwe camper toevoegen',
-            bodyStyle: 'margin-bottom: 5px',
+            bodyStyle: 'padding-bottom: 5px',
 			handler: function(btn,e) {
 				/*if (typeof newEventWindow == 'undefined') {
 					newEventWindow = MODx.load({
@@ -103,13 +102,18 @@ CamperMgmt.indexGrid = function(config) {
 				newEventWindow.show(e.target);*/
                 return true;
 			}
-
 		}]
 		,columns: [{
 			header: '#'
 			,dataIndex: 'id'
 			,sortable: true
-			,width: 4
+			,width: 3
+			,hidden: false
+		},{
+			header: 'Key'
+			,dataIndex: 'keynr'
+			,sortable: true
+			,width: 5
 			,hidden: false
 		},{
 			header: 'Merk',
