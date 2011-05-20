@@ -13,7 +13,36 @@ CamperMgmt.page.Index = function(config) {
         ,components: [{
             xtype: 'campermgmt-panel-header'
         },{
-            xtype: 'campermgmt-panel-indexcontent'
+            xtype: 'modx-tabs',
+            bodyStyle: 'padding: 10px;',
+            border: true,
+            defaults: { border: false, autoHeight: true },
+            items: [{
+                title: 'Campers &amp; Caravans',
+                items: [{
+                    xtype: 'campermgmt-panel-indexcontent',
+                    border: false
+                }]
+            },{
+                title: 'Eigenaren',
+                items: [{
+                    xtype: 'campermgmt-grid-owner',
+                    border: false
+                }]
+            },{
+                title: 'Opties',
+                items: [{
+                    html: '<p>Hier kan je straks opties (accessoires) bewerken en toevoegen.</p>',
+                    border: false
+                }]
+            },{
+                title: 'Merken',
+                items: [{
+                    html: '<p>Hier kan je straks het overzicht van merken bijwerken.</p>',
+                    border: false
+                }]
+            }]
+
         }]
     });
     CamperMgmt.page.Index.superclass.constructor.call(this,config);
@@ -47,7 +76,6 @@ CamperMgmt.panel.IndexContent = function(config) {
     config = config || {};
     Ext.apply(config,{
         border: false,
-        bodyStyle: 'padding: 15px',
         defaults: {
             autoHeight: true
         },
@@ -86,7 +114,6 @@ CamperMgmt.indexGrid = function(config) {
 		items: [{
 			xtype: 'tbbutton',
 			text: 'Nieuwe camper toevoegen',
-            bodyStyle: 'padding-bottom: 5px',
 			handler: function(btn,e) {
 				/*if (typeof newEventWindow == 'undefined') {
 					newEventWindow = MODx.load({
@@ -148,3 +175,69 @@ CamperMgmt.indexGrid = function(config) {
 };
 Ext.extend(CamperMgmt.indexGrid,MODx.grid.Grid);
 Ext.reg('campermgmt-grid-index',CamperMgmt.indexGrid);
+
+/*
+Owner Grid
+ */
+CamperMgmt.ownerGrid = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+		url: CamperMgmt.config.connectorUrl,
+		id: 'owner-grid',
+		baseParams: { action: 'mgr/index/getowners' },
+		fields: ['id','firstname','lastname','address','postal','city','country'],
+		paging: true,
+		autosave: false,
+		remoteSort: true,
+		items: [{
+			xtype: 'tbbutton',
+			text: 'Nieuwe eigenaar toevoegen',
+			handler: function(btn,e) {
+                return true;
+			}
+		}]
+		,columns: [{
+			header: '#'
+			,dataIndex: 'id'
+			,sortable: true
+			,width: 3
+			,hidden: false
+		},{
+			header: 'Voornaam'
+			,dataIndex: 'firstname'
+			,sortable: true
+			,width: 14
+			,hidden: false
+		},{
+			header: 'Achternaam',
+			dataIndex: 'lastname',
+		    sortable: true,
+			width: 14
+		},{
+			header: 'Adres',
+			dataIndex: 'address',
+			sortable: true,
+			width: 20
+		},{
+			header: 'Plaats',
+			dataIndex: 'city',
+    		sortable: true,
+			width: 14
+		},{
+			header: 'Postcode',
+			dataIndex: 'postal',
+			sortable: true,
+			width: 10
+		}]
+		,listeners: {
+			'cellcontextmenu': function(grid, row, col, eventObj){
+				return true;
+			}
+		}
+
+
+    });
+    CamperMgmt.ownerGrid.superclass.constructor.call(this,config);
+};
+Ext.extend(CamperMgmt.ownerGrid,MODx.grid.Grid);
+Ext.reg('campermgmt-grid-owner',CamperMgmt.ownerGrid);
