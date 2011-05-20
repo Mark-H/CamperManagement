@@ -20,6 +20,7 @@ foreach ($campers as $camper) {
     $array = $camper->toArray();
     $array['brand'] = $camper->Brand->get('name');
     $array['owner'] = $camper->Owner->get('lastname');
+    $array['options'] = array();
     foreach ($camper->CamperOptions as $opt) {
         $array['options'][] = $opt->Options->get('name');
     }
