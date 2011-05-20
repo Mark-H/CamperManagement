@@ -2,12 +2,13 @@
 
 $results = array();
 
-$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{},"CamperOptions":{"Options":{}}}');
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}');
 
 foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
     $array['brand'] = $camper->Brand->get('name');
+    $array['owner'] = $camper->Owner->get('lastname');
     foreach ($camper->CamperOptions as $opt) {
         $array['options'][] = $opt->Options->get('name');
     }
