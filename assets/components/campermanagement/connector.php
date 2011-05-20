@@ -5,8 +5,11 @@ require_once MODX_CORE_PATH.'config/'.MODX_CONFIG_KEY.'.inc.php';
 require_once MODX_CONNECTORS_PATH.'index.php';
 
 $corePath = $modx->getOption('campermanagement.core_path',null,$modx->getOption('core_path').'components/campermanagement/');
-require_once $corePath.'campermanagement.class.php';
+require_once $corePath.'model/campermanagement/campermanagement.class.php';
 $modx->campermgmt = new CamperManagement($modx);
+
+$modelPath = $corePath.'model/';
+$modx->addPackage('campermanagement',$modelPath);
 
 $modx->lexicon->load('campermanagement:default');
 
