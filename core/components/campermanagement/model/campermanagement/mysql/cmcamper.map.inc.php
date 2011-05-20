@@ -18,6 +18,7 @@ $xpdo_meta_map['cmCamper']= array (
     'price' => 0,
     'status' => 0,
     'keynr' => 0,
+    'owner' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -137,6 +138,14 @@ $xpdo_meta_map['cmCamper']= array (
       'null' => false,
       'default' => 0,
     ),
+    'owner' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
   ),
   'aggregates' => 
   array (
@@ -144,6 +153,14 @@ $xpdo_meta_map['cmCamper']= array (
     array (
       'class' => 'cmBrand',
       'local' => 'brand',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'Owner' => 
+    array (
+      'class' => 'cmOwner',
+      'local' => 'owner',
       'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',

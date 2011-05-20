@@ -16,16 +16,18 @@ $manager->createObjectContainer('cmCamper');
 $manager->createObjectContainer('cmCamperOptions');
 $manager->createObjectContainer('cmOption');
 $manager->createObjectContainer('cmBrand');
+$manager->createObjectContainer('cmOwner');
 }
 
 
 
 echo '<pre>';
 
-$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{},"CamperOptions":{"Options":{}}}');
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner":{}, "CamperOptions":{"Options":{}}}');
 foreach ($campers as $camper) {
     $array = $camper->toArray();
     $array['brand'] = $camper->Brand->get('name');
+    $array['owner'] = $camper->Owner->get('lastname');
     foreach ($camper->CamperOptions as $opt) {
         $array['camperoptions'][] = $opt->Options->toArray();
     }

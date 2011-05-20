@@ -16,9 +16,11 @@
         <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="keynr" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
+        <field key="owner" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
         <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
+        <aggregate alias="Owner" class="cmOwner" local="owner" foreign="id" cardinality="one" owner="foreign" />
     </object>
 
     <object class="cmCamperOptions" table="extra_campers_optionslink" extends="xPDOSimpleObject">
@@ -39,5 +41,16 @@
         <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
 
         <aggregate alias="Campers" class="cmCamper" local="id" foreign="brand" cardinality="many" owner="foreign" />
+    </object>
+
+    <object class="cmOwner" table="extra_campers_owners" extends="xPDOSimpleObject">
+        <field key="firstname" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="lastname" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+        <field key="address" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="postal" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="city" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+        <field key="country" dbtype="varchar" precision="255" phptype="string" default="" />
+
+        <aggregate alias="Campers" class="cmCamper" local="id" foreign="owner" cardinality="many" owner="local" />
     </object>
 </model>
