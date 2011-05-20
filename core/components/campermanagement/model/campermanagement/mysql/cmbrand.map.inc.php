@@ -26,7 +26,7 @@ $xpdo_meta_map['cmBrand']= array (
       'local' => 'id',
       'foreign' => 'brand',
       'cardinality' => 'many',
-      'owner' => 'foreign',
+      'owner' => 'local',
     ),
   ),
 );

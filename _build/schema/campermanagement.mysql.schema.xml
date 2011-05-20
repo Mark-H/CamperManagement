@@ -40,7 +40,7 @@
     <object class="cmBrand" table="extra_campers_brands" extends="xPDOSimpleObject">
         <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
 
-        <aggregate alias="Campers" class="cmCamper" local="id" foreign="brand" cardinality="many" owner="foreign" />
+        <aggregate alias="Campers" class="cmCamper" local="id" foreign="brand" cardinality="many" owner="local" />
     </object>
 
     <object class="cmOwner" table="extra_campers_owners" extends="xPDOSimpleObject">
