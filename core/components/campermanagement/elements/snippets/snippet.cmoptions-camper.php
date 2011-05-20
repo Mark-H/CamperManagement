@@ -1,4 +1,5 @@
 <?php
+// Snippet to get campers based on a certain option.
 $opts = $modx->getCollectionGraph('cmOption','{ "CamperOptions":{ "Campers":{} } }');
 
 foreach ($opts as $opt) {
