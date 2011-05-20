@@ -1,8 +1,19 @@
 <?php
 
+$start = $modx->getOption('start',$scriptProperties,0);
+$limit = $modx->getOption('limit',$scriptProperties,20);
+$sort = $modx->getOption('sort',$scriptProperties,'keynr');
+$dir = $modx->getOption('dir',$scriptProperties,'asc');
+
 $results = array();
 
-$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}');
+$query = $modx->newQuery('cmCamper');
+$query->sortby($sort,$dir);
+
+$count = $modx->getCount('cmCamper',$query);
+
+$query->limit($limit,$start);
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$query);
 
 foreach ($campers as $camper) {
     $array = array();
