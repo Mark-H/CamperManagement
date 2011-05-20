@@ -18,43 +18,18 @@ $manager->createObjectContainer('cmOption');
 $manager->createObjectContainer('cmBrand');
 }
 
-if ($_GET['new'] == 'camper') {
-    $c = $modx->newObject('cmCamper');
-    $c->fromArray(array(
-        'type' => 'Super snel',
-        'plate' => '-',
-        'car' => 'Suzuki Swift',
-        'engine' => '1.0 super',
-        'manufactured' => time('-10wks'),
-        'beds' => 4,
-        'weight' => 3543,
-        'mileage' => 245643,
-        'periodiccheck' => time('+2wks'),
-        'remarks' => 'Super conditie!!'
-    ));
-    $brand = 'zwasfi';
-    $br = $modx->getObject('cmBrand',array('name' => $brand));
-    if (!empty($br)) {
-        $c->addOne($br);
-    } else {
-        $br = $modx->newObject('cmBrand');
-        $br->set('name',$brand);
-        $c->addOne($br);
-    }
-    $c->save();
-}
 
 
-$campers = $modx->getCollection('cmCamper');
 echo '<pre>';
-foreach ($campers as $cmp) {
-    $stuff = $cmp->toArray();
-    $stuff['brand'] = $cmp->getOne('Brand')->get('name');
-    $stuff['opts'] = $cmp->getMany('cmCamperOptions');
-    foreach ($stuff['opts'] as $opt) {
-        $stuff['options'] = $opt->toArray();
+
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{},"CamperOptions":{"Options":{}}}');
+foreach ($campers as $camper) {
+    $array = $camper->toArray();
+    $array['brand'] = $camper->Brand->get('name');
+    foreach ($camper->CamperOptions as $opt) {
+        $array['camperoptions'][] = $opt->Options->toArray();
     }
-    print_r($stuff);
+    print_r($array);
 }
 echo '</pre>';
 return;
