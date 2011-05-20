@@ -37,13 +37,13 @@ $xpdo_meta_map['cmCamperOptions']= array (
       'class' => 'cmCamper',
       'local' => 'camper',
       'foreign' => 'id',
-      'cardinality' => 'many',
+      'cardinality' => 'one',
       'owner' => 'foreign',
     ),
     'Options' => 
     array (
       'class' => 'cmOption',
-      'local' => 'owner',
+      'local' => 'option',
       'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',

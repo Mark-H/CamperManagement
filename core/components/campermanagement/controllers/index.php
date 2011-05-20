@@ -1,5 +1,5 @@
 <?php
-require_once dirname(dirname(__FILE__)).'/model/campermanagement/campermanagement.class.php';
+require_once dirname(dirname(__FILE__)) . '/campermanagement.class.php';
 $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 

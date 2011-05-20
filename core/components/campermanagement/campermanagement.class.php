@@ -18,8 +18,6 @@ class CamperManagement {
             'cssUrl' => $assetsUrl.'css/',
             'assetsUrl' => $assetsUrl,
             'connectorUrl' => $assetsUrl.'connector.php',
-            
-            'separator' => ';'
         ),$config);
     }
     

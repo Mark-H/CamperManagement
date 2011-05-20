@@ -13,9 +13,11 @@
         <field key="periodiccheck" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="remarks" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
 
-        <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
+        <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" /> <!-- Price in cents -->
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="keynr" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
+
+        <field key="owner" dbtype="varchar" precision="255" phptype="string" null="false" />
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
         <aggregate alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
@@ -25,8 +27,8 @@
         <field key="camper" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
         <field key="option" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
 
-        <aggregate alias="Campers" class="cmCamper" local="camper" foreign="id" cardinality="many" owner="foreign" />
-        <aggregate alias="Options" class="cmOption" local="owner" foreign="id" cardinality="one" owner="foreign" />
+        <aggregate alias="Campers" class="cmCamper" local="camper" foreign="id" cardinality="one" owner="foreign" />
+        <aggregate alias="Options" class="cmOption" local="option" foreign="id" cardinality="one" owner="foreign" />
     </object>
 
     <object class="cmOption" table="extra_campers_options" extends="xPDOSimpleObject">
