@@ -11,8 +11,7 @@ CamperMgmt.ownerGrid = function(config) {
 		paging: true,
 		autosave: false,
 		remoteSort: true,
-		items: [{
-			xtype: 'tbbutton',
+		tbar: [{
 			text: 'Nieuwe eigenaar toevoegen',
 			handler: function(btn,e) {
                 return true;
