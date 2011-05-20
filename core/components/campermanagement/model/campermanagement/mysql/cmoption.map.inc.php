@@ -18,7 +18,7 @@ $xpdo_meta_map['cmOption']= array (
       'index' => 'index',
     ),
   ),
-  'aggregates' => 
+  'composites' => 
   array (
     'CamperOptions' => 
     array (

@@ -18,7 +18,7 @@
         <field key="keynr" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
-        <aggregate alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
+        <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
     </object>
 
     <object class="cmCamperOptions" table="extra_campers_optionslink" extends="xPDOSimpleObject">
@@ -32,7 +32,7 @@
     <object class="cmOption" table="extra_campers_options" extends="xPDOSimpleObject">
         <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
 
-        <aggregate alias="CamperOptions" class="cmCamperOptions" local="id" foreign="option" cardinality="many" owner="local" />
+        <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="option" cardinality="many" owner="local" />
     </object>
 
     <object class="cmBrand" table="extra_campers_brands" extends="xPDOSimpleObject">

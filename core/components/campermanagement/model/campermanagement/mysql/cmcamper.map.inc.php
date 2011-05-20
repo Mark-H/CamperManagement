@@ -148,6 +148,9 @@ $xpdo_meta_map['cmCamper']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
+  ),
+  'composites' => 
+  array (
     'CamperOptions' => 
     array (
       'class' => 'cmCamperOptions',
