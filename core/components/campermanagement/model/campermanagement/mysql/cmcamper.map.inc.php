@@ -18,7 +18,6 @@ $xpdo_meta_map['cmCamper']= array (
     'price' => 0,
     'status' => 0,
     'keynr' => 0,
-    'owner' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -137,13 +136,6 @@ $xpdo_meta_map['cmCamper']= array (
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
-    ),
-    'owner' => 
-    array (
-      'dbtype' => 'varchar',
-      'precision' => '255',
-      'phptype' => 'string',
-      'null' => false,
     ),
   ),
   'aggregates' => 
