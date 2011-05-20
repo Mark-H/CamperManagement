@@ -11,8 +11,7 @@ CamperMgmt.indexGrid = function(config) {
 		paging: true,
 		autosave: false,
 		remoteSort: true,
-		items: [{
-			xtype: 'tbbutton',
+		tbar: [{
 			text: 'Nieuwe camper toevoegen',
 			handler: function(btn,e) {
 				/*if (typeof newEventWindow == 'undefined') {
