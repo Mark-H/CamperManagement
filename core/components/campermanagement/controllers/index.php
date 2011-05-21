@@ -13,7 +13,6 @@ $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/campermanagement
 
 switch ($_GET['action']) {
     case 'newcamper':
-        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/camper/form.general.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.newcamper.js');
     break;
 

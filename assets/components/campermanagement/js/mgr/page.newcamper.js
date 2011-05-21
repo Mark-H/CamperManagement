@@ -14,7 +14,13 @@ CamperMgmt.page.NewCamper = function(config) {
             process: 'submit',
             text: 'Opslaan',
             handler: function() {
-                alert('Niet opgeslagen!');
+                frm = Ext.getCmp('campermgmt-panel-newcamper').form;
+                if (frm.isValid()) {
+                    frm.submit();
+                }
+                else {
+                    alert('Vul aub alle velden juist in!');
+                }
             }
         },{
             process: 'cancel',
@@ -69,11 +75,11 @@ CamperMgmt.panel.NewCamperContent = function(config) {
         defaults: {
             autoHeight: true
         },
+        deferredRender: false,
+        forceLayout: true,
         baseCls: 'modx-formpanel',
         items: [{
             xtype: 'modx-tabs',
-            deferredRender: false,
-            forceLayout: true,
             border: true,
             defaults: {
                 layout: 'form',
@@ -87,7 +93,80 @@ CamperMgmt.panel.NewCamperContent = function(config) {
             items: [{
                 title: 'Algemene gegevens',
                 items: [{
-                    xtype: 'campermgmt-newcamper-form-general'
+                    layout: 'form',
+                    labelWidth: 125,
+                    border: false,
+                    items: [{
+                        xtype: 'campermgmt-newcamper-form-brandscombo',
+                        fieldLabel: 'Merknaam',
+                        name: 'brand',
+                        id: 'brand',
+                        allowBlank: false,
+                        vtype: 'alphanum'
+                    },{
+                        xtype: 'textfield',
+                        fieldLabel: 'Type',
+                        name: 'type',
+                        id: 'type',
+                        allowBlank: false
+                    },{
+                        xtype: 'textfield',
+                        fieldLabel: 'Kenteken',
+                        name: 'plate',
+                        id: 'plate',
+                        allowBlank: true
+                    },{
+                        xtype: 'textfield',
+                        fieldLabel: 'Auto',
+                        name: 'car',
+                        id: 'car',
+                        allowBlank: false,
+                        vtype: 'alphanum'
+                    },{
+                        xtype: 'textfield',
+                        fieldLabel: 'Motor',
+                        name: 'engine',
+                        id: 'engine',
+                        allowBlank: false
+                    },{
+                        xtype: 'datefield',
+                        fieldLabel: 'Bouwdatum',
+                        name: 'manufactured',
+                        id: 'manufactured',
+                        format: 'd-m-Y',
+                        allowBlank: false
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Slaapplaatsen',
+                        name: 'beds',
+                        id: 'beds',
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Gewicht',
+                        name: 'weight',
+                        id: 'weight',
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Kilometerstand',
+                        name: 'mileage',
+                        id: 'mileage',
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'datefield',
+                        fieldLabel: 'APK tot (dd-mm-yyyy)',
+                        name: 'periodiccheck',
+                        id: 'periodiccheck',
+                        format: 'd-m-Y',
+                        allowBlank: true
+                    }]
                 }]
             },{
                 title: 'Opties',
@@ -106,7 +185,25 @@ CamperMgmt.panel.NewCamperContent = function(config) {
     });
     CamperMgmt.panel.NewCamperContent.superclass.constructor.call(this,config);
 };
-Ext.extend(CamperMgmt.panel.NewCamperContent,MODx.Panel);
+Ext.extend(CamperMgmt.panel.NewCamperContent,MODx.FormPanel);
 Ext.reg('campermgmt-panel-newcamper-content',CamperMgmt.panel.NewCamperContent);
 
 
+
+CamperMgmt.BrandsCombo = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        url: CamperMgmt.config.connectorUrl,
+        baseParams: {
+            action: 'mgr/index/getbrands'
+        },
+        fields: ['id','name'],
+        editable: true,
+        typeAhead: true,
+        minChars: 1,
+        forceSelection: false
+    });
+    CamperMgmt.BrandsCombo.superclass.constructor.call(this,config);
+    };
+Ext.extend(CamperMgmt.BrandsCombo,MODx.combo.ComboBox);
+Ext.reg('campermgmt-newcamper-form-brandscombo',CamperMgmt.BrandsCombo);
