@@ -111,7 +111,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'price' => 

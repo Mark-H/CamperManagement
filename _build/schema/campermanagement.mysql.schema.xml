@@ -11,7 +11,7 @@
         <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="periodiccheck" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="remarks" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="remarks" dbtype="varchar" precision="255" phptype="string" default="" />
 
         <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
