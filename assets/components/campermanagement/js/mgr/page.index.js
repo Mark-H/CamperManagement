@@ -38,7 +38,7 @@ CamperMgmt.page.Index = function(config) {
             },{
                 title: 'Merken',
                 items: [{
-                    html: '<p>Hier kan je straks het overzicht van merken bijwerken.</p>',
+                    xtype: 'campermgmt-grid-brands',
                     border: false
                 }]
             }]
