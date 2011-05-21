@@ -74,6 +74,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
             xtype: 'modx-tabs',
             deferredRender: false,
             forceLayout: true,
+            border: true,
             defaults: {
                 layout: 'form',
                 labelWidth: 150,
