@@ -9,10 +9,11 @@ CamperMgmt.optionsGrid = function(config) {
 		baseParams: { action: 'mgr/index/getoptions' },
 		fields: ['id','name'],
 		paging: true,
-		autosave: false,
+        clicksToEdit: 2,
+		autosave: true,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuwe eigenaar toevoegen',
+			text: 'Nieuwe optie toevoegen',
 			handler: function(btn,e) {
                 return true;
 			}
@@ -24,41 +25,21 @@ CamperMgmt.optionsGrid = function(config) {
 			,width: 3
 			,hidden: false
 		},{
-			header: 'Voornaam'
-			,dataIndex: 'firstname'
+			header: 'Optie'
+			,dataIndex: 'name'
 			,sortable: true
 			,width: 14
 			,hidden: false
-		},{
-			header: 'Achternaam',
-			dataIndex: 'lastname',
-		    sortable: true,
-			width: 14
-		},{
-			header: 'Adres',
-			dataIndex: 'address',
-			sortable: true,
-			width: 20
-		},{
-			header: 'Plaats',
-			dataIndex: 'city',
-    		sortable: true,
-			width: 14
-		},{
-			header: 'Postcode',
-			dataIndex: 'postal',
-			sortable: true,
-			width: 10
+            ,editable: true
+            // @TODO: make inline editing functional
 		}]
 		,listeners: {
 			'cellcontextmenu': function(grid, row, col, eventObj){
 				return true;
 			}
 		}
-
-
     });
-    CamperMgmt.ownerGrid.superclass.constructor.call(this,config);
+    CamperMgmt.optionsGrid.superclass.constructor.call(this,config);
 };
-Ext.extend(CamperMgmt.ownerGrid,MODx.grid.Grid);
-Ext.reg('campermgmt-grid-owner',CamperMgmt.ownerGrid);
+Ext.extend(CamperMgmt.optionsGrid,MODx.grid.Grid);
+Ext.reg('campermgmt-grid-options',CamperMgmt.optionsGrid);

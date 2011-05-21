@@ -32,7 +32,7 @@ CamperMgmt.page.Index = function(config) {
             },{
                 title: 'Opties',
                 items: [{
-                    html: '<p>Hier kan je straks opties (accessoires) bewerken en toevoegen.</p>',
+                    xtype: 'campermgmt-grid-options',
                     border: false
                 }]
             },{
