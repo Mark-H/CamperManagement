@@ -91,7 +91,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 xtype: 'modx-panel'
             },
             items: [{
-                title: 'Algemene gegevens',
+                title: 'Voertuig gegevens',
                 items: [{
                     layout: 'form',
                     labelWidth: 125,
@@ -175,10 +175,46 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     border: false
                 }]
             },{
-                title: 'Overigen',
+                title: 'Algemeen',
                 items: [{
-                    html: 'Hier kan je de eigenaar en opmerkingen invoegen.',
-                    border: false
+                    layout: 'form',
+                    labelWidth: 125,
+                    border: false,
+                    items: [{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Prijs (in &euro;)',
+                        name: 'price',
+                        id: 'price',
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Sleutelnummer',
+                        name: 'keynr',
+                        id: 'keynr',
+                        allowBlank: true,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'textarea',
+                        fieldLabel: 'Opmerkingen',
+                        name: 'remarks',
+                        id: 'remarks',
+                        allowBlank: true,
+                        maxLength: 250,
+                        width: '80%'
+                    },{
+                        xtype: 'campermgmt-newcamper-form-ownerscombo',
+                        fieldLabel: 'Eigenaar',
+                        name: 'owner',
+                        id: 'owner',
+                        allowBlank: false
+                    },{
+                        xtype: 'button',
+                        text: 'Nieuwe eigenaar',
+                        fieldLabel: '.. of'
+                    }]
                 }]
             }]
         }]
@@ -207,3 +243,25 @@ CamperMgmt.BrandsCombo = function(config) {
     };
 Ext.extend(CamperMgmt.BrandsCombo,MODx.combo.ComboBox);
 Ext.reg('campermgmt-newcamper-form-brandscombo',CamperMgmt.BrandsCombo);
+
+CamperMgmt.OwnersCombo = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        url: CamperMgmt.config.connectorUrl,
+        baseParams: {
+            action: 'mgr/index/getowners',
+            display: 'combo'
+        },
+        fields: ['id','name'],
+        displayField: 'name',
+        valueField: 'id',
+        hiddenName: 'owner',
+        editable: true,
+        typeAhead: true,
+        minChars: 2,
+        forceSelection: true
+    });
+    CamperMgmt.OwnersCombo.superclass.constructor.call(this,config);
+    };
+Ext.extend(CamperMgmt.OwnersCombo,MODx.combo.ComboBox);
+Ext.reg('campermgmt-newcamper-form-ownerscombo',CamperMgmt.OwnersCombo);

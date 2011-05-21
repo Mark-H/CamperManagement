@@ -19,7 +19,7 @@ foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
     $array['brand'] = ($camper->Brand) ? $camper->Brand->get('name') : 'n/a';
-    $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname') : 'n/a';
+    $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname').', '.$camper->Owner->get('firstname').' ('.$camper->Owner->get('id').')' : 'n/a';
     $array['options'] = array();
     foreach ($camper->CamperOptions as $opt) {
         $array['options'][] = $opt->Options->get('name');

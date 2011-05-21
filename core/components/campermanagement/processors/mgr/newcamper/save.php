@@ -22,6 +22,14 @@ if (!empty($brandObj)) {
     $brandObj->save();
     $c->addOne($brandObj);
 }
+
+$ownerObj = $modx->getObject('cmOwner',$scriptProperties['owner']);
+if (!empty($ownerObj)) {
+    $c->addOne($ownerObj);
+} else {
+    echo 'Owner not found!'; // @TODO Return an error
+}
+
 $success = $c->save();
 
 if ($success) {
