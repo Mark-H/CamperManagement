@@ -6,15 +6,27 @@ $campermgmt->initialize('mgr');
 $modx->regClientStartupHTMLBlock('<script type="text/javascript">
 Ext.onReady(function() {
     CamperMgmt.config = '.$modx->toJSON($campermgmt->config).';
+    CamperMgmt.action = '.$_GET['a'].';
 });
 </script>');
-// @TODO: In the actual package, make sure these are minified and/or combined into one or a few files.
 $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/campermanagement.js');
-$modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.index.js');
-$modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index.campers.grid.js');
-$modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index.owners.grid.js');
-$modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index.options.grid.js');
-$modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index.brands.grid.js');
+
+switch ($_GET['action']) {
+    case 'newcamper':
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/camper/form.general.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.newcamper.js');
+    break;
+
+    case 'index':
+    default:
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.index.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.campers.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.owners.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.options.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.brands.js');
+    break;
+}
+// @TODO: In the actual package, make sure these are minified and/or combined into one or a few files.
 
 return '<div id="campermanagement"></div>';
 ?>

@@ -14,19 +14,8 @@ CamperMgmt.indexGrid = function(config) {
 		tbar: [{
 			text: 'Nieuwe camper toevoegen',
 			handler: function(btn,e) {
-				/*if (typeof newEventWindow == 'undefined') {
-					newEventWindow = MODx.load({
-						xtype: 'eventmanager-new-event',
-						listeners: {
-							'success': function() {
-								newEventWindow.hide();
-								this.reload();
-							}
-						}
-					});
-				}
-				newEventWindow.show(e.target);*/
-                return true;
+				window.location.href = '?a='+CamperMgmt.action+'&action=newcamper';
+                //return true;
 			}
 		}]
 		,columns: [{
