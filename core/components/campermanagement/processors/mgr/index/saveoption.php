@@ -1,7 +1,8 @@
 <?php
-$option = $modx->getObject('cmOption',$scriptProperties['id']);
-if (empty($option)) {
+if (empty($scriptProperties['id'])) {
     $option = $modx->newObject('cmOption');
+} else {
+    $option = $modx->getObject('cmOption',$scriptProperties['id']);
 }
 $option->fromArray($scriptProperties);
 

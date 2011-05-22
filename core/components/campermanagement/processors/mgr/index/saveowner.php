@@ -1,7 +1,9 @@
 <?php
-$owner = $modx->getObject('cmOwner',$scriptProperties['id']);
-if (empty($owner)) {
+
+if (empty($scriptProperties['id'])) {
     $owner = $modx->newObject('cmOwner');
+} else {
+    $owner = $modx->getObject('cmOwner',$scriptProperties['id']);
 }
 $owner->fromArray($scriptProperties);
 
