@@ -25,6 +25,7 @@ switch ($_GET['action']) {
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.brands.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/owner.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/option.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/brand.js');
     break;
 }
 // @TODO: In the actual package, make sure these are minified and/or combined into one or a few files.

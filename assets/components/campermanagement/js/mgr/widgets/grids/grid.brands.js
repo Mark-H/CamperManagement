@@ -15,7 +15,16 @@ CamperMgmt.brandsGrid = function(config) {
 		tbar: [{
 			text: 'Nieuw merk toevoegen',
 			handler: function(btn,e) {
-                return true;
+                if (!CamperMgmt.window.newBrand) {
+                    CamperMgmt.window.newBrand = MODx.load({
+                        xtype: 'campermgmt-newbrandwindow',
+                        listeners: {
+                            'success': function() { Ext.getCmp('brands-grid').refresh()},
+                            'failure': function() { Ext.getCmp('brands-grid').refresh()}
+                        }
+                    });
+                }
+                CamperMgmt.window.newBrand.show(e.target);
 			}
 		}]
 		,columns: [{
@@ -34,9 +43,50 @@ CamperMgmt.brandsGrid = function(config) {
             // @TODO: make inline editing functional
 		}]
 		,listeners: {
-			'cellcontextmenu': function(grid, row, col, eventObj){
-				return true;
-			}
+            'rowcontextmenu': function(grid, rowIndex,e) {
+                var _contextMenu = new Ext.menu.Menu({
+                    items: [{
+                        text: 'Aanpassen',
+                        handler: function(grid, rowIndex) {
+                            if (!CamperMgmt.window.newBrand) {
+                                CamperMgmt.window.newBrand = MODx.load({
+                                    xtype: 'campermgmt-newbrandwindow',
+                                    listeners: {
+                                        'success': function() { Ext.getCmp('brands-grid').refresh()},
+                                        'failure': function() { Ext.getCmp('brands-grid').refresh()}
+                                    }
+                                });
+                            }
+                            record = Ext.getCmp('brands-grid').getSelectionModel().getSelected().json;
+                            CamperMgmt.window.newBrand.setValues(record);
+                            CamperMgmt.window.newBrand.show(e.target);
+                        }
+                    },{
+                        text: 'Verwijderen',
+                        handler: function() {
+                            owner = Ext.getCmp('brands-grid').getSelectionModel().getSelected().data.id;
+                            MODx.Ajax.request({
+                                url: CamperMgmt.config.connectorUrl
+                                ,params: {
+                                    action: 'mgr/index/deletebrand'
+                                    ,owner: owner
+                                }
+                                ,listeners: {
+                                    'success': {fn:function(r) {
+                                        Ext.getCmp('brands-grid').getSelectionModel().clearSelections(true);
+                                        Ext.getCmp('brands-grid').refresh();
+                                    },scope:this},
+                                    'failure': {fn:function(r) {
+                                        Ext.getCmp('brands-grid').refresh();
+                                    },scope:this}
+                                }
+                            });
+                            return true;
+                        }
+                    }]
+                });
+                _contextMenu.showAt(e.getXY());
+            }
 		}
     });
     CamperMgmt.brandsGrid.superclass.constructor.call(this,config);
