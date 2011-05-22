@@ -24,7 +24,7 @@ $manager->createObjectContainer('cmOwner');
 echo '<pre>';
 
 $start = $modx->getOption('start',$scriptProperties,0);
-$limit = $modx->getOption('limit',$scriptProperties,20);
+$limit = $modx->getOption('limit',$scriptProperties,50);
 $sort = $modx->getOption('sort',$scriptProperties,'keynr');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 
@@ -47,7 +47,7 @@ foreach ($campers as $camper) {
     foreach ($camper->CamperOptions as $opt) {
         $array['options'][] = $opt->Options->get('name');
     }
-    $array['options'] = implode(", ",$array['options']);
+    //$array['options'] = implode(", ",$array['options']);
     $results[] = $array;
 }
 print_r($results);
