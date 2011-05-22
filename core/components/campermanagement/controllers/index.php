@@ -18,12 +18,13 @@ switch ($_GET['action']) {
 
     case 'index':
     default:
-        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.grids.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.index.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.campers.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.owners.js');
-        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/owner.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.options.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.brands.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/owner.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/option.js');
     break;
 }
 // @TODO: In the actual package, make sure these are minified and/or combined into one or a few files.
