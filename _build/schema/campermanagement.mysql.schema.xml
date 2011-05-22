@@ -6,17 +6,18 @@
         <field key="plate" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="car" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="engine" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="manufactured" dbtype="int" precision="10" phptype="string" null="false" default="" />
+        <field key="manufactured" dbtype="int" precision="25" phptype="string" null="false" default="" />
         <field key="beds" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="periodiccheck" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="periodiccheck" dbtype="int" precision="25" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="remarks" dbtype="varchar" precision="255" phptype="string" default="" />
 
         <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="keynr" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="owner" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
+        <field key="timestamp" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
         <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />

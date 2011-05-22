@@ -19,6 +19,7 @@ $xpdo_meta_map['cmCamper']= array (
     'status' => 0,
     'keynr' => 0,
     'owner' => 0,
+    'timestamp' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -65,7 +66,7 @@ $xpdo_meta_map['cmCamper']= array (
     'manufactured' => 
     array (
       'dbtype' => 'int',
-      'precision' => '10',
+      'precision' => '25',
       'phptype' => 'string',
       'null' => false,
       'default' => 0,
@@ -100,7 +101,7 @@ $xpdo_meta_map['cmCamper']= array (
     'periodiccheck' => 
     array (
       'dbtype' => 'int',
-      'precision' => '10',
+      'precision' => '25',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
       'null' => false,
@@ -141,6 +142,14 @@ $xpdo_meta_map['cmCamper']= array (
     array (
       'dbtype' => 'int',
       'precision' => '10',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
+    'timestamp' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '25',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
