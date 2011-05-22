@@ -15,12 +15,15 @@ CamperMgmt.page.NewCamper = function(config) {
             text: 'Opslaan',
             handler: function() {
                 frm = Ext.getCmp('campermgmt-panel-newcamper').form;
-                if (frm.isValid()) {
+                //if (frm.isValid()) {
+
+                    opts = Ext.getCmp('campermgmt-gridselectoptions').getSelectedAsList();
+                    frm.setValues({options: opts});
                     frm.submit();
-                }
-                else {
-                    alert('Vul aub alle velden juist in!');
-                }
+                //}
+                //else {
+                    //alert('Vul aub alle velden juist in!');
+                //}
             }
         },{
             process: 'cancel',
@@ -69,6 +72,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
         baseParams: {
             action: 'mgr/newcamper/save'
         },
+
         layout: 'fit',
         id: 'campermgmt-panel-newcamper',
         border: false,
@@ -171,8 +175,14 @@ CamperMgmt.panel.NewCamperContent = function(config) {
             },{
                 title: 'Opties',
                 items: [{
-                    html: 'Hier kan je opties selecteren en/of toevoegen.',
+                    layout: 'form',
+                    xtype: 'campermgmt-gridselectoptions',
+                    name: 'options',
                     border: false
+                },{
+                    xtype: 'hidden',
+                    name: 'options',
+                    value: ''
                 }]
             },{
                 title: 'Algemeen',
@@ -265,3 +275,30 @@ CamperMgmt.OwnersCombo = function(config) {
     };
 Ext.extend(CamperMgmt.OwnersCombo,MODx.combo.ComboBox);
 Ext.reg('campermgmt-newcamper-form-ownerscombo',CamperMgmt.OwnersCombo);
+
+CamperMgmt.gridSelectOptions = function(config) {
+    config = config || {};
+    this.sm = new Ext.grid.CheckboxSelectionModel();
+
+    Ext.applyIf(config,{
+        url: CamperMgmt.config.connectorUrl,
+        id: 'campermgmt-gridselectoptions',
+        baseParams: {
+            action: 'mgr/index/getoptions'
+        },
+        fields: ['id','name'],
+        paging: false,
+        sm: this.sm,
+        columns: [
+            this.sm,
+            {
+                header: 'Optie',
+                dataIndex: 'name',
+                sortable: false
+            }
+        ]
+    });
+    CamperMgmt.gridSelectOptions.superclass.constructor.call(this,config);
+}
+Ext.extend(CamperMgmt.gridSelectOptions,MODx.grid.Grid);
+Ext.reg('campermgmt-gridselectoptions',CamperMgmt.gridSelectOptions);
