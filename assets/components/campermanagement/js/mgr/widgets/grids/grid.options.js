@@ -15,7 +15,16 @@ CamperMgmt.optionsGrid = function(config) {
 		tbar: [{
 			text: 'Nieuwe optie toevoegen',
 			handler: function(btn,e) {
-                return true;
+                if (!CamperMgmt.window.newOption) {
+                    CamperMgmt.window.newOption = MODx.load({
+                        xtype: 'campermgmt-newoptionwindow',
+                        listeners: {
+                            'success': function() { Ext.getCmp('options-grid').refresh()},
+                            'failure': function() { Ext.getCmp('options-grid').refresh()}
+                        }
+                    });
+                }
+                CamperMgmt.window.newOption.show(e.target);
 			}
 		}]
 		,columns: [{
@@ -43,13 +52,14 @@ CamperMgmt.optionsGrid = function(config) {
                                 CamperMgmt.window.newOption = MODx.load({
                                     xtype: 'campermgmt-newoptionwindow',
                                     listeners: {
-                                        'success': function() { Ext.getCmp('owner-grid').refresh()}
+                                        'success': function() { Ext.getCmp('options-grid').refresh()},
+                                        'failure': function() { Ext.getCmp('options-grid').refresh()}
                                     }
                                 });
                             }
                             record = Ext.getCmp('options-grid').getSelectionModel().getSelected().json;
-                            CamperMgmt.window.newOwner.setValues(record);
-                            CamperMgmt.window.newOwner.show(e.target);
+                            CamperMgmt.window.newOption.setValues(record);
+                            CamperMgmt.window.newOption.show(e.target);
                         }
                     },{
                         text: 'Verwijderen',
