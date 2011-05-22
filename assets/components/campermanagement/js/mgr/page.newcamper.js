@@ -230,7 +230,21 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     },{
                         xtype: 'button',
                         text: 'Nieuwe eigenaar',
-                        fieldLabel: '.. of'
+                        fieldLabel: '.. of',
+                        handler: function(btn, e) {
+                            if (!CamperMgmt.window.newOwner) {
+                                CamperMgmt.window.newOwner = MODx.load({
+                                    xtype: 'campermgmt-newownerwindow',
+                                    listeners: {
+                                        'success': function(form_acc,action) {
+                                            //console.log(form_acc.a.result.message);
+                                            Ext.getCmp('owner').setValue(form_acc.a.result.message);
+                                        }
+                                    }
+                                });
+                            }
+                            CamperMgmt.window.newOwner.show(e.target);
+                        }
                     }]
                 }]
             }]

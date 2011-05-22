@@ -10,6 +10,9 @@ $owner->fromArray($scriptProperties);
 $result = $owner->save();
 
 if ($result) {
-    return $modx->error->success('Database updated.');
+    return $modx->toJSON(array(
+        'success' => true,
+        'message' => $owner->get('id'),
+        'data' => array()));
 }
 return $modx->error->failure('Error.');
