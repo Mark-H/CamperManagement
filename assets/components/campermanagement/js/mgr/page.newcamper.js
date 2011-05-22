@@ -15,15 +15,22 @@ CamperMgmt.page.NewCamper = function(config) {
             text: 'Opslaan',
             handler: function() {
                 frm = Ext.getCmp('campermgmt-panel-newcamper').form;
-                //if (frm.isValid()) {
-
+                if (frm.isValid()) {
                     opts = Ext.getCmp('campermgmt-gridselectoptions').getSelectedAsList();
                     frm.setValues({options: opts});
-                    frm.submit();
-                //}
-                //else {
-                    //alert('Vul aub alle velden juist in!');
-                //}
+                    frm.submit({
+                        waitMsg:'Opslaan...',
+                        success: function(form,action) {
+                            Ext.MessageBox.alert('Opgeslagen!','Deze camper is met succes toegevoegd aan de database.');
+                        },
+                        failure: function(form,action) {
+                            Ext.MessageBox.alert('Fout','Er is iets misgegaan...');
+                        }
+                    });
+                }
+                else {
+                    Ext.MessageBox.alert('Fout','Vul alle velden juist in.');
+                }
             }
         },{
             process: 'cancel',
