@@ -68,7 +68,8 @@ CamperMgmt.ownerGrid = function(config) {
                                 CamperMgmt.window.newOwner = MODx.load({
                                     xtype: 'campermgmt-newownerwindow',
                                     listeners: {
-                                        'success': function() { Ext.getCmp('owner-grid').refresh()}
+                                        'success': function() { Ext.getCmp('owner-grid').refresh()},
+                                        'failure': function() { Ext.getCmp('owner-grid').refresh()}
                                     }
                                 });
                             }
