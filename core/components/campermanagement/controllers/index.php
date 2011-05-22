@@ -21,6 +21,7 @@ switch ($_GET['action']) {
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.index.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.campers.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.owners.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/window.owner.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.options.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/index/grid.brands.js');
     break;
