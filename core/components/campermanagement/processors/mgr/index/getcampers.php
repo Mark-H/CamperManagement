@@ -25,7 +25,7 @@ $start = $modx->getOption('start',$scriptProperties,0);
 $limit = $modx->getOption('limit',$scriptProperties,20);
 $sort = $modx->getOption('sort',$scriptProperties,'keynr');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
-
+if ($sort == 'id') { $sort = 'cmCamper.id'; }
 $results = array();
 
 $query = $modx->newQuery('cmCamper');
