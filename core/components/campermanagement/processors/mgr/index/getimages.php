@@ -23,7 +23,7 @@
  */
 $start = $modx->getOption('start',$scriptProperties,0);
 $limit = $modx->getOption('limit',$scriptProperties,20);
-$sort = $modx->getOption('sort',$scriptProperties,'lastname');
+$sort = $modx->getOption('sort',$scriptProperties,'id');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 $cid = $modx->getOption('cid',$scriptProperties,null);
 if (empty($cid)) { return $modx->error->failure('Onbekend voertuig.'); }
