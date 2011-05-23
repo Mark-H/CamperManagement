@@ -27,6 +27,7 @@ $xpdo_meta_map['cmImages']= array (
   'fields' => 
   array (
     'camper' => 0,
+    'path' => '',
     'image' => '',
   ),
   'fieldMeta' => 
@@ -39,6 +40,14 @@ $xpdo_meta_map['cmImages']= array (
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
+    ),
+    'path' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
     ),
     'image' => 
     array (

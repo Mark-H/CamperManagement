@@ -24,6 +24,7 @@
 
 $path = $directory->getPath();
 $expected = $campermgmt->config['assetsPath'].'uploads/originals/';
+$assetsurl = $campermgmt->config['assetsUrl'].'uploads/originals/';
 
 if (($path == $expected) && ($files['file'])) {
     if ($campermgmt->config['originalfolders']) {
@@ -53,21 +54,39 @@ if (($path == $expected) && ($files['file'])) {
         }
 
         // All file structure in place!
-        $modx->log('warn','File structure in place');
+        //$modx->log(2,'File structure in place');
         $newloc = $monthdir->getPath().'/';
         $curloc = $path;
 
         $results = array();
+        $imgrefs = array();
         foreach ($files as $file) {
             $oldfile = $curloc.$file['name'];
             $newfile = $newloc.$file['name'];
-            $modx->log('warn','Attempting to move '.$oldfile.' to '.$newfile);
+            //$modx->log(2,'Attempting to move '.$oldfile.' to '.$newfile);
             if (!file_exists($oldfile)) { $modx->log('warn', 'File does not exist at '.$oldloc); }
             if (!rename($oldfile,$newfile)) {
                 return $modx->error->failure($modx->lexicon('file_err_upload'));
             }
 
+            // Let's store a reference to the image.
+            $id = (is_numeric($_POST['cid'])) ? $_POST['cid'] : null;
+            if ($id === null) { return $modx->error->failure('Image uploaded, but no camper reference found.'); }
+
+            $imgobj = $modx->newObject('cmImages');
+            $imgobj->fromArray(array(
+                'path' => $assetsurl.date(Y).'/'.date(n).'/',
+                'image' => $file['name'],
+                'camper' => $_POST['cid']
+            ));
+
+            $imgrefs[] = $imgobj;
         }
+
+        $camper = $modx->getObject('cmCamper',$_POST['cid']);
+        $camper->addMany($imgrefs);
+        $camper->save();
+
 
 
     }

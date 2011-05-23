@@ -82,8 +82,9 @@
 
     <object class="cmImages" table="extra_campers_images" extends="xPDOSimpleObject">
         <field key="camper" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" />
+        <field key="path" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
         <field key="image" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
-        
+
         <aggregate alias="Camper" class="cmCamper" local="camper" foreign="id" cardinality="one" owner="foreign" />
     </object>
 </model>
