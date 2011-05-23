@@ -36,6 +36,7 @@ $manager->createObjectContainer('cmCamperOptions');
 $manager->createObjectContainer('cmOption');
 $manager->createObjectContainer('cmBrand');
 $manager->createObjectContainer('cmOwner');
+$manager->createObjectContainer('cmImages');
 }
 
 
@@ -55,13 +56,18 @@ $query->sortby($sort,$dir);
 $count = $modx->getCount('cmCamper',$query);
 
 $query->limit($limit,$start);
-$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$query);
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "Images": {}, "CamperOptions":{"Options":{}}}',$query);
 
 foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
     $array['brand'] = ($camper->Brand) ? $camper->Brand->get('name') : 'n/a';
     $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname') : 'n/a';
+    $array['images'] = array();
+    foreach ($camper->Images as $img) {
+        $array['images'][] = $img->get('image');
+    }
+    //$array['images'] = implode(", ",$array['images']);
     $array['options'] = array();
     foreach ($camper->CamperOptions as $opt) {
         $array['options'][] = $opt->Options->get('name');
