@@ -124,21 +124,16 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 xtype: 'modx-panel'
             },
             items: [{
-                title: 'Foto\'s',
-                items: [{
-                    handler: this.uploadFiles,
-                    scope: this,
-                    xtype: 'button',
-                    text: 'Nieuwe foto\'s uploaden'
-                }]
-
-            },{
                 title: 'Voertuig gegevens',
                 items: [{
                     layout: 'form',
                     labelWidth: 125,
                     border: false,
                     items: [{
+                        xtype: 'hidden',
+                        name: 'id',
+                        id: 'id'
+                    },{
                         xtype: 'campermgmt-newcamper-form-brandscombo',
                         fieldLabel: 'Merknaam',
                         name: 'brand',
@@ -297,9 +292,27 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         }
                     }]
                 }]
+            },{
+                title: 'Foto\'s',
+                items: [{
+                    layout: 'form',
+                    border: false,
+                    items: [{
+                        handler: this.uploadFiles,
+                        scope: this,
+                        xtype: 'button',
+                        text: 'Nieuwe foto\'s uploaden',
+                        disabled: false
+                    },{
+                        xtype: 'hidden',
+                        name: 'images',
+                        id: 'campermgmt-images'
+                    }]
+                }]
             }]
         }]
     });
+    console.log(this);
     CamperMgmt.panel.NewCamperContent.superclass.constructor.call(this,config);
     this.addEvents({
         'beforeUpload': true
@@ -309,32 +322,36 @@ CamperMgmt.panel.NewCamperContent = function(config) {
 };
 Ext.extend(CamperMgmt.panel.NewCamperContent,MODx.FormPanel,{
     uploadFiles: function(btn,e) {
-        if (!this.uploader) {
-            this.uploader = new Ext.ux.UploadDialog.Dialog({
-                id: 'campermgmt-uploader',
-                url: MODx.config.connectors_url+'browser/file.php'
-                ,base_params: {
-                    action: 'upload',
-                    prependPath: '',
-                    prependUrl: '',
-                    path: 'uploads/originals/',
-                    basePath: CamperMgmt.config.assetsPath,
-                    basePathRelative: 0 
-                }
-                ,reset_on_hide: true
-                ,width: 550
-                ,cls: 'ext-ux-uploaddialog-dialog modx-upload-window'
-            });
-            this.uploader.on('click',function(n,e) {
-                n.select();
-                this.cm.activeNode = n;
-            },this);
-            this.uploader.on('show',this.beforeUpload,this);
-            this.uploader.on('uploadsuccess',this.uploadSuccess,this);
-            this.uploader.on('uploaderror',this.uploadError,this);
-            this.uploader.on('uploadfailed',this.uploadFailed,this);
+        if (Ext.getCmp('campermgmt-images').getValue() > 0) {
+            if (!this.uploader) {
+                this.uploader = new Ext.ux.UploadDialog.Dialog({
+                    id: 'campermgmt-uploader',
+                    url: MODx.config.connectors_url+'browser/file.php',
+                    base_params: {
+                        action: 'upload',
+                        prependPath: '',
+                        prependUrl: '',
+                        path: 'uploads/originals/',
+                        basePath: CamperMgmt.config.assetsPath,
+                        basePathRelative: 0
+                    },
+                    reset_on_hide: true,
+                    width: 550,
+                    cls: 'ext-ux-uploaddialog-dialog modx-upload-window'
+                });
+                this.uploader.on('click',function(n,e) {
+                    n.select();
+                    this.cm.activeNode = n;
+                },this);
+                this.uploader.on('show',this.beforeUpload,this);
+                this.uploader.on('uploadsuccess',this.uploadSuccess,this);
+                this.uploader.on('uploaderror',this.uploadError,this);
+                this.uploader.on('uploadfailed',this.uploadFailed,this);
+            }
+            this.uploader.show(btn);
+        } else {
+            Ext.Msg.alert('Foutmelding','Het is pas mogelijk om afbeeldingen te uploaden, nadat het voertuig voor de eerste keer is opgeslagen.')
         }
-        this.uploader.show(btn);
     },
     uploadError: function(dlg,file,data,rec) {},
     uploadFailed: function(dlg,file,rec) {},
@@ -358,6 +375,7 @@ Ext.extend(CamperMgmt.panel.NewCamperContent,MODx.FormPanel,{
             ,baseUrlRelative: this.uploader.base_params.baseUrlRelative || null
             ,path: path
             ,wctx: MODx.ctx || ''
+            ,cid: 5 //Ext.getCmp('campermgmt-images').getValue()
         });
         this.fireEvent('beforeUpload',this.uploader);
     }
