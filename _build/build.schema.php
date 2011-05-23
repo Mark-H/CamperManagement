@@ -11,7 +11,7 @@ $mtime = $mtime[1] + $mtime[0];
 $tstart = $mtime;
 set_time_limit(0);
 
-require_once dirname(__FILE__) . '/build.config.php';
+require_once dirname(dirname(__FILE__)) . '/config.core.php';
 include_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 $modx= new modX();
 $modx->initialize('mgr');
