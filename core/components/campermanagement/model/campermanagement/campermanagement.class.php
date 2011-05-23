@@ -8,16 +8,19 @@ class CamperManagement {
  
         $basePath = $this->modx->getOption('campermanagement.core_path',$config,$this->modx->getOption('core_path').'components/campermanagement/');
         $assetsUrl = $this->modx->getOption('campermanagement.assets_url',$config,$this->modx->getOption('assets_url').'components/campermanagement/');
+        $assetsPath = $this->modx->getOption('campermanagement.assets_path',$config,$this->modx->getOption('assets_path').'components/campermanagement/');
         $this->config = array_merge(array(
             'basePath' => $basePath,
             'corePath' => $basePath,
             'modelPath' => $basePath.'model/',
             'processorsPath' => $basePath.'processors/',
-            'chunksPath' => $basePath.'elements/chunks/',
+            'elementsPath' => $basePath.'elements/',
+            'assetsPath' => $assetsPath,
             'jsUrl' => $assetsUrl.'js/',
             'cssUrl' => $assetsUrl.'css/',
             'assetsUrl' => $assetsUrl,
             'connectorUrl' => $assetsUrl.'connector.php',
+            'originalfolders' => true,
         ),$config);
     }
     
