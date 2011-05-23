@@ -182,8 +182,27 @@ CamperMgmt.panel.NewCamperContent = function(config) {
             },{
                 title: 'Opties',
                 items: [{
+                    xtype: 'button',
+                    text: 'Nieuwe optie aanmaken',
+                    handler: function(btn,e) {
+                        if (!CamperMgmt.window.newOption) {
+                            CamperMgmt.window.newOption = MODx.load({
+                                xtype: 'campermgmt-newoptionwindow',
+                                listeners: {
+                                    'success': function(form_acc, action) {
+                                        Ext.getCmp('options-grid').getStore().reload();
+                                    },
+                                    'failure': function() { Ext.getCmp('options-grid').refresh()}
+                                }
+                            });
+                        }
+                        CamperMgmt.window.newOption.show(e.target);
+                    }
+                },{
                     layout: 'form',
                     xtype: 'campermgmt-gridselectoptions',
+                    params: { limit: 999 },
+                    id: 'options-grid',
                     name: 'options',
                     border: false
                 },{
@@ -308,14 +327,14 @@ CamperMgmt.gridSelectOptions = function(config) {
             action: 'mgr/index/getoptions'
         },
         fields: ['id','name'],
-        paging: false,
         sm: this.sm,
         columns: [
             this.sm,
             {
                 header: 'Optie',
                 dataIndex: 'name',
-                sortable: false
+                sortable: false,
+                width: 200
             }
         ]
     });

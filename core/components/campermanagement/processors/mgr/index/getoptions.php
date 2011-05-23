@@ -1,7 +1,8 @@
 <?php
 
 $start = $modx->getOption('start',$scriptProperties,0);
-$limit = $modx->getOption('limit',$scriptProperties,20);
+$limit = 0; // It refuses to do pagination-less without this
+//$limit = $modx->getOption('limit',$scriptProperties,999);
 $sort = $modx->getOption('sort',$scriptProperties,'name');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 

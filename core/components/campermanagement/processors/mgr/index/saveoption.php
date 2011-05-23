@@ -9,6 +9,6 @@ $option->fromArray($scriptProperties);
 $result = $option->save();
 
 if ($result) {
-    return $modx->error->success('Database updated.');
+    return $modx->error->success($option->get('id'));
 }
 return $modx->error->failure('Error.');
