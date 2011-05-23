@@ -184,5 +184,13 @@ $xpdo_meta_map['cmCamper']= array (
       'cardinality' => 'many',
       'owner' => 'local',
     ),
+    'Images' => 
+    array (
+      'class' => 'cmImages',
+      'local' => 'id',
+      'foreign' => 'camper',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
   ),
 );

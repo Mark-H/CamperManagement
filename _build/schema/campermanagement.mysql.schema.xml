@@ -21,6 +21,7 @@
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
         <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />
+        <composite alias="Images" class="cmImages" local="id" foreign="camper" cardinality="many" owner="local" />
         <aggregate alias="Owner" class="cmOwner" local="owner" foreign="id" cardinality="one" owner="foreign" />
     </object>
 
@@ -53,5 +54,12 @@
         <field key="country" dbtype="varchar" precision="255" phptype="string" default="" />
 
         <aggregate alias="Campers" class="cmCamper" local="id" foreign="owner" cardinality="many" owner="local" />
+    </object>
+
+    <object class="cmImages" table="extra_campers_images" extends="xPDOSimpleObject">
+        <field key="camper" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" />
+        <field key="image" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        
+        <aggregate alias="Camper" class="cmCamper" local="camper" foreign="id" cardinality="one" owner="foreign" />
     </object>
 </model>
