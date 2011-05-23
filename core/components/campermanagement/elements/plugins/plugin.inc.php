@@ -1,24 +1,26 @@
 <?php
-
-
-/*$modx->invokeEvent('OnFileManagerUpload',array(
-    'files' => &$_FILES,
-    'directory' => &$directory,
-));*/
-
-//$modx->log('warn','Files data: '.print_r($files,true));
-/*Array
-(
-    [file] => Array
-        (
-            [name] => pp-img2.jpg
-            [type] => image/jpeg
-            [tmp_name] => C:\wamp\tmp\php1EB3.tmp
-            [error] => 0
-            [size] => 46180
-        )
-
-)*/
+/*
+ * CamperManagement
+ *
+ * Copyright 2011 by Mark Hamstra <business@markhamstra.nl>
+ *
+ * This file is part of CamperManagement, a camper/caravan inventory management
+ * addon for MODX Revolution.
+ *
+ * CamperManagement is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * CamperManagement is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * CamperManagement; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA 02111-1307 USA
+ *
+ */
 
 $path = $directory->getPath();
 $expected = $campermgmt->config['assetsPath'].'uploads/originals/';
