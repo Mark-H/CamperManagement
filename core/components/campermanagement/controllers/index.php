@@ -25,15 +25,31 @@ require_once dirname(dirname(__FILE__)) . '/model/campermanagement/campermanagem
 $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 
-$cid = (is_numeric($_GET['cid'])) ? 'CamperMgmt.cid = '.$_GET['cid'].';' : '';
+//$cid = (is_numeric($_GET['cid'])) ? 'CamperMgmt.cid = '.$_GET['cid'].';' : '';
 if (is_numeric($_GET['cid'])) {
+    $cid = trim($_GET['cid']);
+    $camper = $modx->getObjectGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$cid);
 
+    $array = array();
+    $array = $camper->toArray();
+    $array['brand'] = ($camper->Brand) ? $camper->Brand->get('id') : '';
+    $array['owner'] = ($camper->Owner) ? $camper->Owner->get('id') : '';
+    $array['options'] = array();
+    foreach ($camper->CamperOptions as $opt) {
+        $array['options'][] = $opt->Options->get('id');
+    }
+    $array['options'] = implode(",",$array['options']);
+    $array['manufactured'] = date('d-m-Y',$array['manufactured']);
+    $array['periodiccheck'] = date('d-m-Y',$array['periodiccheck']);
+
+    $json = $modx->toJSON($array);
+    $values = 'CamperMgmt.values = '.$json.'; CamperMgmt.cid = '.$cid.';';
 }
 $modx->regClientStartupHTMLBlock('<script type="text/javascript">
 Ext.onReady(function() {
     CamperMgmt.config = '.$modx->toJSON($campermgmt->config).';
     CamperMgmt.action = '.$_GET['a'].';'.
-    $cid.
+    $values.
 '});
 </script>');
 

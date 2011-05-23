@@ -22,7 +22,11 @@
  */
 Ext.onReady(function() {
     Ext.QuickTips.init();
-    MODx.load({ xtype: 'campermgmt-page-newcamper'});
+    var w = MODx.load({ xtype: 'campermgmt-page-newcamper'});
+    if (CamperMgmt.values) {
+        Ext.getCmp('campermgmt-panel-newcamper').getForm().setValues(CamperMgmt.values)
+    }
+    w.show();
 });
 
 /*
@@ -58,7 +62,7 @@ CamperMgmt.page.NewCamper = function(config) {
             process: 'cancel',
             text: 'Annuleren',
             handler: function() {
-                history.go(-1);
+                window.location.href = '?a='+CamperMgmt.action;
             }
         }]
         ,components: [{
@@ -81,7 +85,7 @@ CamperMgmt.panel.Header = function(config) {
         border: false
         ,baseCls: 'modx-formpanel'
         ,items: [{
-            html: '<h2>Nieuwe camper toevoegen</h2>',
+            html: (CamperMgmt.cid > 0) ? '<h2>Voertuig bewerken (#'+CamperMgmt.cid+')</h2>' : '<h2>Nieuwe camper toevoegen</h2>',
             border: false,
             cls: 'modx-page-header'
         }]

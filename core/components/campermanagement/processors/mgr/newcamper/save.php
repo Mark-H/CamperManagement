@@ -22,17 +22,28 @@
  *
  */
 
-$dataitems = array('type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','keynr','owner');
+/*$dataitems = array('type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','keynr','owner');
 $data = array();
 
 foreach ($dataitems as $di) {
     $data[$di] = $modx->getOption($di,$scriptProperties,'');
-}
+}*/
+$data = $scriptProperties;
 
 $data['manufactured'] = strtotime($data['manufactured']);
 $data['periodiccheck'] = strtotime($data['periodiccheck']);
 
-$c = $modx->newObject('cmCamper');
+$new = true;
+if (is_numeric($data['id'])) {
+    $c = $modx->getObject('cmCamper',$data['id']);
+    if (!($c instanceof cmCamper)) {
+        $c = $modx->newObject('cmCamper');
+    }
+    unset($data['id']);
+    $new = false;
+} else {
+    $c = $modx->newObject('cmCamper');
+}
 $c->fromArray($data);
 
 // Add the brand relationship
@@ -46,12 +57,23 @@ if (!empty($brandObj)) {
     $c->addOne($brandObj);
 }
 
+// Not needed -> the owner ID will do and immediately overwrite any existing stuff (if any) anyway.
 // Add the owner relationship
-$ownerObj = $modx->getObject('cmOwner',$scriptProperties['owner']);
+/*$ownerObj = $modx->getObject('cmOwner',$scriptProperties['owner']);
 if (!empty($ownerObj)) {
     $c->addOne($ownerObj);
 } else {
     echo 'Owner not found!'; // @TODO Return an error
+}*/
+
+// If this is an existing record, first unset all options
+if ($new == false) {
+    $existingoptions = $c->getMany('CamperOptions');
+    if (count($existingoptions) > 0) {
+        foreach ($existingoptions as $opt) {
+            $opt->remove();
+        }
+    }
 }
 
 // Add the options related to this camper
