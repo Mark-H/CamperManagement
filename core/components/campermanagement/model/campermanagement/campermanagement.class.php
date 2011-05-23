@@ -48,8 +48,9 @@ class CamperManagement {
     public function initialize($ctx = 'web') {
         switch ($ctx) {
             case 'mgr':
+                $modelpath = $this->config['modelPath'];
+                $this->modx->addPackage('campermanagement',$modelpath);
                 $this->modx->lexicon->load('campermanagement:default');
-
             break;
         }
         return true;
