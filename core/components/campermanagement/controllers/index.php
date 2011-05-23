@@ -25,12 +25,18 @@ require_once dirname(dirname(__FILE__)) . '/model/campermanagement/campermanagem
 $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 
+$cid = (is_numeric($_GET['cid'])) ? 'CamperMgmt.cid = '.$_GET['cid'].';' : '';
+if (is_numeric($_GET['cid'])) {
+
+}
 $modx->regClientStartupHTMLBlock('<script type="text/javascript">
 Ext.onReady(function() {
     CamperMgmt.config = '.$modx->toJSON($campermgmt->config).';
-    CamperMgmt.action = '.$_GET['a'].';
-});
+    CamperMgmt.action = '.$_GET['a'].';'.
+    $cid.
+'});
 </script>');
+
 $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/campermanagement.js');
 
 switch ($_GET['action']) {
@@ -38,6 +44,7 @@ switch ($_GET['action']) {
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.newcamper.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/owner.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/option.js');
+        $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/grids/grid.images.js');
     break;
 
     case 'index':
