@@ -74,8 +74,40 @@ CamperMgmt.indexGrid = function(config) {
 			width: 18
 		}]
 		,listeners: {
-			'cellcontextmenu': function(grid, row, col, eventObj){
-				return true;
+			'rowcontextmenu': function(grid, rowIndex,e) {
+                var _contextMenu = new Ext.menu.Menu({
+                    items: [{
+                        text: 'Aanpassen',
+                        handler: function(grid, rowIndex, e) {
+                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
+                            window.location.href = '?a='+CamperMgmt.action+'&action=newcamper&cid='+cid
+                        }
+                    }/*,{
+                        text: 'Verwijderen',
+                        handler: function() {
+                            owner = Ext.getCmp('options-grid').getSelectionModel().getSelected().data.id;
+                            MODx.Ajax.request({
+                                url: CamperMgmt.config.connectorUrl
+                                ,params: {
+                                    action: 'mgr/index/deleteoption'
+                                    ,owner: owner
+                                }
+                                ,listeners: {
+                                    'success': {fn:function(r) {
+                                        Ext.getCmp('options-grid').getSelectionModel().clearSelections(true);
+                                        Ext.getCmp('options-grid').refresh();
+                                    },scope:this},
+                                    'failure': {fn:function(r) {
+                                        Ext.getCmp('options-grid').refresh();
+                                    },scope:this}
+                                }
+                            });
+                            return true;
+                        }
+                    }*/
+                    ]
+                });
+                _contextMenu.showAt(e.getXY());
 			}
 		}
 
