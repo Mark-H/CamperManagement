@@ -34,11 +34,15 @@ $query->sortby($sort,$dir);
 $count = $modx->getCount('cmCamper',$query);
 
 $query->limit($limit,$start);
+
+$statuses = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
+
 $campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$query);
 
 foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
+    $array['statusname'] = $statuses[$array['status']];
     $array['brand'] = ($camper->Brand) ? $camper->Brand->get('name') : 'n/a';
     $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname').', '.$camper->Owner->get('firstname').' ('.$camper->Owner->get('id').')' : 'n/a';
     $array['options'] = array();
