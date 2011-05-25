@@ -26,7 +26,7 @@ $limit = $modx->getOption('limit',$scriptProperties,20);
 $sort = $modx->getOption('sort',$scriptProperties,'id');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 $cid = $modx->getOption('cid',$scriptProperties,null);
-if (empty($cid)) { return $modx->error->failure('Onbekend voertuig.'); }
+if (empty($cid)) { return $modx->error->failure('Onbekend voertuig. Voordat u afbeeldingen kunt uploaden dient het voertuig te zijn opgeslagen.'); }
 
 $results = array();
 
