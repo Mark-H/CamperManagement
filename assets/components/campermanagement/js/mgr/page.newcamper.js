@@ -60,7 +60,7 @@ CamperMgmt.page.NewCamper = function(config) {
             }
         },{
             process: 'cancel',
-            text: 'Annuleren',
+            text: 'Terug naar overzicht',
             handler: function() {
                 window.location.href = '?a='+CamperMgmt.action;
             }
@@ -248,6 +248,16 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     labelWidth: 125,
                     border: false,
                     items: [{
+                        xtype: 'modx-combo',
+                        fieldLabel: 'Status',
+                        hiddenName: 'status',
+                        fields: ['id','status'],
+                        store: [[0,'Niet bevestigd'],[1,'Actief'],[2,'Topper'],[3,'In optie'],[4,'Verkocht'],[5,'Inactief']],
+                        mode: 'local',
+                        displayField: 'status',
+                        valueField: 'id',
+                        name: 'status'
+                    },{
                         xtype: 'numberfield',
                         fieldLabel: 'Prijs (in &euro;)',
                         name: 'price',
