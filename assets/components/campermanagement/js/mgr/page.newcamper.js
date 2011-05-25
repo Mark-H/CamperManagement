@@ -128,6 +128,72 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 xtype: 'modx-panel'
             },
             items: [{
+                title: 'Algemeen',
+                items: [{
+                    layout: 'form',
+                    labelWidth: 125,
+                    border: false,
+                    items: [{
+                        xtype: 'modx-combo',
+                        fieldLabel: 'Status',
+                        hiddenName: 'status',
+                        fields: ['id','status'],
+                        store: [[0,'Niet bevestigd'],[1,'Actief'],[2,'Topper'],[3,'In optie'],[4,'Verkocht'],[5,'Inactief']],
+                        mode: 'local',
+                        displayField: 'status',
+                        valueField: 'id',
+                        name: 'status'
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Prijs (in &euro;)',
+                        name: 'price',
+                        id: 'price',
+                        allowBlank: false,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Sleutelnummer',
+                        name: 'keynr',
+                        id: 'keynr',
+                        allowBlank: true,
+                        allowNegative: false,
+                        allowDecimals: false
+                    },{
+                        xtype: 'textarea',
+                        fieldLabel: 'Opmerkingen',
+                        name: 'remarks',
+                        id: 'remarks',
+                        allowBlank: true,
+                        maxLength: 250,
+                        width: '80%'
+                    },{
+                        xtype: 'campermgmt-newcamper-form-ownerscombo',
+                        fieldLabel: 'Eigenaar',
+                        name: 'owner',
+                        id: 'owner',
+                        allowBlank: false
+                    },{
+                        xtype: 'button',
+                        text: 'Nieuwe eigenaar',
+                        fieldLabel: '.. of',
+                        handler: function(btn, e) {
+                            if (!CamperMgmt.window.newOwner) {
+                                CamperMgmt.window.newOwner = MODx.load({
+                                    xtype: 'campermgmt-newownerwindow',
+                                    listeners: {
+                                        'success': function(form_acc,action) {
+                                            //console.log(form_acc.a.result.message);
+                                            Ext.getCmp('owner').setValue(form_acc.a.result.message);
+                                        }
+                                    }
+                                });
+                            }
+                            CamperMgmt.window.newOwner.show(e.target);
+                        }
+                    }]
+                }]
+            },{
                 title: 'Voertuig gegevens',
                 items: [{
                     layout: 'form',
@@ -213,23 +279,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
             },{
                 title: 'Opties',
                 items: [{
-                    xtype: 'button',
-                    text: 'Nieuwe optie aanmaken',
-                    handler: function(btn,e) {
-                        if (!CamperMgmt.window.newOption) {
-                            CamperMgmt.window.newOption = MODx.load({
-                                xtype: 'campermgmt-newoptionwindow',
-                                listeners: {
-                                    'success': function(form_acc, action) {
-                                        Ext.getCmp('options-grid').getStore().reload();
-                                    },
-                                    'failure': function() { Ext.getCmp('options-grid').refresh()}
-                                }
-                            });
-                        }
-                        CamperMgmt.window.newOption.show(e.target);
-                    }
-                },{
                     layout: 'form',
                     xtype: 'campermgmt-gridselectoptions',
                     params: { limit: 999 },
@@ -240,72 +289,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     xtype: 'hidden',
                     name: 'options',
                     value: ''
-                }]
-            },{
-                title: 'Algemeen',
-                items: [{
-                    layout: 'form',
-                    labelWidth: 125,
-                    border: false,
-                    items: [{
-                        xtype: 'modx-combo',
-                        fieldLabel: 'Status',
-                        hiddenName: 'status',
-                        fields: ['id','status'],
-                        store: [[0,'Niet bevestigd'],[1,'Actief'],[2,'Topper'],[3,'In optie'],[4,'Verkocht'],[5,'Inactief']],
-                        mode: 'local',
-                        displayField: 'status',
-                        valueField: 'id',
-                        name: 'status'
-                    },{
-                        xtype: 'numberfield',
-                        fieldLabel: 'Prijs (in &euro;)',
-                        name: 'price',
-                        id: 'price',
-                        allowBlank: false,
-                        allowNegative: false,
-                        allowDecimals: false
-                    },{
-                        xtype: 'numberfield',
-                        fieldLabel: 'Sleutelnummer',
-                        name: 'keynr',
-                        id: 'keynr',
-                        allowBlank: true,
-                        allowNegative: false,
-                        allowDecimals: false
-                    },{
-                        xtype: 'textarea',
-                        fieldLabel: 'Opmerkingen',
-                        name: 'remarks',
-                        id: 'remarks',
-                        allowBlank: true,
-                        maxLength: 250,
-                        width: '80%'
-                    },{
-                        xtype: 'campermgmt-newcamper-form-ownerscombo',
-                        fieldLabel: 'Eigenaar',
-                        name: 'owner',
-                        id: 'owner',
-                        allowBlank: false
-                    },{
-                        xtype: 'button',
-                        text: 'Nieuwe eigenaar',
-                        fieldLabel: '.. of',
-                        handler: function(btn, e) {
-                            if (!CamperMgmt.window.newOwner) {
-                                CamperMgmt.window.newOwner = MODx.load({
-                                    xtype: 'campermgmt-newownerwindow',
-                                    listeners: {
-                                        'success': function(form_acc,action) {
-                                            //console.log(form_acc.a.result.message);
-                                            Ext.getCmp('owner').setValue(form_acc.a.result.message);
-                                        }
-                                    }
-                                });
-                            }
-                            CamperMgmt.window.newOwner.show(e.target);
-                        }
-                    }]
                 }]
             },{
                 title: 'Foto\'s',
@@ -382,6 +365,23 @@ CamperMgmt.gridSelectOptions = function(config) {
         },
         fields: ['id','name'],
         sm: this.sm,
+        tbar: [{
+            text: 'Nieuwe optie aanmaken',
+            handler: function(btn,e) {
+                if (!CamperMgmt.window.newOption) {
+                    CamperMgmt.window.newOption = MODx.load({
+                        xtype: 'campermgmt-newoptionwindow',
+                        listeners: {
+                            'success': function(form_acc, action) {
+                                Ext.getCmp('options-grid').getStore().reload();
+                            },
+                            'failure': function() { Ext.getCmp('options-grid').refresh()}
+                        }
+                    });
+                }
+                CamperMgmt.window.newOption.show(e.target);
+            }
+        }],
         columns: [
             this.sm,
             {
