@@ -105,10 +105,6 @@ CamperMgmt.panel.IndexContent = function(config) {
             xtype: 'modx-panel',
             border: false,
             items: [{
-                html: '<p>'+_('campermgmt.description')+'</p>',
-                bodyStyle: 'margin-bottom: 15px',
-                border: false
-            },{
                 xtype: 'campermgmt-grid-index',
                 border: false
             }]
