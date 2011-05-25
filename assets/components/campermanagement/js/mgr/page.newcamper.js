@@ -47,7 +47,7 @@ CamperMgmt.page.NewCamper = function(config) {
                     frm.submit({
                         waitMsg:'Opslaan...',
                         success: function(form,action) {
-                            Ext.MessageBox.alert('Opgeslagen!','Deze camper is met succes toegevoegd aan de database.');
+                            Ext.MessageBox.alert('Opgeslagen!','Voertuig succesvol opgeslagen.');
                         },
                         failure: function(form,action) {
                             Ext.MessageBox.alert('Fout','Er is iets misgegaan...');
