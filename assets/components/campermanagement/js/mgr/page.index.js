@@ -36,9 +36,9 @@ CamperMgmt.page.Index = function(config) {
             xtype: 'campermgmt-panel-header'
         },{
             xtype: 'modx-tabs',
-            bodyStyle: 'padding: 10px;',
+            bodyStyle: 'padding: 10px 15px 10px 10px;',
             border: true,
-            defaults: { border: false, autoHeight: true },
+            defaults: { border: false, autoHeight: true, bodyStyle: 'padding: 5px 10px 5px 5px;' },
             items: [{
                 title: 'Campers &amp; Caravans',
                 items: [{
