@@ -32,6 +32,7 @@ $data = $scriptProperties;
 
 $data['manufactured'] = strtotime($data['manufactured']);
 $data['periodiccheck'] = strtotime($data['periodiccheck']);
+$data['timestamp'] = time();
 
 $new = true;
 if (is_numeric($data['id'])) {
