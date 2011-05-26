@@ -26,6 +26,7 @@ $limit = $modx->getOption('limit',$scriptProperties,20);
 $sort = $modx->getOption('sort',$scriptProperties,'keynr');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 if ($sort == 'id') { $sort = 'cmCamper.id'; }
+if ($sort == 'statusname') { $sort = 'cmCamper.status'; }
 $results = array();
 
 $query = $modx->newQuery('cmCamper');
@@ -37,7 +38,7 @@ $query->limit($limit,$start);
 
 $statuses = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
 
-$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$query);
+$campers = $modx->getCollectionGraph('cmCamper','{ "Brand":{}, "Owner": {} }',$query);
 
 foreach ($campers as $camper) {
     $array = array();
