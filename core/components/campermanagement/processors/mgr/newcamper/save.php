@@ -32,8 +32,7 @@ $data = $scriptProperties;
 
 $data['manufactured'] = strtotime($data['manufactured']);
 $data['periodiccheck'] = strtotime($data['periodiccheck']);
-$data['timestamp'] = time();
-
+$data['timestamp'] = time();s
 $new = true;
 if (is_numeric($data['id'])) {
     $c = $modx->getObject('cmCamper',$data['id']);
@@ -44,6 +43,7 @@ if (is_numeric($data['id'])) {
     $new = false;
 } else {
     $c = $modx->newObject('cmCamper');
+    $data['timestamp'] = time();
 }
 $c->fromArray($data);
 
