@@ -228,7 +228,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         name: 'car',
                         id: 'car',
                         allowBlank: false,
-                        vtype: 'alphanum'
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Motor',
