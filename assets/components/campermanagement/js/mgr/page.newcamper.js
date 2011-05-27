@@ -209,8 +209,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Merknaam',
                         name: 'brand',
                         id: 'brand',
-                        allowBlank: false,
-                        vtype: 'alphanum'
+                        allowBlank: false
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Type',
