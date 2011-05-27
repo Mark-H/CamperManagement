@@ -93,6 +93,6 @@ if ($options !== '') {
 // Save the data
 $success = $c->save();
 
-if ($success) {
+if (!$success) {
     $modx->error->failure();
 } else { $modx->error->success(); }
