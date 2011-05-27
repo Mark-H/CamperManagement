@@ -113,6 +113,12 @@ CamperMgmt.changeCamperStatusWin = function(config) {
             action: 'mgr/camper/changestatus',
             id: Ext.getCmp('index-grid').getSelectionModel().getSelected().id
         },
+        listeners: {
+            'success': function () {
+                var grid = Ext.getCmp('index-grid');
+                if (grid) { grid.refresh(); }
+            }
+        },
         fields: [{
             xtype: 'textfield',
             fieldLabel: 'Camper',
