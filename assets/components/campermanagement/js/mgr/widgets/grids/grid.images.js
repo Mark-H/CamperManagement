@@ -126,7 +126,7 @@ Ext.extend(CamperMgmt.imagesGrid,MODx.grid.Grid,{
     uploadFailed: function(dlg,file,rec) {},
 
     uploadSuccess:function() {
-        //this.refresh();
+        Ext.getCmp('images-grid').refresh();
     },
     beforeUpload: function() {
         var path;
