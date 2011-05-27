@@ -227,7 +227,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Auto',
                         name: 'car',
                         id: 'car',
-                        allowBlank: false,
+                        allowBlank: false
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Motor',
@@ -377,6 +377,7 @@ CamperMgmt.gridSelectOptions = function(config) {
                         }
                     });
                 }
+                CamperMgmt.window.newOption.reset();
                 CamperMgmt.window.newOption.show(e.target);
             }
         }],
