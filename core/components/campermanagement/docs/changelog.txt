@@ -1,5 +1,10 @@
 CamperManagement Changelog
 
+Version 0.1.0-rc5
+==========================
+Various small fixes & improvements
+Refresh images grid on file upload
+Refresh camper grid on status change
 
 Version 0.1.0-rc1
 ==========================
