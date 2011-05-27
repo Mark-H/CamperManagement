@@ -89,7 +89,7 @@ $xpdo_meta_map['cmCamper']= array (
     array (
       'dbtype' => 'int',
       'precision' => '25',
-      'phptype' => 'string',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 0,
     ),

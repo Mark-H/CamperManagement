@@ -30,7 +30,7 @@
         <field key="plate" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="car" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="engine" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="manufactured" dbtype="int" precision="25" phptype="string" null="false" default="" />
+        <field key="manufactured" dbtype="int" precision="25" phptype="integer" null="false" default="" />
         <field key="beds" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
         <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
