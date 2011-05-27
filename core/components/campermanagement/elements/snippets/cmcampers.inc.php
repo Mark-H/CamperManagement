@@ -23,11 +23,11 @@
  */
 
 $start = $modx->getOption('start',$scriptProperties,0);
-$limit = $modx->getOption('limit',$scriptProperties,10);
+$limit = $modx->getOption('limit',$scriptProperties,4);
 $sort = $modx->getOption('sort',$scriptProperties,'timestamp');
 $dir = $modx->getOption('dir',$scriptProperties,'desc');
 
-$includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,false);
+$includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
 $includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,false);
 $includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,false);
 $includeOptions = (boolean)$modx->getOption('includeOptions',$scriptProperties,true);
@@ -48,6 +48,9 @@ if ($includeImages) {
 if ($includeOptions) {
     $tplprop['OptionsOuter'] = $modx->getOption('tplOptionsOuter',$scriptProperties,'cmDefaultTplOptionsOuter');
     $tplprop['OptionsItem'] = $modx->getOption('tplOptionsItem',$scriptProperties,'cmDefaultTplOptionsItem');
+}
+if ($includeOwner) {
+    $tplprop['Owner'] = $modx->getOption('tplOwner',$scriptProperties,'cmDefaultTplOwner');
 }
 /* Confirm every tpl property is a valid chunk, and if so, assign the property to the $tpl array */
 $tpl = array();
@@ -79,49 +82,76 @@ if (count($status) > 1) {
 }
 
 $count = $modx->getCount('cmCamper',$query);
+
 $query->sortby($sort,$dir);
+// Make sure there's a sort on a unique column as well
+if ($sort != 'id') { $query->sortby('id','desc'); }
 $query->limit($limit,$start);
 
-// Build graph part of the query based on properties (for some optimizing)
-$queryGraph = array();
-if ($includeBrand) { $queryGraph[] = '"Brand":{}'; }
-if ($includeImages) { $queryGraph[] = '"Images":{}'; }
-if ($includeOwner) { $queryGraph[] = '"Owner":{}'; }
-if ($includeOptions) { $queryGraph[] = '"CamperOptions":{ "Options":{} }'; }
-$queryGraph = '{ '.implode(', ',$queryGraph).' }';
-//echo '<pre>'.print_r($query->query,true).'</pre>';
-$campers = $modx->getCollectionGraph('cmCamper',$queryGraph,$query);
-echo count($campers[5]->Images);
+// If the money_format function doesn't exist, let's declare it now cause we'll need it.
+if (!function_exists('money_format')) { require_once $campermgmt->config['corePath'] . '/classes/function.money_format.php'; }
+
+$campers = $modx->getCollection('cmCamper',$query);
 $results = array();
 foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
     $array['statusname'] = $statusnames[$array['status']];
 
-    if ($includeBrand)
-        $array['brand'] = ($camper->Brand) ? $camper->Brand->get('name') : 'n/a';
-    
-    if ($includeOwner)
-        $array['owner'] = ($camper->Owner) ? $camper->Owner->toArray() : 'n/a';
+    $array['manufactured'] = ($array['manufactured'] > 0) ? strftime('%d/%m/%Y',$array['manufactured']) : '';
+    $array['timestamp'] = ($array['timestamp'] > 0) ? strftime('%d/%m/%Y',$array['timestamp']) : '';
+    $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
+    $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);
+    // Fetch brand name
+    if ($includeBrand) {
+        $tBrand = $camper->getOne('Brand');
+        $array['brand'] = ($tBrand instanceof cmBrand) ? $tBrand->get('name') : '';
+    }
+
+    // Fetch owner details
+    if ($includeOwner) {
+        $tOwner = $camper->getOne('Owner');
+        $array['owner'] = ($tOwner instanceof cmOwner) ? $modx->getChunk($tpl['Owner'],$tOwner->toArray()) : $array['owner'];
+    }
+
+    // Fetch images
     if ($includeImages) {
-        $array['images'] = array();
-        foreach ($camper->Images as $img) {
-            $image = $img->get('path').$img->get('image');
-            echo $img->get('image');
-            $array['images'][] = $modx->getChunk($tpl['ImageItem'],array('image' => $image));
+        $tImages = $camper->getMany('Images');
+        if (!empty($tImages)) {
+            $array['images'] = array();
+            foreach ($tImages as $img) {
+                if ($img instanceof cmImages) {
+                    $image = $img->get('path').$img->get('image');
+                    $array['images'][] = $modx->getChunk(
+                        $tpl['ImageItem'],
+                        array('image' => $image)
+                    );
+                }
+            }
         }
         if (count($array['images']) > 0)
             $array['images'] = $modx->getChunk($tpl['ImageOuter'],array('images' => implode("\n",$array['images'])));
-        else 
+        else
             unset ($array['images']);
     }
-    if ($includeOptions) {
-        $array['options'] = array();
-        foreach ($camper->CamperOptions as $opt) {
-            $array['options'][] = $modx->getChunk($tpl['OptionsItem'],$opt->Options->toArray()); 
-        }
 
+    // Fetch options
+    if ($includeOptions) {
+        $tOptionsLink = $camper->getMany('CamperOptions');
+        if (!empty($tOptionsLink)) {
+            $array['options'] = array();
+            foreach ($tOptionsLink as $optLink) {
+                if ($optLink instanceof cmCamperOptions) {
+                    $opt = $optLink->getOne('Options');
+                    if ($opt instanceof cmOption)
+                        $array['options'][] = $modx->getChunk(
+                            $tpl['OptionsItem'],
+                            $optLink->getOne('Options')->toArray()
+                        );
+                }
+            }
+        }
         if (count($array['options']) > 0)
             $array['options'] = $modx->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
         else
