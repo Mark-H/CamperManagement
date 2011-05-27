@@ -22,6 +22,11 @@
  *
  */
 
+$corepath = $modx->getOption('campermanagement.core_path',$config,$modx->getOption('core_path').'components/campermanagement/');
+require_once $corepath.'/model/campermanagement/campermanagement.class.php';
+$campermgmt = new CamperManagement($modx);
+$campermgmt->initialize('mgr');
+
 $start = $modx->getOption('start',$scriptProperties,0);
 $limit = $modx->getOption('limit',$scriptProperties,4);
 $sort = $modx->getOption('sort',$scriptProperties,'timestamp');
