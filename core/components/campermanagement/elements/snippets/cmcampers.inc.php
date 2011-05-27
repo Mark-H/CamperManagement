@@ -37,6 +37,8 @@ $status = explode(",", $status);
 
 $numimages = $modx->getOption('numimages',$scriptProperties,1);
 
+$target = $modx->getOption('target',$scriptProperties,2);
+
 /* Templateing properties take in chunk names */
 $tplprop['Outer'] = $modx->getOption('tplOuter',$scriptProperties,'cmDefaultTplOuter');
 $tplprop['Item'] = $modx->getOption('tplItem',$scriptProperties,'cmDefaultTplItem');
@@ -103,6 +105,9 @@ foreach ($campers as $camper) {
     $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
     $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);
+
+    $array['url'] = $modx->makeUrl($target,'',array('cid' => $array['id']));
+
     // Fetch brand name
     if ($includeBrand) {
         $tBrand = $camper->getOne('Brand');
