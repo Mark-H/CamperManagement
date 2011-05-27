@@ -144,7 +144,7 @@ Ext.extend(CamperMgmt.imagesGrid,MODx.grid.Grid,{
             ,baseUrlRelative: this.uploader.base_params.baseUrlRelative || null
             ,path: path
             ,wctx: MODx.ctx || ''
-            ,cid: 5 //Ext.getCmp('campermgmt-images').getValue()
+            ,cid: CamperMgmt.cid
         });
         this.fireEvent('beforeUpload',this.uploader);
     }

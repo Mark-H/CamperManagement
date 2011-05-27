@@ -15,6 +15,7 @@ if ($object->xpdo) {
             $manager->createObjectContainer('cmOption');
             $manager->createObjectContainer('cmBrand');
             $manager->createObjectContainer('cmOwner');
+            $manager->createObjectContainer('cmImages');
             $modx->setLogLevel(modX::LOG_LEVEL_INFO);
             break;
     }
