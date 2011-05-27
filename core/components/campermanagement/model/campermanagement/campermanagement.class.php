@@ -36,6 +36,7 @@ class CamperManagement {
             'modelPath' => $basePath.'model/',
             'processorsPath' => $basePath.'processors/',
             'elementsPath' => $basePath.'elements/',
+            'chunksPath' => $basePath.'elements/chunks/',
             'assetsPath' => $assetsPath,
             'jsUrl' => $assetsUrl.'js/',
             'cssUrl' => $assetsUrl.'css/',
@@ -54,5 +55,54 @@ class CamperManagement {
             break;
         }
         return true;
+    }
+
+    /* getChunk & _GetTplChunk by splittingred */
+    /**
+    * Gets a Chunk and caches it; also falls back to file-based templates
+    * for easier debugging.
+    *
+    * @access public
+    * @param string $name The name of the Chunk
+    * @param array $properties The properties for the Chunk
+    * @return string The processed content of the Chunk
+    */
+    public function getChunk($name,$properties = array()) {
+        $chunk = null;
+        if (!isset($this->chunks[$name])) {
+            $chunk = $this->_getTplChunk($name);
+            if (empty($chunk)) {
+                $chunk = $this->modx->getObject('modChunk',array('name' => $name),true);
+                if ($chunk == false) return false;
+            }
+            $this->chunks[$name] = $chunk->getContent();
+        } else {
+            $o = $this->chunks[$name];
+            $chunk = $this->modx->newObject('modChunk');
+            $chunk->setContent($o);
+        }
+        $chunk->setCacheable(false);
+        return $chunk->process($properties);
+    }
+
+    /**
+    * Returns a modChunk object from a template file.
+    *
+    * @access private
+    * @param string $name The name of the Chunk. Will parse to name.chunk.tpl
+    * @param string $postFix The postfix to append to the name
+    * @return modChunk/boolean Returns the modChunk object if found, otherwise
+    * false.
+    */
+    private function _getTplChunk($name,$postFix = '.tpl') {
+        $chunk = false;
+        $f = $this->config['chunksPath'].strtolower($name).$postFix;
+        if (file_exists($f)) {
+            $o = file_get_contents($f);
+            $chunk = $this->modx->newObject('modChunk');
+            $chunk->set('name',$name);
+            $chunk->setContent($o);
+        }
+        return $chunk;
     }
 }

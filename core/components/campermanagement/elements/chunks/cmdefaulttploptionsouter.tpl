@@ -1,1 +1,1 @@
-<p>[[+options]]</p>
+[[+options]]

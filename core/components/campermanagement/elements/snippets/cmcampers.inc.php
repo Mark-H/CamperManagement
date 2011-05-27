@@ -57,15 +57,13 @@ if ($includeOwner) {
 /* Confirm every tpl property is a valid chunk, and if so, assign the property to the $tpl array */
 $tpl = array();
 foreach ($tplprop as $key => $value) {
-    $tObj = $modx->getObject('modChunk',array('name' => $value));
-    if ($tObj instanceof modChunk) {
+    if ($campermgmt->getChunk($value)) {
         $tpl[$key] = $value;
-        //$tpl[$key]->setCacheable(0);
-        //return $tpl[$key]->isCacheable();
     } else {
         return $key.' chunk does not exist: '.$value;
     }
 }
+unset ($tplprop);
 
 $statusnames = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
 
@@ -117,7 +115,7 @@ foreach ($campers as $camper) {
     // Fetch owner details
     if ($includeOwner) {
         $tOwner = $camper->getOne('Owner');
-        $array['owner'] = ($tOwner instanceof cmOwner) ? $modx->getChunk($tpl['Owner'],$tOwner->toArray()) : $array['owner'];
+        $array['owner'] = ($tOwner instanceof cmOwner) ? $campermgmt->getChunk($tpl['Owner'],$tOwner->toArray()) : $array['owner'];
     }
 
     // Fetch images
@@ -129,7 +127,7 @@ foreach ($campers as $camper) {
             foreach ($tImages as $img) {
                 if (($img instanceof cmImages) && ($imgcounter < $numimages)) {
                     $image = $img->get('path').$img->get('image');
-                    $array['images'][] = $modx->getChunk(
+                    $array['images'][] = $campermgmt->getChunk(
                         $tpl['ImageItem'],
                         array('image' => $image)
                     );
@@ -138,7 +136,7 @@ foreach ($campers as $camper) {
             }
         }
         if (count($array['images']) > 0)
-            $array['images'] = $modx->getChunk($tpl['ImageOuter'],array('images' => implode("\n",$array['images'])));
+            $array['images'] = $campermgmt->getChunk($tpl['ImageOuter'],array('images' => implode("\n",$array['images'])));
         else
             unset ($array['images']);
     }
@@ -152,7 +150,7 @@ foreach ($campers as $camper) {
                 if ($optLink instanceof cmCamperOptions) {
                     $opt = $optLink->getOne('Options');
                     if ($opt instanceof cmOption)
-                        $array['options'][] = $modx->getChunk(
+                        $array['options'][] = $campermgmt->getChunk(
                             $tpl['OptionsItem'],
                             $optLink->getOne('Options')->toArray()
                         );
@@ -160,12 +158,12 @@ foreach ($campers as $camper) {
             }
         }
         if (count($array['options']) > 0)
-            $array['options'] = $modx->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
+            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
         else
             unset($array['options']);
     }
-    $results[] = $modx->getChunk($tpl['Item'],$array);
+    $results[] = $campermgmt->getChunk($tpl['Item'],$array);
     unset ($array);
 }
 
-return $modx->getChunk($tpl['Outer'],array('items' => implode("\n",$results)));
+return $campermgmt->getChunk($tpl['Outer'],array('items' => implode("\n",$results)));

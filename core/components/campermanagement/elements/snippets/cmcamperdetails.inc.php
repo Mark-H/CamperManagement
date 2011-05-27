@@ -25,7 +25,7 @@ $sort = $modx->getOption('sort',$scriptProperties,'timestamp');
 $dir = $modx->getOption('dir',$scriptProperties,'desc');
 
 $includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
-$includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,false);
+$includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,true);
 $includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,false);
 $includeOptions = (boolean)$modx->getOption('includeOptions',$scriptProperties,true);
 
@@ -45,15 +45,13 @@ if ($includeOwner) {
 /* Confirm every tpl property is a valid chunk, and if so, assign the property to the $tpl array */
 $tpl = array();
 foreach ($tplprop as $key => $value) {
-    $tObj = $modx->getObject('modChunk',array('name' => $value));
-    if ($tObj instanceof modChunk) {
+    if ($campermgmt->getChunk($value)) {
         $tpl[$key] = $value;
-        //$tpl[$key]->setCacheable(0);
-        //return $tpl[$key]->isCacheable();
     } else {
         return $key.' chunk does not exist: '.$value;
     }
 }
+unset ($tplprop);
 
 $statusnames = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
 
@@ -79,7 +77,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
     // Fetch owner details
     if ($includeOwner) {
         $tOwner = $camper->getOne('Owner');
-        $array['owner'] = ($tOwner instanceof cmOwner) ? $modx->getChunk($tpl['Owner'],$tOwner->toArray()) : $array['owner'];
+        $array['owner'] = ($tOwner instanceof cmOwner) ? $campermgmt->getChunk($tpl['Owner'],$tOwner->toArray()) : $array['owner'];
     }
 
     // Fetch images
@@ -91,7 +89,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
             foreach ($tImages as $img) {
                 if (($img instanceof cmImages) && ($imgcounter < $numimages)) {
                     $image = $img->get('path').$img->get('image');
-                    $array['images'][] = $modx->getChunk(
+                    $array['images'][] = $campermgmt->getChunk(
                         $tpl['ImageItem'],
                         array('image' => $image)
                     );
@@ -100,7 +98,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
             }
         }
         if (count($array['images']) > 0)
-            $array['images'] = $modx->getChunk($tpl['ImageOuter'],array('images' => implode("\n",$array['images'])));
+            $array['images'] = $campermgmt->getChunk($tpl['ImageOuter'],array('images' => implode("\n",$array['images'])));
     }
 
     // Fetch options
@@ -112,7 +110,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
                 if ($optLink instanceof cmCamperOptions) {
                     $opt = $optLink->getOne('Options');
                     if ($opt instanceof cmOption)
-                        $array['options'][] = $modx->getChunk(
+                        $array['options'][] = $campermgmt->getChunk(
                             $tpl['OptionsItem'],
                             $optLink->getOne('Options')->toArray()
                         );
@@ -120,7 +118,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
             }
         }
         if (count($array['options']) > 0)
-            $array['options'] = $modx->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
+            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
         else
             unset($array['options']);
     }
