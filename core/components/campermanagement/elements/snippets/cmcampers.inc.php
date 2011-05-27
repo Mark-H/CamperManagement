@@ -29,7 +29,7 @@ $dir = $modx->getOption('dir',$scriptProperties,'desc');
 
 $includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
 $includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,false);
-$includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,false);
+$includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,true);
 $includeOptions = (boolean)$modx->getOption('includeOptions',$scriptProperties,true);
 
 $status = $modx->getOption('status',$scriptProperties,'1,2,3,4');
@@ -116,17 +116,19 @@ foreach ($campers as $camper) {
     }
 
     // Fetch images
-    if ($includeImages) {
+    if (($includeImages) && ($numimages > 0)) {
         $tImages = $camper->getMany('Images');
         if (!empty($tImages)) {
             $array['images'] = array();
+            $imgcounter = 0;
             foreach ($tImages as $img) {
-                if ($img instanceof cmImages) {
+                if (($img instanceof cmImages) && ($imgcounter < $numimages)) {
                     $image = $img->get('path').$img->get('image');
                     $array['images'][] = $modx->getChunk(
                         $tpl['ImageItem'],
                         array('image' => $image)
                     );
+                    $imgcounter++;
                 }
             }
         }
