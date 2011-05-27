@@ -104,7 +104,8 @@ CamperMgmt.panel.NewCamperContent = function(config) {
     Ext.apply(config,{
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
-            action: 'mgr/newcamper/save'
+            action: 'mgr/newcamper/save',
+            id: CamperMgmt.cid
         },
 
         layout: 'fit',
@@ -201,11 +202,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     labelWidth: 125,
                     border: false,
                     items: [{
-                        xtype: 'hidden',
-                        name: 'id',
-                        id: 'id',
-                        value: CamperMgmt.cid
-                    },{
                         xtype: 'campermgmt-newcamper-form-brandscombo',
                         fieldLabel: 'Merknaam',
                         name: 'brand',
