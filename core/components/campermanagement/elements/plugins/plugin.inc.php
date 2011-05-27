@@ -22,6 +22,7 @@
  *
  */
 
+// Event: OnFileManagerUpload
 $path = $directory->getPath();
 $expected = $campermgmt->config['assetsPath'].'uploads/originals/';
 $assetsurl = $campermgmt->config['assetsUrl'].'uploads/originals/';
