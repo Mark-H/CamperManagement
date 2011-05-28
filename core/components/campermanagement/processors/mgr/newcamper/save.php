@@ -94,5 +94,7 @@ if ($options !== '') {
 $success = $c->save();
 
 if (!$success) {
-    $modx->error->failure();
-} else { $modx->error->success(); }
+    return $modx->error->failure();
+} else {
+    return $modx->error->success($c->get('id'));
+}
