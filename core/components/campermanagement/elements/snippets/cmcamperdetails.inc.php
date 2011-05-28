@@ -7,7 +7,7 @@ $campermgmt->initialize('mgr');
 
 $cid = (int)$_REQUEST['cid'];
 if (empty($cid)) {
-    return 'Does not compute!';
+    return '';
     // @TODO: send off to a not found page or something
 }
 
