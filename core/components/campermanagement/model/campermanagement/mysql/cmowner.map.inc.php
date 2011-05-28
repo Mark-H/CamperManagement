@@ -28,6 +28,10 @@ $xpdo_meta_map['cmOwner']= array (
   array (
     'firstname' => '',
     'lastname' => '',
+    'email' => '',
+    'bank' => 0,
+    'phone1' => '',
+    'phone2' => '',
     'address' => '',
     'postal' => '',
     'city' => '',
@@ -51,6 +55,35 @@ $xpdo_meta_map['cmOwner']= array (
       'null' => false,
       'default' => '',
       'index' => 'index',
+    ),
+    'email' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
+    'bank' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '255',
+      'phptype' => 'integer',
+      'default' => 0,
+    ),
+    'phone1' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'default' => '',
+    ),
+    'phone2' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'default' => '',
     ),
     'address' => 
     array (

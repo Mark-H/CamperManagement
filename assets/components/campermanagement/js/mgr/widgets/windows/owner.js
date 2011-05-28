@@ -49,6 +49,20 @@ CamperMgmt.newOwnerWindow = function(config) {
             allowBlank: false
         },{
             xtype: 'textfield',
+            fieldLabel: 'E-mailadres',
+            name: 'email'
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Telefoon (1)',
+            name: 'phone1',
+            allowBlank: false
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Telefoon (2)',
+            name: 'phone2',
+            allowBlank: false
+        },{
+            xtype: 'textfield',
             fieldLabel: 'Postcode',
             name: 'postal',
             allowBlank: false
@@ -62,6 +76,10 @@ CamperMgmt.newOwnerWindow = function(config) {
             fieldLabel: 'Land',
             name: 'country',
             value: 'Nederland'
+        },{
+            xtype: 'numberfield',
+            fieldLabel: 'Bankrekening',
+            name: 'bank'
         }]
     });
     CamperMgmt.newOwnerWindow.superclass.constructor.call(this,config);

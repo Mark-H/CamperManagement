@@ -72,6 +72,10 @@
     <object class="cmOwner" table="extra_campers_owners" extends="xPDOSimpleObject">
         <field key="firstname" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="lastname" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+        <field key="email" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="bank" dbtype="int" precision="255" phptype="integer" default="" />
+        <field key="phone1" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="phone2" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="address" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="postal" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="city" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
