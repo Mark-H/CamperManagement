@@ -243,8 +243,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Bouwdatum',
                         name: 'manufactured',
                         id: 'manufactured',
-                        format: 'd-m-Y',
-                        allowBlank: false
+                        format: 'd-m-Y'
                     },{
                         xtype: 'numberfield',
                         fieldLabel: 'Slaapplaatsen',
