@@ -25,7 +25,6 @@ require_once dirname(dirname(__FILE__)) . '/model/campermanagement/campermanagem
 $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 
-//$cid = (is_numeric($_GET['cid'])) ? 'CamperMgmt.cid = '.$_GET['cid'].';' : '';
 if (is_numeric($_GET['cid'])) {
     $cid = trim($_GET['cid']);
     $camper = $modx->getObjectGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$cid);
