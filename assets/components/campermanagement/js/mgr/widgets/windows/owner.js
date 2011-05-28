@@ -61,8 +61,7 @@ CamperMgmt.newOwnerWindow = function(config) {
             xtype: 'textfield',
             fieldLabel: 'Land',
             name: 'country',
-            allowBlank: false,
-            defaultValue: 'Nederland'
+            value: 'Nederland'
         }]
     });
     CamperMgmt.newOwnerWindow.superclass.constructor.call(this,config);
