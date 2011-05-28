@@ -30,13 +30,20 @@ if (is_numeric($_GET['cid'])) {
     $cid = trim($_GET['cid']);
     $camper = $modx->getObjectGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$cid);
 
+    if ($camper instanceof cmCamper) {
     $array = array();
     $array = $camper->toArray();
-    $array['brand'] = ($camper->Brand) ? $camper->Brand->get('id') : '';
-    $array['owner'] = ($camper->Owner) ? $camper->Owner->get('id') : '';
+    $array['brand'] = ($camper->Brand instanceof cmBrand) ? $camper->Brand->get('id') : '';
+    $array['owner'] = ($camper->Owner instanceof cmOwner) ? $camper->Owner->get('id') : '';
     $array['options'] = array();
     foreach ($camper->CamperOptions as $opt) {
-        $array['options'][] = $opt->Options->get('id');
+        if ($opt instanceof cmCamperOptions) {
+            $optObj = $opt->Options;
+            if ($optObj instanceof cmOption) {
+                $array['options'][] = $opt->Options->get('id');
+            }
+        }
+
     }
     $array['options'] = implode(",",$array['options']);
     $array['manufactured'] = date('d-m-Y',$array['manufactured']);
@@ -44,6 +51,7 @@ if (is_numeric($_GET['cid'])) {
 
     $json = $modx->toJSON($array);
     $values = 'CamperMgmt.values = '.$json.'; CamperMgmt.cid = '.$cid.';';
+    }
 }
 $modx->regClientStartupHTMLBlock('<script type="text/javascript">
 Ext.onReady(function() {
