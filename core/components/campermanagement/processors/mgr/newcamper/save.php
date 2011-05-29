@@ -52,6 +52,9 @@ $brandObj = $modx->getObject('cmBrand',array('name' => $scriptProperties['brand'
 if (!empty($brandObj)) {
     $c->addOne($brandObj);
 } else {
+    if (trim($scriptProperties['brand']) == '') {
+        return $modx->error->failure('Invalid brand name');
+    }
     $brandObj = $modx->newObject('cmBrand');
     $brandObj->set('name',$scriptProperties['brand']);
     $brandObj->save();
