@@ -48,14 +48,15 @@ CamperMgmt.page.NewCamper = function(config) {
                         waitMsg:'Opslaan...',
                         success: function(form,action) {
                             Ext.MessageBox.alert('Opgeslagen!','Voertuig succesvol opgeslagen.');
-                            console.log(form,action);
-                            console.log(action.result.message);
                             var cid = action.result.message;
                             if (cid) { 
                                 CamperMgmt.cid = cid;
                             }
                             if (Ext.getCmp('images-grid')) {
                                 Ext.getCmp('images-grid').baseParams.cid = CamperMgmt.cid
+                            }
+                            if (Ext.getCmp('campermgmt-panel-newcamper')) {
+                                Ext.getCmp('campermgmt-panel-newcamper').baseParams.id = CamperMgmt.cid
                             }
                         },
                         failure: function(form,action) {
