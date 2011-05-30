@@ -28,11 +28,7 @@ require_once MODX_CONNECTORS_PATH.'index.php';
 $corePath = $modx->getOption('campermanagement.core_path',null,$modx->getOption('core_path').'components/campermanagement/');
 require_once $corePath.'model/campermanagement/campermanagement.class.php';
 $modx->campermgmt = new CamperManagement($modx);
-
-$modelPath = $corePath.'model/';
-$modx->addPackage('campermanagement',$modelPath);
-
-$modx->lexicon->load('campermanagement:default');
+$modx->campermgmt->initialize('mgr');
 
 /* handle request */
 $path = $modx->getOption('processorsPath',$modx->campermgmt->config,$corePath.'processors/');
