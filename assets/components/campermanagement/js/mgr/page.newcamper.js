@@ -27,6 +27,28 @@ Ext.onReady(function() {
         Ext.getCmp('campermgmt-panel-newcamper').getForm().setValues(CamperMgmt.values)
     }
     w.show();
+    
+    if ((CamperMgmt.values) && (CamperMgmt.values.options)) {
+        Ext.getCmp('options-grid').store.on('load', function(){
+            //console.info('loaded');
+            var grid = Ext.getCmp('options-grid');
+            //console.info('grid object'+grid);
+            var options = CamperMgmt.values.options.split(",");
+            //console.info(options);
+            for (var i in options) {
+                //console.info('i has value '+options[i]);
+                var index = grid.store.indexOfId(Number(options[i]));
+                //console.info('i has index '+index);
+                if (Number(index) > 0) {
+                    var optionIndices = (optionIndices) ? optionIndices+','+Number(index) : Number(index);
+                }
+            }
+            //console.info(optionIndices);
+            grid.getSelectionModel().selectRows(optionIndices);
+        }, this, {
+            single: true
+        });
+    }
 });
 
 /*
@@ -121,7 +143,8 @@ CamperMgmt.panel.NewCamperContent = function(config) {
         id: 'campermgmt-panel-newcamper',
         border: false,
         defaults: {
-            autoHeight: true
+            autoHeight: true,
+            deferredRender: false
         },
         deferredRender: false,
         forceLayout: true,
@@ -136,7 +159,8 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 hideMode: 'offsets',
                 bodyStyle: 'margin: 15px',
                 border: false,
-                xtype: 'modx-panel'
+                xtype: 'modx-panel',
+                deferredRender: false
             },
             items: [{
                 title: 'Algemeen',
@@ -358,14 +382,28 @@ Ext.reg('campermgmt-newcamper-form-ownerscombo',CamperMgmt.OwnersCombo);
 CamperMgmt.gridSelectOptions = function(config) {
     config = config || {};
     this.sm = new Ext.grid.CheckboxSelectionModel();
-
-    Ext.applyIf(config,{
+    this.store = new Ext.data.Store({
+        id: 'cm-store-options',
         url: CamperMgmt.config.connectorUrl,
-        id: 'campermgmt-gridselectoptions',
         baseParams: {
             action: 'mgr/index/getoptions'
-        },
-        fields: ['id','name'],
+        }, 
+        reader: new Ext.data.JsonReader({
+            root: 'results',
+            fields: ['id','name']
+        }),
+        listeners: {
+            /*load: function(t, records, options) {
+                console.info('test ok');
+                if (Ext.getCmp('options-grid').getSelectionModel()) { Ext.getCmp('options-grid').getSelectionModel().selectFirstRow() }
+                else { console.info('cmp not found') }
+            },
+            delay: 2000*/
+        }
+    });
+    Ext.applyIf(config,{
+        store: this.store,
+        id: 'campermgmt-gridselectoptions',
         sm: this.sm,
         tbar: [{
             text: 'Nieuwe optie aanmaken',
