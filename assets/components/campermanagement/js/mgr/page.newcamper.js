@@ -437,3 +437,26 @@ CamperMgmt.gridSelectOptions = function(config) {
 }
 Ext.extend(CamperMgmt.gridSelectOptions,MODx.grid.Grid);
 Ext.reg('campermgmt-gridselectoptions',CamperMgmt.gridSelectOptions);
+
+Ext.override( Ext.grid.CheckboxSelectionModel, {
+    handleMouseDown : function(g, rowIndex, e){
+        if(e.button !== 0 || this.isLocked()){
+            return;
+        };
+        var view = this.grid.getView();
+        if(e.shiftKey && this.last !== false){
+            var last = this.last;
+            this.selectRange(last, rowIndex, e.ctrlKey);
+            this.last = last;
+            view.focusRow(rowIndex);
+        }else{
+            var isSelected = this.isSelected(rowIndex);
+            if(isSelected){
+                this.deselectRow(rowIndex);
+            }else if(!isSelected){
+                this.selectRow(rowIndex, ! this.singleSelect);
+                view.focusRow(rowIndex);
+            }
+        }
+    }
+});
