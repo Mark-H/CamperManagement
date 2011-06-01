@@ -93,6 +93,12 @@ CamperMgmt.indexGrid = function(config) {
                             });
                             statuswindow.show();
                         }
+                    },{
+                        text: 'Genereer Raambiljet',
+                        handler: function(grid,rowindex,e) {
+                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
+                            window.open(MODx.config.site_url+'index.php?id=13&cid='+cid,'raambiljet');
+                        }
                     }]
                 });
                 _contextMenu.showAt(e.getXY());
