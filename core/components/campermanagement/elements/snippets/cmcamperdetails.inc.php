@@ -18,8 +18,8 @@ if (!($camper instanceof cmCamper)) {
 }
 
 $array = $camper->toArray();
-
-if (in_array($array['status'],array(0,5))) {
+$hideInactive = $modx->getOption('hideInactive',$scriptProperties,false);
+if (in_array($array['status'],array(0,5)) && $hideInactive) {
     // Camper is either not confirmed yet (status 0) or not active (status 5)
     return 'The camper you tried to find is currently not available.';
 }
