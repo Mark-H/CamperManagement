@@ -84,17 +84,18 @@ CamperMgmt.imagesGrid = function(config) {
 			,hidden: false
 		}]
 		,listeners: {
+            // @TODO: Make this work
             'rowcontextmenu': function(grid, rowIndex,e) {
-                var _contextMenu = new Ext.menu.Menu({
+                var _ctxmenu = new Ext.menu.Menu({
                     items: [{
                         text: 'Verwijderen',
                         handler: function() {
-                            owner = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
+                            imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({
                                 url: CamperMgmt.config.connectorUrl
                                 ,params: {
-                                    action: 'mgr/index/deleteimage'
-                                    ,owner: owner
+                                    action: 'mgr/image/remove'
+                                    ,image: imgid
                                 }
                                 ,listeners: {
                                     'success': {fn:function(r) {
@@ -110,7 +111,7 @@ CamperMgmt.imagesGrid = function(config) {
                         }
                     }]
                 });
-                _contextMenu.showAt(e.getXY());
+                _ctxmenu.showAt(e.getXY());
             }
 		}
     });
