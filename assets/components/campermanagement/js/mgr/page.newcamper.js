@@ -135,7 +135,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
     Ext.apply(config,{
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
-            action: 'mgr/newcamper/save',
+            action: 'mgr/camper/save',
             id: CamperMgmt.cid
         },
 
