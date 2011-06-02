@@ -99,6 +99,15 @@ CamperMgmt.indexGrid = function(config) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
                             window.open(MODx.config.site_url+'index.php?id=13&cid='+cid,'raambiljet');
                         }
+                    },'-',{
+                        text: 'Verwijder camper',
+                        handler: function(btn, e) {
+                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
+                            confirmdelete = new CamperMgmt.confirmDeleteWin({
+                                params: { camper: cid }
+                            });
+                            confirmdelete.show();
+                        }
                     }]
                 });
                 _contextMenu.showAt(e.getXY());
@@ -147,3 +156,35 @@ CamperMgmt.changeCamperStatusWin = function(config) {
 }
 Ext.extend(CamperMgmt.changeCamperStatusWin,MODx.Window);
 Ext.reg('campermgmt-changecamperstatus',CamperMgmt.changeCamperStatusWin);
+
+CamperMgmt.confirmDeleteWin = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        title: 'Camper verwijderen',
+        url: CamperMgmt.config.connectorUrl,
+        baseParams: {
+            action: 'mgr/camper/remove',
+            id: Ext.getCmp('index-grid').getSelectionModel().getSelected().id
+        },
+        listeners: {
+            'success': function () {
+                var grid = Ext.getCmp('index-grid');
+                if (grid) { grid.refresh(); }
+            }
+        },
+        items: [{
+            html: '<p>Weet je zeker dat je deze camper wilt verwijderen? <span style="color: #ff0000">Dit kan NIET worden teruggedraaid!</span>' +
+                    '</p><p>Klik op "opslaan" om de camper permanent te verwijderen uit het systeem.</p>',
+            padding: '15px'
+        }],
+        fields: [{
+            xtype: 'textfield',
+            fieldLabel: 'Camper',
+            disabled: true,
+            value: Ext.getCmp('index-grid').getSelectionModel().getSelected().data.brand+' '+Ext.getCmp('index-grid').getSelectionModel().getSelected().data.type
+        }]
+    });
+    CamperMgmt.confirmDeleteWin.superclass.constructor.call(this,config);
+}
+Ext.extend(CamperMgmt.confirmDeleteWin,MODx.Window);
+Ext.reg('campermgmt-confirmdeletewin',CamperMgmt.confirmDeleteWin);
