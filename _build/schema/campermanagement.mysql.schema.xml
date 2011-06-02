@@ -26,20 +26,20 @@
 <model package="campermanagement" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM">
     <object class="cmCamper" table="extra_campers" extends="xPDOSimpleObject">
         <field key="brand" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="type" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="plate" dbtype="varchar" precision="255" phptype="string" default="" />
-        <field key="car" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="engine" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="manufactured" dbtype="int" precision="25" phptype="integer" null="false" default="" />
-        <field key="beds" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="" />
-        <field key="periodiccheck" dbtype="int" precision="25" phptype="integer" attributes="unsigned" null="false" default="" />
+        <field key="car" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="engine" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="manufactured" dbtype="int" precision="25" phptype="integer" default="" />
+        <field key="beds" dbtype="int" precision="10" phptype="integer" attributes="unsigned" default="" />
+        <field key="weight" dbtype="int" precision="10" phptype="integer" attributes="unsigned" default="" />
+        <field key="mileage" dbtype="int" precision="10" phptype="integer" attributes="unsigned" default="" />
+        <field key="periodiccheck" dbtype="int" precision="25" phptype="integer" attributes="unsigned" default="" />
         <field key="remarks" dbtype="varchar" precision="255" phptype="string" default="" />
 
-        <field key="price" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
+        <field key="price" dbtype="int" precision="25" phptype="integer" default="0" />
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
-        <field key="keynr" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
+        <field key="keynr" dbtype="int" precision="10" phptype="integer" default="0" />
         <field key="owner" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="timestamp" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
 
@@ -72,13 +72,13 @@
     <object class="cmOwner" table="extra_campers_owners" extends="xPDOSimpleObject">
         <field key="firstname" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="lastname" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
-        <field key="email" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="email" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="bank" dbtype="int" precision="255" phptype="integer" default="" />
         <field key="phone1" dbtype="varchar" precision="255" phptype="string" default="" />
         <field key="phone2" dbtype="varchar" precision="255" phptype="string" default="" />
-        <field key="address" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="postal" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
-        <field key="city" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+        <field key="address" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="postal" dbtype="varchar" precision="255" phptype="string" default="" />
+        <field key="city" dbtype="varchar" precision="255" phptype="string" default="" index="index" />
         <field key="country" dbtype="varchar" precision="255" phptype="string" default="" />
 
         <aggregate alias="Campers" class="cmCamper" local="id" foreign="owner" cardinality="many" owner="local" />

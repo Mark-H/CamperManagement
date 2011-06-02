@@ -59,7 +59,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'plate' => 
@@ -74,7 +73,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'engine' => 
@@ -82,7 +80,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'manufactured' => 
@@ -90,7 +87,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'int',
       'precision' => '25',
       'phptype' => 'integer',
-      'null' => false,
       'default' => 0,
     ),
     'beds' => 
@@ -99,7 +95,6 @@ $xpdo_meta_map['cmCamper']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
       'default' => 0,
     ),
     'weight' => 
@@ -108,7 +103,6 @@ $xpdo_meta_map['cmCamper']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
       'default' => 0,
     ),
     'mileage' => 
@@ -117,7 +111,6 @@ $xpdo_meta_map['cmCamper']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
       'default' => 0,
     ),
     'periodiccheck' => 
@@ -126,7 +119,6 @@ $xpdo_meta_map['cmCamper']= array (
       'precision' => '25',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
       'default' => 0,
     ),
     'remarks' => 
@@ -141,7 +133,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'int',
       'precision' => '25',
       'phptype' => 'integer',
-      'null' => false,
       'default' => 0,
     ),
     'status' => 
@@ -157,7 +148,6 @@ $xpdo_meta_map['cmCamper']= array (
       'dbtype' => 'int',
       'precision' => '10',
       'phptype' => 'integer',
-      'null' => false,
       'default' => 0,
     ),
     'owner' => 

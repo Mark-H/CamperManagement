@@ -61,7 +61,6 @@ $xpdo_meta_map['cmOwner']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'bank' => 
@@ -90,7 +89,6 @@ $xpdo_meta_map['cmOwner']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'postal' => 
@@ -98,7 +96,6 @@ $xpdo_meta_map['cmOwner']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
     ),
     'city' => 
@@ -106,7 +103,6 @@ $xpdo_meta_map['cmOwner']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
       'default' => '',
       'index' => 'index',
     ),

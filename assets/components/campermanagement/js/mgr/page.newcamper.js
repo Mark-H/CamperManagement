@@ -183,7 +183,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Prijs (in &euro;)',
                         name: 'price',
                         id: 'price',
-                        allowBlank: false,
                         allowNegative: false,
                         allowDecimals: false
                     },{
@@ -191,7 +190,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Sleutelnummer',
                         name: 'keynr',
                         id: 'keynr',
-                        allowBlank: true,
                         allowNegative: false,
                         allowDecimals: false
                     },{
@@ -199,7 +197,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Opmerkingen',
                         name: 'remarks',
                         id: 'remarks',
-                        allowBlank: true,
                         maxLength: 250,
                         width: '80%'
                     },{
@@ -243,26 +240,22 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         xtype: 'textfield',
                         fieldLabel: 'Type',
                         name: 'type',
-                        id: 'type',
-                        allowBlank: false
+                        id: 'type'
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Kenteken',
                         name: 'plate',
-                        id: 'plate',
-                        allowBlank: true
+                        id: 'plate'
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Auto',
                         name: 'car',
-                        id: 'car',
-                        allowBlank: false
+                        id: 'car'
                     },{
                         xtype: 'textfield',
                         fieldLabel: 'Motor',
                         name: 'engine',
-                        id: 'engine',
-                        allowBlank: false
+                        id: 'engine'
                     },{
                         xtype: 'datefield',
                         fieldLabel: 'Bouwdatum',
@@ -274,7 +267,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Slaapplaatsen',
                         name: 'beds',
                         id: 'beds',
-                        allowBlank: false,
                         allowNegative: false,
                         allowDecimals: false
                     },{
@@ -282,7 +274,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Gewicht',
                         name: 'weight',
                         id: 'weight',
-                        allowBlank: false,
                         allowNegative: false,
                         allowDecimals: false
                     },{
@@ -290,7 +281,6 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'Kilometerstand',
                         name: 'mileage',
                         id: 'mileage',
-                        allowBlank: false,
                         allowNegative: false,
                         allowDecimals: false
                     },{
@@ -298,8 +288,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                         fieldLabel: 'APK tot (dd-mm-yyyy)',
                         name: 'periodiccheck',
                         id: 'periodiccheck',
-                        format: 'd-m-Y',
-                        allowBlank: true
+                        format: 'd-m-Y'
                     }]
                 }]
             },{

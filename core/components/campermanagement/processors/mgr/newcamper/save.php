@@ -32,12 +32,12 @@ $data = $scriptProperties;
 
 $data['manufactured'] = strtotime($data['manufactured']);
 $data['periodiccheck'] = strtotime($data['periodiccheck']);
-$data['timestamp'] = time();
 $new = true;
 if (is_numeric($data['id'])) {
     $c = $modx->getObject('cmCamper',$data['id']);
     if (!($c instanceof cmCamper)) {
         $c = $modx->newObject('cmCamper');
+        $data['timestamp'] = time();
     }
     unset($data['id']);
     $new = false;
@@ -61,16 +61,7 @@ if (!empty($brandObj)) {
     $c->addOne($brandObj);
 }
 
-// Not needed -> the owner ID will do and immediately overwrite any existing stuff (if any) anyway.
-// Add the owner relationship
-/*$ownerObj = $modx->getObject('cmOwner',$scriptProperties['owner']);
-if (!empty($ownerObj)) {
-    $c->addOne($ownerObj);
-} else {
-    echo 'Owner not found!'; // @TODO Return an error
-}*/
-
-// If this is an existing record, first unset all options
+// If this is an existing record, first unset all options to prevent it from keeping now unchecked options.
 if ($new == false) {
     $existingoptions = $c->getMany('CamperOptions');
     if (count($existingoptions) > 0) {
@@ -80,7 +71,7 @@ if ($new == false) {
     }
 }
 
-// Add the options related to this camper
+// (Re-) Add the options related to this camper
 $options = $modx->getOption('options',$scriptProperties,'');
 if ($options !== '') {
     $optionsArray = explode(",",$options);
