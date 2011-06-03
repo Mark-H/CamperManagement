@@ -70,7 +70,7 @@ foreach ($tplprop as $key => $value) {
 }
 unset ($tplprop);
 
-$statusnames = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
+$statusnames = array($modx->lexicon('campermgmt.status0'),$modx->lexicon('campermgmt.status1'),$modx->lexicon('campermgmt.status2'),$modx->lexicon('campermgmt.status3'),$modx->lexicon('campermgmt.status4'),$modx->lexicon('campermgmt.status5'));
 
 $output = '';
 

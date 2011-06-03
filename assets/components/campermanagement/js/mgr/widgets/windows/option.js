@@ -34,7 +34,7 @@ CamperMgmt.newOptionWindow = function(config) {
             name: 'id'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Naam',
+            fieldLabel: _('campermgmt.name'),
             name: 'name',
             allowBlank: false
         }]

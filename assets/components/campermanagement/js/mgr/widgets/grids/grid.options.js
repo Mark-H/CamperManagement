@@ -34,7 +34,7 @@ CamperMgmt.optionsGrid = function(config) {
 		autosave: true,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuwe optie toevoegen',
+			text: _('campermgmt.option.new'),
 			handler: function(btn,e) {
                 if (!CamperMgmt.window.newOption) {
                     CamperMgmt.window.newOption = MODx.load({
@@ -49,13 +49,13 @@ CamperMgmt.optionsGrid = function(config) {
 			}
 		}]
 		,columns: [{
-			header: '#'
+			header: _('campermgmt.field.id')
 			,dataIndex: 'id'
 			,sortable: true
 			,width: 3
 			,hidden: false
 		},{
-			header: 'Optie'
+			header: _('campermgmt.option')
 			,dataIndex: 'name'
 			,sortable: true
 			,width: 14
@@ -67,7 +67,7 @@ CamperMgmt.optionsGrid = function(config) {
             'rowcontextmenu': function(grid, rowIndex,e) {
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
-                        text: 'Aanpassen',
+                        text: _('update'),
                         handler: function(grid, rowIndex) {
                             if (!CamperMgmt.window.newOption) {
                                 CamperMgmt.window.newOption = MODx.load({
@@ -83,7 +83,7 @@ CamperMgmt.optionsGrid = function(config) {
                             CamperMgmt.window.newOption.show(e.target);
                         }
                     },{
-                        text: 'Verwijderen',
+                        text: _('delete'),
                         handler: function() {
                             owner = Ext.getCmp('options-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({

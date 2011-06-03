@@ -54,16 +54,16 @@ CamperMgmt.page.NewCamper = function(config) {
         renderTo: 'campermanagement',
         buttons: [{
             process: 'submit',
-            text: 'Opslaan',
+            text: _('save'),
             handler: function() {
                 frm = Ext.getCmp('campermgmt-panel-newcamper').form;
                 if (frm.isValid()) {
                     opts = Ext.getCmp('options-grid').getSelectedAsList();
                     frm.setValues({options: opts});
                     frm.submit({
-                        waitMsg:'Opslaan...',
+                        waitMsg: _('saving'),
                         success: function(form,action) {
-                            Ext.MessageBox.alert('Opgeslagen!','Voertuig succesvol opgeslagen.');
+                            Ext.MessageBox.alert(_('save_successful'),_('campermgmt.campersaved'));
                             var cid = action.result.message;
                             if (cid) { 
                                 CamperMgmt.cid = cid;
@@ -76,17 +76,17 @@ CamperMgmt.page.NewCamper = function(config) {
                             }
                         },
                         failure: function(form,action) {
-                            Ext.MessageBox.alert('Fout','Er is iets misgegaan...');
+                            Ext.MessageBox.alert(_('error'),_('campermgmt.error.undefined'));
                         }
                     });
                 }
                 else {
-                    Ext.MessageBox.alert('Fout','Vul alle velden juist in.');
+                    Ext.MessageBox.alert(_('error'),_('campermgmt.error.missingrequired'));
                 }
             }
         },{
             process: 'cancel',
-            text: 'Terug naar overzicht',
+            text: _('campermgmt.button.backtooverview'),
             handler: function() {
                 window.location.href = '?a='+CamperMgmt.action;
             }
@@ -111,7 +111,7 @@ CamperMgmt.panel.Header = function(config) {
         border: false
         ,baseCls: 'modx-formpanel'
         ,items: [{
-            html: (CamperMgmt.cid > 0) ? '<h2>Voertuig bewerken (#'+CamperMgmt.cid+')</h2>' : '<h2>Nieuwe camper toevoegen</h2>',
+            html: (CamperMgmt.cid > 0) ? '<h2>'+_('campermgmt.title.edit')+' (#'+CamperMgmt.cid+')</h2>' : '<h2>'+_('campermgmt.title.new')+'</h2>',
             border: false,
             cls: 'modx-page-header'
         }]
@@ -157,52 +157,52 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 deferredRender: false
             },
             items: [{
-                title: 'Algemeen',
+                title:  _('campermgmt.tab.general'),
                 items: [{
                     layout: 'form',
                     labelWidth: 125,
                     border: false,
                     items: [{
                         xtype: 'modx-combo',
-                        fieldLabel: 'Status',
+                        fieldLabel: _('campermgmt.status'),
                         hiddenName: 'status',
                         fields: ['id','status'],
-                        store: [[0,'Niet bevestigd'],[1,'Actief'],[2,'Topper'],[3,'In optie'],[4,'Verkocht'],[5,'Inactief']],
+                        store: [[0,_('campermgmt.status0')],[1,_('campermgmt.status1')],[2,_('campermgmt.status2')],[3,_('campermgmt.status3')],[4,_('campermgmt.status4')],[5,_('campermgmt.status5')]],
                         mode: 'local',
                         displayField: 'status',
                         valueField: 'id',
                         name: 'status'
                     },{
                         xtype: 'numberfield',
-                        fieldLabel: 'Prijs (in &euro;)',
+                        fieldLabel: _('campermgmt.field.price'),
                         name: 'price',
                         id: 'price',
                         allowNegative: false,
                         allowDecimals: false
                     },{
                         xtype: 'numberfield',
-                        fieldLabel: 'Sleutelnummer',
+                        fieldLabel: _('campermgmt.field.key'),
                         name: 'keynr',
                         id: 'keynr',
                         allowNegative: false,
                         allowDecimals: false
                     },{
                         xtype: 'textarea',
-                        fieldLabel: 'Opmerkingen',
+                        fieldLabel: _('campermgmt.field.remarks'),
                         name: 'remarks',
                         id: 'remarks',
                         maxLength: 250,
                         width: '80%'
                     },{
                         xtype: 'campermgmt-newcamper-form-ownerscombo',
-                        fieldLabel: 'Eigenaar',
+                        fieldLabel: _('campermgmt.owner'),
                         name: 'owner',
                         id: 'owner',
                         allowBlank: false
                     },{
                         xtype: 'button',
-                        text: 'Nieuwe eigenaar',
-                        fieldLabel: '.. of',
+                        text: _('campermgmt.owner.new'),
+                        fieldLabel: _('campermgmt.owner.new.or'),
                         handler: function(btn, e) {
                             if (!CamperMgmt.window.newOwner) {
                                 CamperMgmt.window.newOwner = MODx.load({
@@ -219,74 +219,74 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     }]
                 }]
             },{
-                title: 'Voertuig gegevens',
+                title: _('campermgmt.tab.vehicle'),
                 items: [{
                     layout: 'form',
                     labelWidth: 125,
                     border: false,
                     items: [{
                         xtype: 'campermgmt-newcamper-form-brandscombo',
-                        fieldLabel: 'Merknaam',
+                        fieldLabel: _('campermgmt.brand'),
                         name: 'brand',
                         id: 'brand',
                         allowBlank: false
                     },{
                         xtype: 'textfield',
-                        fieldLabel: 'Type',
+                        fieldLabel: _('campermgmt.field.type'),
                         name: 'type',
                         id: 'type'
                     },{
                         xtype: 'textfield',
-                        fieldLabel: 'Kenteken',
+                        fieldLabel: _('campermgmt.field.plate'),
                         name: 'plate',
                         id: 'plate'
                     },{
                         xtype: 'textfield',
-                        fieldLabel: 'Auto',
+                        fieldLabel: _('campermgmt.field.car'),
                         name: 'car',
                         id: 'car'
                     },{
                         xtype: 'textfield',
-                        fieldLabel: 'Motor',
+                        fieldLabel: _('campermgmt.field.engine'),
                         name: 'engine',
                         id: 'engine'
                     },{
                         xtype: 'datefield',
-                        fieldLabel: 'Bouwdatum',
+                        fieldLabel: _('campermgmt.field.manufactured'),
                         name: 'manufactured',
                         id: 'manufactured',
                         format: 'd-m-Y'
                     },{
                         xtype: 'numberfield',
-                        fieldLabel: 'Slaapplaatsen',
+                        fieldLabel: _('campermgmt.field.beds'),
                         name: 'beds',
                         id: 'beds',
                         allowNegative: false,
                         allowDecimals: false
                     },{
                         xtype: 'numberfield',
-                        fieldLabel: 'Gewicht',
+                        fieldLabel: _('campermgmt.field.weight'),
                         name: 'weight',
                         id: 'weight',
                         allowNegative: false,
                         allowDecimals: false
                     },{
                         xtype: 'numberfield',
-                        fieldLabel: 'Kilometerstand',
+                        fieldLabel: _('campermgmt.field.mileage'),
                         name: 'mileage',
                         id: 'mileage',
                         allowNegative: false,
                         allowDecimals: false
                     },{
                         xtype: 'datefield',
-                        fieldLabel: 'APK tot (dd-mm-yyyy)',
+                        fieldLabel: _('campermgmt.field.periodiccheck'),
                         name: 'periodiccheck',
                         id: 'periodiccheck',
                         format: 'd-m-Y'
                     }]
                 }]
             },{
-                title: 'Opties',
+                title: _('campermgmt.tab.options'),
                 items: [{
                     layout: 'form',
                     xtype: 'campermgmt-gridselectoptions',
@@ -300,7 +300,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                     value: ''
                 }]
             },{
-                title: 'Foto\'s',
+                title: _('campermgmt.tab.images'),
                 items: [{
                     layout: 'form',
                     border: false,
@@ -374,22 +374,14 @@ CamperMgmt.gridSelectOptions = function(config) {
         reader: new Ext.data.JsonReader({
             root: 'results',
             fields: ['id','name']
-        }),
-        listeners: {
-            /*load: function(t, records, options) {
-                console.info('test ok');
-                if (Ext.getCmp('options-grid').getSelectionModel()) { Ext.getCmp('options-grid').getSelectionModel().selectFirstRow() }
-                else { console.info('cmp not found') }
-            },
-            delay: 2000*/
-        }
+        })
     });
     Ext.applyIf(config,{
         store: this.store,
         id: 'campermgmt-gridselectoptions',
         sm: this.sm,
         tbar: [{
-            text: 'Nieuwe optie aanmaken',
+            text: _('campermgmt.option.new'),
             handler: function(btn,e) {
                 if (!CamperMgmt.window.newOption) {
                     CamperMgmt.window.newOption = MODx.load({
@@ -409,7 +401,7 @@ CamperMgmt.gridSelectOptions = function(config) {
         columns: [
             this.sm,
             {
-                header: 'Optie',
+                header: _('campermgmt.option'),
                 dataIndex: 'name',
                 sortable: false,
                 width: 200

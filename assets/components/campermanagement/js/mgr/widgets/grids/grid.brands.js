@@ -32,7 +32,7 @@ CamperMgmt.brandsGrid = function(config) {
 		autosave: true,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuw merk toevoegen',
+			text: _('campermgmt.brand.new'),
 			handler: function(btn,e) {
                 if (!CamperMgmt.window.newBrand) {
                     CamperMgmt.window.newBrand = MODx.load({
@@ -47,25 +47,25 @@ CamperMgmt.brandsGrid = function(config) {
 			}
 		}]
 		,columns: [{
-			header: '#'
-			,dataIndex: 'id'
-			,sortable: true
-			,width: 3
-			,hidden: false
+			header: _('campermgmt.field.id'),
+			dataIndex: 'id',
+			sortable: true,
+			width: 3,
+			hidden: false
 		},{
-			header: 'Merk'
-			,dataIndex: 'name'
-			,sortable: true
-			,width: 14
-			,hidden: false
-            ,editable: true
+			header: _('campermgmt.brand'),
+			dataIndex: 'name',
+			sortable: true,
+			width: 14,
+			hidden: false,
+            editable: true
             // @TODO: make inline editing functional
 		}]
 		,listeners: {
             'rowcontextmenu': function(grid, rowIndex,e) {
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
-                        text: 'Aanpassen',
+                        text: _('update'),
                         handler: function(grid, rowIndex) {
                             if (!CamperMgmt.window.newBrand) {
                                 CamperMgmt.window.newBrand = MODx.load({
@@ -81,7 +81,7 @@ CamperMgmt.brandsGrid = function(config) {
                             CamperMgmt.window.newBrand.show(e.target);
                         }
                     },{
-                        text: 'Verwijderen',
+                        text: _('delete'),
                         handler: function() {
                             owner = Ext.getCmp('brands-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({

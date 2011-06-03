@@ -34,43 +34,43 @@ CamperMgmt.indexGrid = function(config) {
 		autosave: false,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuwe camper toevoegen',
+			text: _('campermgmt.camper.new'),
 			handler: function() {
 				window.location.href = '?a='+CamperMgmt.action+'&action=newcamper';
 			}
 		}],
 		columns: [{
-			header: '#',
+			header: _('campermgmt.field.id'),
 			dataIndex: 'id',
 			sortable: true,
 			width: 5
 		},{
-			header: 'Key'
-			,dataIndex: 'keynr'
-			,sortable: true
-			,width: 5
+			header: _('campermgmt.field.key'),
+			dataIndex: 'keynr',
+			sortable: true,
+			width: 5
 		},{
-			header: 'Merk',
+			header: _('campermgmt.brand'),
 			dataIndex: 'brand',
 		    sortable: true,
 			width: 18
 		},{
-			header: 'Type',
+			header: _('campermgmt.field.type'),
 			dataIndex: 'type',
 			sortable: true,
 			width: 18
 		},{
-			header: 'Eigenaar',
+			header: _('campermgmt.owner'),
 			dataIndex: 'owner',
             sortable: true,
 			width: 18
 		},{
-			header: 'Status',
+			header: _('campermgmt.status'),
 			dataIndex: 'statusname',
             sortable: true,
 			width: 18
 		},{
-			header: 'Prijs',
+			header: _('campermgmt.field.price'),
 			dataIndex: 'price',
 			sortable: true,
 			width: 18
@@ -79,13 +79,13 @@ CamperMgmt.indexGrid = function(config) {
 			'rowcontextmenu': function(grid, rowIndex, e) {
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
-                        text: 'Aanpassen',
+                        text: _('update'),
                         handler: function(grid, rowIndex, e) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
                             window.location.href = '?a='+CamperMgmt.action+'&action=newcamper&cid='+cid;
                         }
                     },{
-                        text: 'Status',
+                        text: _('campermgmt.status.edit'),
                         handler: function(grid,rowindex,e) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
                             statuswindow = new CamperMgmt.changeCamperStatusWin({
@@ -94,13 +94,13 @@ CamperMgmt.indexGrid = function(config) {
                             statuswindow.show();
                         }
                     },{
-                        text: 'Genereer Raambiljet',
+                        text: _('campermgmt.pdf.window'),
                         handler: function(grid,rowindex,e) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
                             window.open(MODx.config.site_url+'index.php?id=13&cid='+cid,'raambiljet');
                         }
                     },'-',{
-                        text: 'Verwijder camper',
+                        text: _('campermgmt.camper.delete'),
                         handler: function(btn, e) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
                             confirmdelete = new CamperMgmt.confirmDeleteWin({
@@ -122,7 +122,7 @@ Ext.reg('campermgmt-grid-index',CamperMgmt.indexGrid);
 CamperMgmt.changeCamperStatusWin = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        title: 'Status wijzigen',
+        title: _('campermgmt.status.edit'),
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
             action: 'mgr/camper/changestatus',
@@ -136,16 +136,16 @@ CamperMgmt.changeCamperStatusWin = function(config) {
         },
         fields: [{
             xtype: 'textfield',
-            fieldLabel: 'Camper',
+            fieldLabel: _('campermgmt.camper'),
             disabled: true,
             value: Ext.getCmp('index-grid').getSelectionModel().getSelected().data.brand+' '+Ext.getCmp('index-grid').getSelectionModel().getSelected().data.type
         },{
             xtype: 'modx-combo',
-            fieldLabel: 'Status',
+            fieldLabel: _('campermgmt.status'),
             hiddenName: 'newstatus',
             layout: 'form',
             fields: ['id','status'],
-            store: [[0,'Niet bevestigd'],[1,'Actief'],[2,'Topper'],[3,'In optie'],[4,'Verkocht'],[5,'Inactief']],
+            store: [[0,_('campermgmt.status0')],[1,_('campermgmt.status1')],[2,_('campermgmt.status2')],[3,_('campermgmt.status3')],[4,_('campermgmt.status4')],[5,_('campermgmt.status5')]],
             mode: 'local',
             displayField: 'status',
             valueField: 'id',
@@ -160,7 +160,7 @@ Ext.reg('campermgmt-changecamperstatus',CamperMgmt.changeCamperStatusWin);
 CamperMgmt.confirmDeleteWin = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        title: 'Camper verwijderen',
+        title: _('campermgmt.camper.delete'),
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
             action: 'mgr/camper/remove',
@@ -173,13 +173,14 @@ CamperMgmt.confirmDeleteWin = function(config) {
             }
         },
         items: [{
-            html: '<p>Weet je zeker dat je deze camper wilt verwijderen? <span style="color: #ff0000">Dit kan NIET worden teruggedraaid!</span>' +
-                    '</p><p>Klik op "opslaan" om de camper permanent te verwijderen uit het systeem.</p>',
+            html: _('campermgmt.camper.confirmdelete'),
+            /*html: '<p>Weet je zeker dat je deze camper wilt verwijderen? <span style="color: #ff0000">Dit kan NIET worden teruggedraaid!</span>' +
+                    '</p><p>Klik op "opslaan" om de camper permanent te verwijderen uit het systeem.</p>',*/
             padding: '15px'
         }],
         fields: [{
             xtype: 'textfield',
-            fieldLabel: 'Camper',
+            fieldLabel: _('campermgmt.camper'),
             disabled: true,
             value: Ext.getCmp('index-grid').getSelectionModel().getSelected().data.brand+' '+Ext.getCmp('index-grid').getSelectionModel().getSelected().data.type
         }]

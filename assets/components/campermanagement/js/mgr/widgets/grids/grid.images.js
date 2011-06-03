@@ -30,7 +30,7 @@ CamperMgmt.imagesGrid = function(config) {
 		paging: true,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuwe foto\'s uploaden',
+			text: _('campermgmt.image.upload'),
 			handler: function(btn,e) {
                 if (CamperMgmt.cid > 0) {
                     if (!this.uploader) {
@@ -60,35 +60,35 @@ CamperMgmt.imagesGrid = function(config) {
                     }
                     this.uploader.show(btn);
                 } else {
-                    Ext.Msg.alert('Foutmelding','Het is pas mogelijk om afbeeldingen te uploaden, nadat het voertuig voor de eerste keer is opgeslagen.')
+                    Ext.Msg.alert(_('error'),_('campermgmt.image.requiressave'))
                 }
 			}
 		}]
 		,columns: [{
-			header: '#'
-			,dataIndex: 'id'
-			,sortable: true
-			,width: 1
-			,hidden: false
+			header: _('campermgmt.field.id'),
+			dataIndex: 'id',
+			sortable: true,
+			width: 1,
+			hidden: false
 		},{
-			header: 'Afbeelding'
-			,dataIndex: 'image'
-			,sortable: true
-			,width: 4
-			,hidden: false
+			header: _('campermgmt.image'),
+			dataIndex: 'image',
+			sortable: true,
+			width: 4,
+			hidden: false
 		},{
-			header: 'Pad'
-			,dataIndex: 'path'
-			,sortable: true
-			,width: 5
-			,hidden: false
+			header: _('campermgmt.image.path'),
+			dataIndex: 'path',
+			sortable: true,
+		    width: 5,
+			hidden: false
 		}]
 		,listeners: {
             // @TODO: Make this work
             'rowcontextmenu': function(grid, rowIndex,e) {
                 var _ctxmenu = new Ext.menu.Menu({
                     items: [{
-                        text: 'Verwijderen',
+                        text: _('delete'),
                         handler: function() {
                             imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({

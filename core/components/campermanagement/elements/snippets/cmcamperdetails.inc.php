@@ -35,7 +35,7 @@ if (empty($cid)) {
 
 $camper = $modx->getObject('cmCamper',$cid);
 if (!($camper instanceof cmCamper)) {
-    return 'Cannot find camper...';
+    return 'Unable to find camper.';
     // @TODO: Send to another page?
 }
 
@@ -81,7 +81,7 @@ foreach ($tplprop as $key => $value) {
 }
 unset ($tplprop);
 
-$statusnames = array('Niet bevestigd','Actief','Topper','In optie','Verkocht','Inactief');
+$statusnames = array($modx->lexicon('campermgmt.status0'),$modx->lexicon('campermgmt.status1'),$modx->lexicon('campermgmt.status2'),$modx->lexicon('campermgmt.status3'),$modx->lexicon('campermgmt.status4'),$modx->lexicon('campermgmt.status5'));
 
 // If the money_format function doesn't exist, let's declare it now cause we'll need it.
 if (!function_exists('money_format')) { require_once $campermgmt->config['corePath'] . '/classes/function.money_format.php'; }
@@ -90,9 +90,9 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
     $array = $camper->toArray();
     $array['statusname'] = $statusnames[$array['status']];
 
-    $array['manufactured'] = ($array['manufactured'] > 0) ? strftime('%d/%m/%Y',$array['manufactured']) : 'Onbekend';
-    $array['timestamp'] = ($array['timestamp'] > 0) ? strftime('%d/%m/%Y',$array['timestamp']) : 'Onbekend';
-    $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : 'Onbekend';
+    $array['manufactured'] = ($array['manufactured'] > 0) ? strftime('%d/%m/%Y',$array['manufactured']) : '';
+    $array['timestamp'] = ($array['timestamp'] > 0) ? strftime('%d/%m/%Y',$array['timestamp']) : '';
+    $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
     $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);
 

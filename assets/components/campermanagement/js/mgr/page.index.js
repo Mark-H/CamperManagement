@@ -40,25 +40,25 @@ CamperMgmt.page.Index = function(config) {
             border: true,
             defaults: { border: false, autoHeight: true, bodyStyle: 'padding: 5px 10px 5px 5px;' },
             items: [{
-                title: 'Campers &amp; Caravans',
+                title: _('campermgmt.campers'),
                 items: [{
                     xtype: 'campermgmt-panel-indexcontent',
                     border: false
                 }]
             },{
-                title: 'Eigenaren',
+                title: _('campermgmt.owners'),
                 items: [{
                     xtype: 'campermgmt-grid-owner',
                     border: false
                 }]
             },{
-                title: 'Opties',
+                title: _('campermgmt.options'),
                 items: [{
                     xtype: 'campermgmt-grid-options',
                     border: false
                 }]
             },{
-                title: 'Merken',
+                title: _('campermgmt.brands'),
                 items: [{
                     xtype: 'campermgmt-grid-brands',
                     border: false

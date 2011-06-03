@@ -33,7 +33,7 @@ CamperMgmt.ownerGrid = function(config) {
 		autosave: false,
 		remoteSort: true,
 		tbar: [{
-			text: 'Nieuwe eigenaar toevoegen',
+			text: _('campermgmt.owner.new'),
 			handler: function(btn,e) {
                 if (!CamperMgmt.window.newOwner) {
                     CamperMgmt.window.newOwner = MODx.load({
@@ -47,34 +47,34 @@ CamperMgmt.ownerGrid = function(config) {
 			}
 		}]
 		,columns: [{
-			header: '#'
+			header: _('campermgmt.field.id')
 			,dataIndex: 'id'
 			,sortable: true
 			,width: 3
 			,hidden: false
 		},{
-			header: 'Voornaam'
+			header: _('campermgmt.field.firstname')
 			,dataIndex: 'firstname'
 			,sortable: true
 			,width: 14
 			,hidden: false
 		},{
-			header: 'Achternaam',
+			header: _('campermgmt.field.lastname'),
 			dataIndex: 'lastname',
 		    sortable: true,
 			width: 14
 		},{
-			header: 'Adres',
+			header: _('campermgmt.field.address'),
 			dataIndex: 'address',
 			sortable: true,
 			width: 20
 		},{
-			header: 'Plaats',
+			header: _('campermgmt.field.city'),
 			dataIndex: 'city',
     		sortable: true,
 			width: 14
 		},{
-			header: 'Postcode',
+			header: _('campermgmt.field.postal'),
 			dataIndex: 'postal',
 			sortable: true,
 			width: 10
@@ -83,7 +83,7 @@ CamperMgmt.ownerGrid = function(config) {
             'rowcontextmenu': function(grid, rowIndex,e) {
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
-                        text: 'Eigenaar aanpassen',
+                        text: _('update'),
                         handler: function(grid, rowIndex) {
                             if (!CamperMgmt.window.newOwner) {
                                 CamperMgmt.window.newOwner = MODx.load({
@@ -99,7 +99,7 @@ CamperMgmt.ownerGrid = function(config) {
                             CamperMgmt.window.newOwner.show(e.target);
                         }
                     },{
-                        text: 'Verwijderen',
+                        text: _('delete'),
                         handler: function() {
                             owner = Ext.getCmp('owner-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({

@@ -34,46 +34,46 @@ CamperMgmt.newOwnerWindow = function(config) {
             name: 'id'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Voornaam',
+            fieldLabel: _('campermgmt.field.firstname'),
             name: 'firstname',
             allowBlank: false
         },{
             xtype: 'textfield',
-            fieldLabel: 'Achternaam',
+            fieldLabel: _('campermgmt.field.lastname'),
             name: 'lastname',
             allowBlank: false
         },{
             xtype: 'textfield',
-            fieldLabel: 'Adres',
+            fieldLabel: _('campermgmt.field.address'),
             name: 'address'
         },{
             xtype: 'textfield',
-            fieldLabel: 'E-mailadres',
+            fieldLabel: _('campermgmt.field.email'),
             name: 'email'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Telefoon (1)',
+            fieldLabel: _('campermgmt.field.phone1'),
             name: 'phone1'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Telefoon (2)',
+            fieldLabel: _('campermgmt.field.phone2'),
             name: 'phone2'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Postcode',
+            fieldLabel: _('campermgmt.field.postal'),
             name: 'postal'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Plaats',
+            fieldLabel: _('campermgmt.field.city'),
             name: 'city'
         },{
             xtype: 'textfield',
-            fieldLabel: 'Land',
+            fieldLabel: _('campermgmt.field.country'),
             name: 'country',
-            value: 'Nederland'
+            value: _('campermgmt.field.country.default')
         },{
             xtype: 'numberfield',
-            fieldLabel: 'Bankrekening',
+            fieldLabel: _('campermgmt.field.bank'),
             name: 'bank'
         }]
     });
