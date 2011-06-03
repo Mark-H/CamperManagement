@@ -36,7 +36,7 @@ if (($path == $expected) && ($files['file'])) {
         $yeardir = $modx->fileHandler->make($year,array(),'modDirectory');
         
         if (!$yeardir->exists()) {
-            $modx->log('warn','Year target does not exist, creating..');
+            $modx->log('info','[CamperMgmt] Year target does not exist, creating..');
             $result = $yeardir->create();
             if ($result !== true) {
                 return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
@@ -47,7 +47,7 @@ if (($path == $expected) && ($files['file'])) {
         $monthdir = $modx->fileHandler->make($month,array(),'modDirectory');
 
         if (!$monthdir->exists()) {
-            $modx->log('warn','Month target does not exist, creating..');
+            $modx->log('info','[CamperMgmt] Month target does not exist, creating..');
             $result = $monthdir->create();
             if ($result !== true) {
                 return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
@@ -55,7 +55,6 @@ if (($path == $expected) && ($files['file'])) {
         }
 
         // All file structure in place!
-        //$modx->log(2,'File structure in place');
         $newloc = $monthdir->getPath().'/';
         $curloc = $path;
 
@@ -64,8 +63,7 @@ if (($path == $expected) && ($files['file'])) {
         foreach ($files as $file) {
             $oldfile = $curloc.$file['name'];
             $newfile = $newloc.$file['name'];
-            //$modx->log(2,'Attempting to move '.$oldfile.' to '.$newfile);
-            if (!file_exists($oldfile)) { $modx->log('warn', 'File does not exist at '.$oldloc); }
+            if (!file_exists($oldfile)) { $modx->log('error', '[CamperMgmt] File does not exist at '.$oldloc); }
             if (!rename($oldfile,$newfile)) {
                 return $modx->error->failure($modx->lexicon('file_err_upload'));
             }
@@ -85,9 +83,14 @@ if (($path == $expected) && ($files['file'])) {
         }
 
         $camper = $modx->getObject('cmCamper',$_POST['cid']);
-        $camper->addMany($imgrefs);
-        $camper->save();
-
+        if ($camper instanceof cmCamper) {
+            $camper->addMany($imgrefs);
+            $result = $camper->save();
+            if ($result) { return $modx->error->success(); }
+            else { return $modx->error->failure(); }
+        } else {
+            return $modx->error->failure();
+        }
 
 
     }
