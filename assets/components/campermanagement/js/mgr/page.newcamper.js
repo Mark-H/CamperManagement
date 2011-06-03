@@ -30,20 +30,14 @@ Ext.onReady(function() {
     
     if ((CamperMgmt.values) && (CamperMgmt.values.options)) {
         Ext.getCmp('options-grid').store.on('load', function(){
-            //console.info('loaded');
             var grid = Ext.getCmp('options-grid');
-            //console.info('grid object'+grid);
             var options = CamperMgmt.values.options.split(",");
-            //console.info(options);
             for (var i in options) {
-                //console.info('i has value '+options[i]);
                 var index = grid.store.indexOfId(Number(options[i]));
-                //console.info('i has index '+index);
                 if (Number(index) > 0) {
                     var optionIndices = (optionIndices) ? optionIndices+','+Number(index) : Number(index);
                 }
             }
-            //console.info(optionIndices);
             grid.getSelectionModel().selectRows(optionIndices);
         }, this, {
             single: true
