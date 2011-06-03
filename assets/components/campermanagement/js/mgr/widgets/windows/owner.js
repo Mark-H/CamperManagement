@@ -45,8 +45,7 @@ CamperMgmt.newOwnerWindow = function(config) {
         },{
             xtype: 'textfield',
             fieldLabel: 'Adres',
-            name: 'address',
-            allowBlank: false
+            name: 'address'
         },{
             xtype: 'textfield',
             fieldLabel: 'E-mailadres',
@@ -54,23 +53,19 @@ CamperMgmt.newOwnerWindow = function(config) {
         },{
             xtype: 'textfield',
             fieldLabel: 'Telefoon (1)',
-            name: 'phone1',
-            allowBlank: false
+            name: 'phone1'
         },{
             xtype: 'textfield',
             fieldLabel: 'Telefoon (2)',
-            name: 'phone2',
-            allowBlank: false
+            name: 'phone2'
         },{
             xtype: 'textfield',
             fieldLabel: 'Postcode',
-            name: 'postal',
-            allowBlank: false
+            name: 'postal'
         },{
             xtype: 'textfield',
             fieldLabel: 'Plaats',
-            name: 'city',
-            allowBlank: false
+            name: 'city'
         },{
             xtype: 'textfield',
             fieldLabel: 'Land',
