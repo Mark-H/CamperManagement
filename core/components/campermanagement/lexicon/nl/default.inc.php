@@ -25,7 +25,7 @@
 $_lang['campermgmt'] = 'Camper Management';
 $_lang['campermgmt.description'] = 'Camper &amp; Caravan voorraad module.';
 $_lang['campermgmt.campers'] = 'Campers &amp; Caravans';
-$_lang['campermgmt.camper'] = 'Camper &amp; Caravan';
+$_lang['campermgmt.camper'] = 'Camper';
 $_lang['campermgmt.camper.new'] = 'Voeg nieuwe camper of caravan toe';
 $_lang['campermgmt.camper.delete'] = 'Verwijder camper';
 $_lang['campermgmt.camper.confirmdelete'] = '<p>Weet je zeker dat je deze camper wilt verwijderen? <span style="color: #ff0000">Dit kan NIET worden teruggedraaid!</span></p><p>Klik op "opslaan" om de camper permanent te verwijderen uit het systeem.</p>';

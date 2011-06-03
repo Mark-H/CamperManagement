@@ -25,7 +25,7 @@
 $_lang['campermgmt'] = 'Camper Management';
 $_lang['campermgmt.description'] = 'Camper &amp; Caravan inventory management.';
 $_lang['campermgmt.campers'] = 'Campers &amp; Caravans';
-$_lang['campermgmt.camper'] = 'Camper &amp; Caravan';
+$_lang['campermgmt.camper'] = 'Camper';
 $_lang['campermgmt.camper.new'] = 'Add a new camper or caravan';
 $_lang['campermgmt.camper.delete'] = 'Delete camper';
 $_lang['campermgmt.camper.confirmdelete'] = '<p>Are you sure you want to remove this camper from the system?? <span style="color: #ff0000">This can NOT be undone!</span></p><p>Choose Save to delete this vehicle.</p>';
