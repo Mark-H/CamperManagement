@@ -60,8 +60,8 @@ foreach ($campers as $camper) {
     $array = array();
     $array = $camper->toArray();
     $array['statusname'] = $statuses[$array['status']];
-    $array['added'] = date('m-d-Y',$array['added']);
-    $array['archived'] = date('m-d-Y',$array['archives']);
+    $array['added'] = ($array['added'] > 0) ? date('m-d-Y',$array['added']) : '';
+    $array['archived'] = ($array['archived'] > 0) ? date('m-d-Y',$array['archived']) : '';
     $array['brand'] = ($camper->Brand) ? $camper->Brand->get('name') : 'n/a';
     $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname').', '.$camper->Owner->get('firstname').' ('.$camper->Owner->get('id').')' : 'n/a';
     $array['options'] = array();

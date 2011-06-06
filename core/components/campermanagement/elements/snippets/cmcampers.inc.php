@@ -29,7 +29,7 @@ $campermgmt->initialize('mgr');
 
 $start = $modx->getOption('start',$scriptProperties,0);
 $limit = $modx->getOption('limit',$scriptProperties,4);
-$sort = $modx->getOption('sort',$scriptProperties,'timestamp');
+$sort = $modx->getOption('sort',$scriptProperties,'added');
 $dir = $modx->getOption('dir',$scriptProperties,'desc');
 
 $includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
@@ -104,7 +104,8 @@ foreach ($campers as $camper) {
     $array['statusname'] = $statusnames[$array['status']];
 
     $array['manufactured'] = ($array['manufactured'] > 0) ? strftime('%d/%m/%Y',$array['manufactured']) : '';
-    $array['timestamp'] = ($array['timestamp'] > 0) ? strftime('%d/%m/%Y',$array['timestamp']) : '';
+    $array['added'] = ($array['added'] > 0) ? strftime('%d/%m/%Y',$array['added']) : '';
+    $array['archived'] = ($array['archived'] > 0) ? strftime('%d/%m/%Y',$array['added']) : '';
     $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
     $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);

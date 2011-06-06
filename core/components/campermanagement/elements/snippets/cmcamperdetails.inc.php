@@ -100,7 +100,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
     $array['statusname'] = $statusnames[$array['status']];
 
     $array['manufactured'] = ($array['manufactured'] > 0) ? strftime('%d/%m/%Y',$array['manufactured']) : '';
-    $array['timestamp'] = ($array['timestamp'] > 0) ? strftime('%d/%m/%Y',$array['timestamp']) : '';
+    $array['added'] = ($array['added'] > 0) ? strftime('%d/%m/%Y',$array['added']) : '';
     $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
     $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);

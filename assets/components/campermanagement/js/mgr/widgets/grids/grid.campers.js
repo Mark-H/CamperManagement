@@ -33,7 +33,7 @@ CamperMgmt.indexGrid = function(config) {
             archive: CamperMgmt.archive
         },
         params: [],
-		fields: ['id','brand','type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','statusname','keynr','owner','brand','options'],
+		fields: ['id','brand','type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','statusname','keynr','owner','brand','options','added','archived'],
 		paging: true,
 		autosave: false,
 		remoteSort: true,
@@ -78,11 +78,17 @@ CamperMgmt.indexGrid = function(config) {
 			dataIndex: 'statusname',
             sortable: true,
 			width: 18
-		},{
+		},{ //ID 6
 			header: _('campermgmt.added'),
 			dataIndex: 'added',
             sortable: true,
 			width: 18
+		},{ //ID 7
+			header: _('campermgmt.archived'),
+			dataIndex: 'archived',
+            sortable: true,
+			width: 18,
+            hidden: true
 		},{
 			header: _('campermgmt.field.price'),
 			dataIndex: 'price',
@@ -136,9 +142,13 @@ Ext.extend(CamperMgmt.indexGrid,MODx.grid.Grid,{
         if (btn.pressed) {
             s.setBaseParam('archive',1);
             btn.setText(_('campermgmt.hidearchived'));
+            this.colModel.config[6].hidden = true;
+            this.colModel.config[7].hidden = false;
         } else {
             s.setBaseParam('archive',0);
             btn.setText(_('campermgmt.showarchived'));
+            this.colModel.config[7].hidden = true;
+            this.colModel.config[6].hidden = false;
         }
         this.getBottomToolbar().changePage(1);
         s.removeAll();
