@@ -28,7 +28,7 @@ if (!is_numeric($scriptProperties['id'])) {
     return $modx->error->failure('Camper ID not numeric.');
 }
 
-if (empty($scriptProperties['newstatus'])) {
+if (empty($scriptProperties['newstatus']) && ($scriptProperties['newstatus'] != 0)) {
     return $modx->error->failure('No status entered.');
 }
 if (!is_numeric($scriptProperties['newstatus'])) {
