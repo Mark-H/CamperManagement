@@ -333,7 +333,8 @@ CamperMgmt.BrandsCombo = function(config) {
         editable: true,
         typeAhead: true,
         minChars: 1,
-        forceSelection: false
+        forceSelection: false,
+        pageSize: 20
     });
     CamperMgmt.BrandsCombo.superclass.constructor.call(this,config);
     };
@@ -355,7 +356,8 @@ CamperMgmt.OwnersCombo = function(config) {
         editable: true,
         typeAhead: true,
         minChars: 2,
-        forceSelection: true
+        forceSelection: true,
+        pageSize: 20
     });
     CamperMgmt.OwnersCombo.superclass.constructor.call(this,config);
     };
