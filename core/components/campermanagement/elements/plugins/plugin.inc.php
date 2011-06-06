@@ -28,72 +28,69 @@ $expected = $campermgmt->config['assetsPath'].'uploads/originals/';
 $assetsurl = $campermgmt->config['assetsUrl'].'uploads/originals/';
 
 if (($path == $expected) && ($files['file'])) {
-    if ($campermgmt->config['originalfolders']) {
-        if (!($directory instanceof modDirectory)) return $modx->error->failure($modx->lexicon('file_folder_err_parent_invalid'));
-        if (!$directory->isReadable() || !$directory->isWritable()) return $modx->error->failure($modx->lexicon('file_folder_err_perms_parent'));
+    // Let's store a reference to the image.
+    $id = (is_numeric($_POST['cid'])) ? $_POST['cid'] : null;
+    if ($id === null) { return $modx->error->failure('[CamperMgmt] No camper reference found.'); }
 
-        $year = $directory->getPath().date(Y);
-        $yeardir = $modx->fileHandler->make($year,array(),'modDirectory');
-        
-        if (!$yeardir->exists()) {
-            $modx->log('info','[CamperMgmt] Year target does not exist, creating..');
-            $result = $yeardir->create();
-            if ($result !== true) {
-                return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
-            }
-        }
-
-        $month = $yeardir->getPath().'/'.date(n);
-        $monthdir = $modx->fileHandler->make($month,array(),'modDirectory');
-
-        if (!$monthdir->exists()) {
-            $modx->log('info','[CamperMgmt] Month target does not exist, creating..');
-            $result = $monthdir->create();
-            if ($result !== true) {
-                return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
-            }
-        }
-
-        // All file structure in place!
-        $newloc = $monthdir->getPath().'/';
-        $curloc = $path;
-
-        $results = array();
-        $imgrefs = array();
-        foreach ($files as $file) {
-            $oldfile = $curloc.$file['name'];
-            $newfile = $newloc.$file['name'];
-            if (!file_exists($oldfile)) { $modx->log('error', '[CamperMgmt] File does not exist at '.$oldloc); }
-            if (!rename($oldfile,$newfile)) {
-                return $modx->error->failure($modx->lexicon('file_err_upload'));
-            }
-
-            // Let's store a reference to the image.
-            $id = (is_numeric($_POST['cid'])) ? $_POST['cid'] : null;
-            if ($id === null) { return $modx->error->failure('Image uploaded, but no camper reference found.'); }
-
-            $imgobj = $modx->newObject('cmImages');
-            $imgobj->fromArray(array(
-                'path' => $assetsurl.date(Y).'/'.date(n).'/',
-                'image' => $file['name'],
-                'camper' => $_POST['cid']
-            ));
-
-            $imgrefs[] = $imgobj;
-        }
-
-        $camper = $modx->getObject('cmCamper',$_POST['cid']);
-        if ($camper instanceof cmCamper) {
-            $camper->addMany($imgrefs);
-            $result = $camper->save();
-            if ($result) { return $modx->error->success(); }
-            else { return $modx->error->failure(); }
-        } else {
-            return $modx->error->failure();
-        }
-
-
+    $camper = $modx->getObject('cmCamper',$id);
+    if (!($camper instanceof cmCamper)) {
+        return $modx->error->failure('Camper not found');
     }
+
+    if (!($directory instanceof modDirectory)) return $modx->error->failure($modx->lexicon('file_folder_err_parent_invalid'));
+    if (!$directory->isReadable() || !$directory->isWritable()) return $modx->error->failure($modx->lexicon('file_folder_err_perms_parent'));
+
+    $year = $directory->getPath().date(Y);
+    $yeardir = $modx->fileHandler->make($year,array(),'modDirectory');
+
+    if (!$yeardir->exists()) {
+        $modx->log('info','[CamperMgmt] Year target directory does not exist, creating..');
+        $result = $yeardir->create();
+        if ($result !== true) {
+            return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
+        }
+    }
+
+    $camperid = $yeardir->getPath().'/'.$camper->get('id');
+    $camperdir = $modx->fileHandler->make($camperid,array(),'modDirectory');
+
+    if (!$camperdir->exists()) {
+        $modx->log('info','[CamperMgmt] Camper target directory does not exist, creating..');
+        $result = $camperdir->create();
+        if ($result !== true) {
+            return $modx->error->failure($modx->lexicon('file_folder_err_create').$result);
+        }
+    }
+
+    // All file structure in place!
+    $newloc = $camperdir->getPath().'/';
+    $curloc = $path;
+
+    $results = array();
+    $imgrefs = array();
+    foreach ($files as $file) {
+        $oldfile = $curloc.$file['name'];
+        $newfile = $newloc.$campermgmt->config['imgprefix'].substr(time(),-5).'-'.rand(000,999).'.'.pathinfo($oldfile,PATHINFO_EXTENSION);
+        if (!file_exists($oldfile)) { $modx->log('error', '[CamperMgmt] File does not exist at '.$oldloc); }
+        if (!rename($oldfile,$newfile)) {
+            return $modx->error->failure($modx->lexicon('file_err_upload'));
+        }
+
+        $imgobj = $modx->newObject('cmImages');
+        $imgobj->fromArray(array(
+            'path' => $assetsurl.date(Y).'/'.date(n).'/',
+            'image' => $file['name'],
+            'camper' => $id
+        ));
+
+        $imgrefs[] = $imgobj;
+    }
+    $camper->addMany($imgrefs);
+    $result = $camper->save();
+    if ($result !== true) {
+        return $modx->error->failure($modx->lexicon('Adding images to camper object failed.').$result);
+    }
+    else { return $modx->error->success(); }
 }
 
 ?>

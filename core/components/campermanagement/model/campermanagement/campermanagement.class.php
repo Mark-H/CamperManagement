@@ -43,6 +43,7 @@ class CamperManagement {
             'assetsUrl' => $assetsUrl,
             'connectorUrl' => $assetsUrl.'connector.php',
             'originalfolders' => true,
+            'imgprefix' => 'cm',
         ),$config);
     }
     
