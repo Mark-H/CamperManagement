@@ -41,7 +41,7 @@ CamperMgmt.imagesGrid = function(config) {
                                 action: 'upload',
                                 prependPath: '',
                                 prependUrl: '',
-                                path: 'uploads/originals/',
+                                path: 'uploads/',
                                 basePath: CamperMgmt.config.assetsPath,
                                 basePathRelative: 0
                             },
@@ -75,7 +75,8 @@ CamperMgmt.imagesGrid = function(config) {
 			dataIndex: 'image',
 			sortable: true,
 			width: 4,
-			hidden: false
+			hidden: false,
+            renderer: this.renderImage
 		},{
 			header: _('campermgmt.image.path'),
 			dataIndex: 'path',
@@ -148,6 +149,9 @@ Ext.extend(CamperMgmt.imagesGrid,MODx.grid.Grid,{
             ,cid: CamperMgmt.cid
         });
         this.fireEvent('beforeUpload',this.uploader);
+    },
+    renderImage: function(val) {
+        return '<img src="'+MODx.config.connectors_url+'system/phpthumb.php?src='+CamperMgmt.config.assetsUrl+'uploads/'+val+'&w=250" />';
     }
 });
 Ext.reg('campermgmt-grid-images',CamperMgmt.imagesGrid);

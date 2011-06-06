@@ -24,8 +24,8 @@
 
 // Event: OnFileManagerUpload
 $path = $directory->getPath();
-$expected = $campermgmt->config['assetsPath'].'uploads/originals/';
-$assetsurl = $campermgmt->config['assetsUrl'].'uploads/originals/';
+$expected = $campermgmt->config['assetsPath'].'uploads/';
+$assetsurl = $campermgmt->config['assetsUrl'].'uploads/';
 
 if (($path == $expected) && ($files['file'])) {
     // Let's store a reference to the image.
@@ -63,14 +63,13 @@ if (($path == $expected) && ($files['file'])) {
     }
 
     // All file structure in place!
-    $newloc = $camperdir->getPath().'/';
-    $curloc = $path;
-
+    $subdir = date(Y).'/'.$camper->get('id').'/';
     $results = array();
     $imgrefs = array();
     foreach ($files as $file) {
-        $oldfile = $curloc.$file['name'];
-        $newfile = $newloc.$campermgmt->config['imgprefix'].substr(time(),-5).'-'.rand(000,999).'.'.pathinfo($oldfile,PATHINFO_EXTENSION);
+        $oldfile = $path.$file['name'];
+        $newfn = $subdir.$campermgmt->config['imgprefix'].substr(time(),-5).'-'.rand(000,999).'.'.pathinfo($oldfile,PATHINFO_EXTENSION);
+        $newfile = $path.$newfn;
         if (!file_exists($oldfile)) { $modx->log('error', '[CamperMgmt] File does not exist at '.$oldloc); }
         if (!rename($oldfile,$newfile)) {
             return $modx->error->failure($modx->lexicon('file_err_upload'));
@@ -78,8 +77,8 @@ if (($path == $expected) && ($files['file'])) {
 
         $imgobj = $modx->newObject('cmImages');
         $imgobj->fromArray(array(
-            'path' => $assetsurl.date(Y).'/'.date(n).'/',
-            'image' => $file['name'],
+            'path' => $assetsurl,
+            'image' => $newfn,
             'camper' => $id
         ));
 
