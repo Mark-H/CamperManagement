@@ -25,12 +25,28 @@ $start = $modx->getOption('start',$scriptProperties,0);
 $limit = $modx->getOption('limit',$scriptProperties,20);
 $sort = $modx->getOption('sort',$scriptProperties,'keynr');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
+
+$archiveOnly = $modx->getOption('archive',$scriptProperties,false);
+
 if ($sort == 'id') { $sort = 'cmCamper.id'; }
 if ($sort == 'statusname') { $sort = 'cmCamper.status'; }
+
 $results = array();
 
 $query = $modx->newQuery('cmCamper');
+
 $query->sortby($sort,$dir);
+
+if ($archiveOnly) {
+    $findStatus = array(0,5);
+} else {
+    $findStatus = array(1,2,3,4);
+}
+$query->where(array(
+    'status:IN' => $findStatus
+              ));
+
+if ($sort != 'cmCamper.id') { $query->sortby('cmCamper.id',$dir); }
 
 $count = $modx->getCount('cmCamper',$query);
 

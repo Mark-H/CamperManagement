@@ -88,6 +88,8 @@ $_lang['campermgmt.field.country'] = 'Country';
 $_lang['campermgmt.field.country.default'] = 'United Kingdom';
 $_lang['campermgmt.field.bank'] = 'Bank';
 $_lang['campermgmt.pdf.window'] = 'Generate window sheet';
+$_lang['campermgmt.showarchived'] = 'Show archived vehicles';
+$_lang['campermgmt.hidearchived'] = 'Show active vehicles';
 
 
 ?>

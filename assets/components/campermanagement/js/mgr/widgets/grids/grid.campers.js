@@ -28,7 +28,11 @@ CamperMgmt.indexGrid = function(config) {
     Ext.applyIf(config,{
 		url: CamperMgmt.config.connectorUrl,
 		id: 'index-grid',
-		baseParams: { action: 'mgr/index/getcampers' },
+		baseParams: {
+            action: 'mgr/index/getcampers',
+            archive: CamperMgmt.archive
+        },
+        params: [],
 		fields: ['id','brand','type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','statusname','keynr','owner','brand','options'],
 		paging: true,
 		autosave: false,
@@ -38,7 +42,12 @@ CamperMgmt.indexGrid = function(config) {
 			handler: function() {
 				window.location.href = '?a='+CamperMgmt.action+'&action=newcamper';
 			}
-		}],
+		},'-',{
+            text: _('campermgmt.showarchived'),
+            handler: this.toggleArchive,
+            enableToggle: true,
+            scope: this
+        }],
 		columns: [{
 			header: _('campermgmt.field.id'),
 			dataIndex: 'id',
@@ -116,7 +125,21 @@ CamperMgmt.indexGrid = function(config) {
     });
     CamperMgmt.indexGrid.superclass.constructor.call(this,config);
 };
-Ext.extend(CamperMgmt.indexGrid,MODx.grid.Grid);
+Ext.extend(CamperMgmt.indexGrid,MODx.grid.Grid,{
+    toggleArchive: function(btn,e) {
+        var s = this.getStore();
+        if (btn.pressed) {
+            s.setBaseParam('archive',1);
+            btn.setText(_('campermgmt.hidearchived'));
+        } else {
+            s.setBaseParam('archive',0);
+            btn.setText(_('campermgmt.showarchived'));
+        }
+        this.getBottomToolbar().changePage(1);
+        s.removeAll();
+        this.refresh();
+    }
+});
 Ext.reg('campermgmt-grid-index',CamperMgmt.indexGrid);
 
 CamperMgmt.changeCamperStatusWin = function(config) {
