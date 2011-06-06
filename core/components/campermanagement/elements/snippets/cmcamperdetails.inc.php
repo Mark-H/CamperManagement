@@ -61,12 +61,6 @@ if (in_array($array['status'],array(0,5)) && $hideInactive) {
     }
 }
 
-
-$start = $modx->getOption('start',$scriptProperties,0);
-$limit = $modx->getOption('limit',$scriptProperties,4);
-$sort = $modx->getOption('sort',$scriptProperties,'timestamp');
-$dir = $modx->getOption('dir',$scriptProperties,'desc');
-
 $includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
 $includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,true);
 $includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,false);
