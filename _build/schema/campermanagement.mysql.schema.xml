@@ -41,7 +41,9 @@
         <field key="status" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
         <field key="keynr" dbtype="int" precision="10" phptype="integer" default="0" />
         <field key="owner" dbtype="int" precision="10" phptype="integer" null="false" default="0" />
-        <field key="timestamp" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
+
+        <field key="added" dbtype="int" precision="25" phptype="integer" null="false" default="0" />
+        <field key="archived" dbtype="int" precision="25" phptype="integer" default="0" />
 
         <aggregate alias="Brand" class="cmBrand" local="brand" foreign="id" cardinality="one" owner="foreign" />
         <composite alias="CamperOptions" class="cmCamperOptions" local="id" foreign="camper" cardinality="many" owner="local" />

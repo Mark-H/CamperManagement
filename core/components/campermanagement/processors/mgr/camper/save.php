@@ -37,14 +37,25 @@ if (is_numeric($data['id'])) {
     $c = $modx->getObject('cmCamper',$data['id']);
     if (!($c instanceof cmCamper)) {
         $c = $modx->newObject('cmCamper');
-        $data['timestamp'] = time();
+        $data['added'] = time();
     }
     unset($data['id']);
     $new = false;
 } else {
     $c = $modx->newObject('cmCamper');
-    $data['timestamp'] = time();
+    $data['added'] = time();
 }
+
+if (in_array($data['status'],array(0,5))) {
+    if ($c->get('status') != 5) {
+        $data['archived'] = time();
+    }
+} else {
+    if (in_array($c->get('status'),array(0,5))) {
+        $data['archived'] = 0;
+    }
+}
+
 $c->fromArray($data);
 
 // Add the brand relationship

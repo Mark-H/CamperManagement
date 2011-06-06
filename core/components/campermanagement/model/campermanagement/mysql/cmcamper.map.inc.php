@@ -41,7 +41,8 @@ $xpdo_meta_map['cmCamper']= array (
     'status' => 0,
     'keynr' => 0,
     'owner' => 0,
-    'timestamp' => 0,
+    'added' => 0,
+    'archived' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -158,12 +159,19 @@ $xpdo_meta_map['cmCamper']= array (
       'null' => false,
       'default' => 0,
     ),
-    'timestamp' => 
+    'added' => 
     array (
       'dbtype' => 'int',
       'precision' => '25',
       'phptype' => 'integer',
       'null' => false,
+      'default' => 0,
+    ),
+    'archived' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '25',
+      'phptype' => 'integer',
       'default' => 0,
     ),
   ),

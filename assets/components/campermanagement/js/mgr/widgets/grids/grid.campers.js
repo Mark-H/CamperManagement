@@ -79,6 +79,11 @@ CamperMgmt.indexGrid = function(config) {
             sortable: true,
 			width: 18
 		},{
+			header: _('campermgmt.added'),
+			dataIndex: 'added',
+            sortable: true,
+			width: 18
+		},{
 			header: _('campermgmt.field.price'),
 			dataIndex: 'price',
 			sortable: true,

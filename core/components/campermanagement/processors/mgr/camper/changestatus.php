@@ -40,6 +40,16 @@ if (empty($camper)) {
     return $modx->error->failure('Camper with ID '.$scriptProperties['id'].' not found!');
 }
 
+if (in_array($newstatus,array(0,5))) {
+    if ($camper->get('status') != 5) {
+        $camper->set('archived',time());
+    }
+} else {
+    if (in_array($camper->get('status'),array(0,5))) {
+        $camper->set('archived',0);
+    }
+}
+
 $camper->set('status',$scriptProperties['newstatus']);
 
 $result = $camper->save();
