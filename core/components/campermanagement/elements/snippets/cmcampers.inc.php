@@ -132,7 +132,7 @@ foreach ($campers as $camper) {
             $imgcounter = 0;
             foreach ($tImages as $img) {
                 if (($img instanceof cmImages) && ($imgcounter < $numimages)) {
-                    $image = $img->get('path').$img->get('image');
+                    $image = $campermgmt->config['assetsUrl'].'uploads/'.$img->get('image');
                     $array['images'][] = $campermgmt->getChunk(
                         $tpl['ImageItem'],
                         array('image' => $image)
