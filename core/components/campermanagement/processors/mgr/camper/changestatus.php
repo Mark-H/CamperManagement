@@ -32,7 +32,7 @@ if (empty($scriptProperties['newstatus'])) {
     return $modx->error->failure('No status entered.');
 }
 if (!is_numeric($scriptProperties['newstatus'])) {
-    return $modx->error->failure('Camper status not numeric.');
+    return $modx->error->failure('Carmper status not numeric.');
 }
 
 $camper = $modx->getObject('cmCamper',$scriptProperties['id']);
