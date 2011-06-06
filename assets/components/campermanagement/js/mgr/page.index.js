@@ -20,6 +20,7 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
+MODx.config.help_url = 'http://rtfm.modx.com/display/ADDON/CamperManagement.Module+home'
 Ext.onReady(function() {
     Ext.QuickTips.init();
     MODx.load({ xtype: 'campermgmt-page-index'});
@@ -31,8 +32,13 @@ Index page configuration.
 CamperMgmt.page.Index = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        renderTo: 'campermanagement'
-        ,components: [{
+        renderTo: 'campermanagement',
+        buttons: [{
+            process: 'help',
+            text: _('help_ex'),
+            handler: MODx.loadHelpPane
+        }],
+        components: [{
             xtype: 'campermgmt-panel-header'
         },{
             xtype: 'modx-tabs',

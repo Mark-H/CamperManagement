@@ -151,7 +151,7 @@ Ext.extend(CamperMgmt.imagesGrid,MODx.grid.Grid,{
         this.fireEvent('beforeUpload',this.uploader);
     },
     renderImage: function(val) {
-        return '<img src="'+MODx.config.connectors_url+'system/phpthumb.php?src='+CamperMgmt.config.assetsUrl+'uploads/'+val+'&w=250" />';
+        return '<img src="'+MODx.config.connectors_url+'system/phpthumb.php?src='+CamperMgmt.config.assetsUrl+'uploads/'+val+'&w=250&h=200" />';
     }
 });
 Ext.reg('campermgmt-grid-images',CamperMgmt.imagesGrid);

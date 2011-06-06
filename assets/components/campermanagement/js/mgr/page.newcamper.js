@@ -20,6 +20,8 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
+MODx.config.help_url = 'http://rtfm.modx.com/display/ADDON/CamperManagement.Managing+your+vehicle'
+
 Ext.onReady(function() {
     Ext.QuickTips.init();
     var w = MODx.load({ xtype: 'campermgmt-page-newcamper'});
@@ -84,12 +86,16 @@ CamperMgmt.page.NewCamper = function(config) {
                     Ext.MessageBox.alert(_('error'),_('campermgmt.error.missingrequired'));
                 }
             }
-        },{
+        },'-',{
             process: 'cancel',
             text: _('campermgmt.button.backtooverview'),
             handler: function() {
                 window.location.href = '?a='+CamperMgmt.action;
             }
+        },'-',{
+            process: 'help',
+            text: _('help_ex'),
+            handler: MODx.loadHelpPane
         }]
         ,components: [{
             xtype: 'campermgmt-panel-header'
