@@ -86,7 +86,7 @@ CamperMgmt.imagesGrid = function(config) {
 		,listeners: {
             // @TODO: Make this work
             'rowcontextmenu': function(grid, rowIndex,e) {
-                var _ctxmenu = new Ext.menu.Menu({
+                var _contextMenu = new Ext.menu.Menu({
                     items: [{
                         text: _('delete'),
                         handler: function() {
@@ -111,7 +111,7 @@ CamperMgmt.imagesGrid = function(config) {
                         }
                     }]
                 });
-                _ctxmenu.showAt(e.getXY());
+                _contextMenu.showAt(e.getXY());
             }
 		}
     });
