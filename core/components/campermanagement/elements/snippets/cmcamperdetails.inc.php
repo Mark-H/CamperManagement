@@ -28,22 +28,37 @@ $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 
 $cid = (int)$_REQUEST['cid'];
-if (empty($cid)) {
-    return '';
-    // @TODO: send off to a not found page or something
+if ($cid < 1) {
+    $cidEmptyRedirect = (int)$modx->getOption('cidEmptyAction',$scriptProperties,1); // @todo disable in pkg
+    if ($cidEmptyRedirect > 0) {
+        $url = $modx->makeUrl($cidEmptyRedirect);
+        return $modx->sendRedirect($url);
+    } else {
+        return 'No camper specified.'; // @todo lexicon
+    }
 }
 
 $camper = $modx->getObject('cmCamper',$cid);
 if (!($camper instanceof cmCamper)) {
-    return 'Unable to find camper.';
-    // @TODO: Send to another page?
+    $cidInvalidRedirect = (int)$modx->getOption('cidInvalidAction',$scriptProperties,1); // @todo disable in pkg
+    if ($cidInvalidRedirect > 0) {
+        $url = $modx->makeUrl($cidInvalidRedirect,'',array('from' => $cid));
+        return $modx->sendRedirect($url);
+    } else {
+        return 'Camper not found.'; // @todo lexicon
+    }
 }
 
 $array = $camper->toArray();
 $hideInactive = $modx->getOption('hideInactive',$scriptProperties,false);
 if (in_array($array['status'],array(0,5)) && $hideInactive) {
-    // Camper is either not confirmed yet (status 0) or not active (status 5)
-    return 'The camper you tried to find is currently not available.';
+    $cidInactiveRedirect = (int)$modx->getOption('cidInvalidAction',$scriptProperties,1); // @todo disable in pkg
+    if ($cidInactiveRedirect > 0) {
+        $url = $modx->makeUrl($cidInactiveRedirect,'',array('from' => $cid));
+        return $modx->sendRedirect($url);
+    } else {
+        return 'Camper is no longer available. '; // @todo lexicon
+    }
 }
 
 
