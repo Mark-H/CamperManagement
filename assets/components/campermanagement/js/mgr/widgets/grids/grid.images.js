@@ -82,7 +82,7 @@ CamperMgmt.imagesGrid = function(config) {
 			dataIndex: 'path',
 			sortable: true,
 		    width: 5,
-			hidden: false
+			hidden: true
 		}]
 		,listeners: {
             // @TODO: Make this work
