@@ -76,6 +76,27 @@ $output = '';
 
 // Create the query
 $query = $modx->newQuery('cmCamper');
+
+
+// Check the status
+// Check if we're supposed to be searching based on request vars
+$reqSearch = $modx->getOption('searchFromRequest',$scriptProperties,true);
+if ($reqSearch) {
+    if (!empty($_REQUEST['status'])) {
+        echo $_REQUEST['status'];
+        $searchStatus1 = explode(",", $_REQUEST['status']);
+        $searchStatus = array();
+        foreach ($searchStatus1 as $k => $sId) {
+            if (in_array($sId,array(1,2,3,4))) {
+                $searchStatus[] = $sId;
+            }
+        }
+
+        if (count($searchStatus) > 0) {
+            $status = $searchStatus;
+        }
+    }
+}
 if (count($status) > 1) {
     $query->where(array(
         'cmCamper.status:IN' => $status
@@ -85,6 +106,9 @@ if (count($status) > 1) {
         'cmCamper.status' => $status[0]
     ));
 }
+
+
+
 
 $count = $modx->getCount('cmCamper',$query);
 
