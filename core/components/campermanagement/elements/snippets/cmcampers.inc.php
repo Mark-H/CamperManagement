@@ -83,7 +83,6 @@ $query = $modx->newQuery('cmCamper');
 $reqSearch = $modx->getOption('searchFromRequest',$scriptProperties,true);
 if ($reqSearch) {
     if (!empty($_REQUEST['status'])) {
-        echo $_REQUEST['status'];
         $searchStatus1 = explode(",", $_REQUEST['status']);
         $searchStatus = array();
         foreach ($searchStatus1 as $k => $sId) {
