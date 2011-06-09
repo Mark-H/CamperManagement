@@ -208,4 +208,9 @@ foreach ($campers as $camper) {
     unset ($array);
 }
 
-return $campermgmt->getChunk($tpl['Outer'],array('items' => implode("\n",$results)));
+$o = $campermgmt->getChunk($tpl['Outer'],array('items' => implode("\n",$results)));
+if (!empty($scriptProperties['toPlaceholder'])) {
+    $modx->toPlaceholder($scriptProperties['toPlaceholder']);
+} else {
+    return $o;
+}
