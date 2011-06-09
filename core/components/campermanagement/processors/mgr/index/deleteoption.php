@@ -21,11 +21,11 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
-$owner = $modx->getObject('cmOption',$scriptProperties['owner']);
-if (!empty($owner)) {
-    $owner->remove();
-    if ($owner->save()) { return $modx->error->success('Deleted'); }
-    else { return $modx->error->failure('Error removing'); }
+$option = $modx->getObject('cmOption',$scriptProperties['option']);
+if ($option instanceof cmOption) {
+    $option->remove();
+    if ($option->save()) { return $modx->error->success(); }
+    else { return $modx->error->failure($modx->lexicon('campermgmt.error.undefined')); }
 } else {
-    return $modx->error->failure('Option not found.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.option_nf',$scriptProperties['option']));
 }

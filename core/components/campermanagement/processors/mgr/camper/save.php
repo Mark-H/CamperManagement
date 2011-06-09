@@ -21,13 +21,6 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
-
-/*$dataitems = array('type','plate','car','engine','manufactured','beds','weight','mileage','periodiccheck','remarks','price','status','keynr','owner');
-$data = array();
-
-foreach ($dataitems as $di) {
-    $data[$di] = $modx->getOption($di,$scriptProperties,'');
-}*/
 $data = $scriptProperties;
 
 $data['manufactured'] = strtotime($data['manufactured']);
@@ -64,12 +57,16 @@ if (!empty($brandObj)) {
     $c->addOne($brandObj);
 } else {
     if (trim($scriptProperties['brand']) == '') {
-        return $modx->error->failure('Invalid brand name');
+        return $modx->error->failure($modx->lexicon('campermgmt.error.brand_invalid'));
     }
     $brandObj = $modx->newObject('cmBrand');
     $brandObj->set('name',$scriptProperties['brand']);
-    $brandObj->save();
-    $c->addOne($brandObj);
+    $brandResult = $brandObj->save();
+    if ($brandResult === true) {
+         $c->addOne($brandObj);
+    } else {
+        return $modx->error->failure($modx->lexicon('campermgmt.error.brand_undefined'));
+    }
 }
 
 // If this is an existing record, first unset all options to prevent it from keeping now unchecked options.
@@ -99,7 +96,7 @@ if ($options !== '') {
 $success = $c->save();
 
 if (!$success) {
-    return $modx->error->failure();
+    return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));
 } else {
     return $modx->error->success($c->get('id'));
 }

@@ -22,21 +22,20 @@
  *
  */
 
-$cid = $modx->getOption('image',$scriptProperties,-1);
-if ($cid <= 0) {
-    return $modx->error->failure('Geen geldige afbeelding gevonden.');
+$cid = (int)$modx->getOption('image',$scriptProperties,-1);
+if (($cid <= 0) || empty($cid)) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.noid'));
 }
 
 $cObj = $modx->getObject('cmImages',$cid);
 
 if (!($cObj instanceof cmImages)) {
-    return $modx->error->failure('Afbeelding '.$cid.' bestaat niet in het systeem.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.image_nf',array('id' => $cid)));
 }
 
 $result = $cObj->remove();
-if ($result) {
-    return $modx->error->success('Removed image '.$cid.'.');
-} else {
-    return $modx->error->failure();
+if ($result !== true) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));
 }
+return $modx->error->success();
 ?>

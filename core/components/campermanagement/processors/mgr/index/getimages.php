@@ -26,7 +26,7 @@ $limit = $modx->getOption('limit',$scriptProperties,20);
 $sort = $modx->getOption('sort',$scriptProperties,'id');
 $dir = $modx->getOption('dir',$scriptProperties,'asc');
 $cid = $modx->getOption('cid',$scriptProperties,null);
-if ($cid === null) { return $modx->error->failure('Onbekend voertuig. Voordat u afbeeldingen kunt uploaden dient het voertuig te zijn opgeslagen.'); }
+if ($cid === null) { return $modx->error->failure($modx->lexicon('campermgmt.error.noid')); }
 
 $results = array();
 
@@ -34,6 +34,7 @@ $query = $modx->newQuery('cmImages');
 $query->where(array(
     'camper' => $cid));
 $query->sortby($sort,$dir);
+if ($sort != 'id') { $query->sortby('id',$dir); }
 
 $count = $modx->getCount('cmImages',$query);
 

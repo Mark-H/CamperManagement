@@ -83,12 +83,12 @@ CamperMgmt.brandsGrid = function(config) {
                     },{
                         text: _('delete'),
                         handler: function() {
-                            owner = Ext.getCmp('brands-grid').getSelectionModel().getSelected().data.id;
+                            brand = Ext.getCmp('brands-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({
                                 url: CamperMgmt.config.connectorUrl
                                 ,params: {
                                     action: 'mgr/index/deletebrand'
-                                    ,owner: owner
+                                    ,brand: brand
                                 }
                                 ,listeners: {
                                     'success': {fn:function(r) {

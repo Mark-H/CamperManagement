@@ -33,4 +33,4 @@ $result = $option->save();
 if ($result) {
     return $modx->error->success($option->get('id'));
 }
-return $modx->error->failure('Error.');
+return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));

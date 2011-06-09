@@ -30,6 +30,7 @@ $results = array();
 
 $query = $modx->newQuery('cmBrand');
 $query->sortby($sort,$dir);
+if ($sort != 'id') { $query->sortby('id','desc'); }
 
 if ($search !== '') {
     $query->where(array(

@@ -32,6 +32,8 @@ $results = array();
 $query = $modx->newQuery('cmOwner');
 $query->sortby($sort,$dir);
 
+if ($sort != 'id') { $query->sortby('id',$dir); }
+
 if ($search !== '') {
     $query->where(array(
         'firstname:LIKE' => '%'.$search.'%'));

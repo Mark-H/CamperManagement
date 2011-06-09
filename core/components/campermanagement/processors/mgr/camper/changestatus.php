@@ -22,22 +22,18 @@
  *
  */
 if (empty($scriptProperties['id'])) {
-    return $modx->error->failure('No camper ID entered.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.noid'));
 }
 if (!is_numeric($scriptProperties['id'])) {
-    return $modx->error->failure('Camper ID not numeric.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.id_invalid'));
 }
 
-if (empty($scriptProperties['newstatus']) && ($scriptProperties['newstatus'] != 0)) {
-    return $modx->error->failure('No status entered.');
+if ((empty($scriptProperties['newstatus']) && ($scriptProperties['newstatus'] != 0)) || (!is_numeric($scriptProperties['newstatus']))) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.status_nf'));
 }
-if (!is_numeric($scriptProperties['newstatus'])) {
-    return $modx->error->failure('Carmper status not numeric.');
-}
-
-$camper = $modx->getObject('cmCamper',$scriptProperties['id']);
-if (empty($camper)) {
-    return $modx->error->failure('Camper with ID '.$scriptProperties['id'].' not found!');
+$camper = $modx->getObject('cmCamper',(int)$scriptProperties['id']);
+if (!($camper instanceof cmCamper)) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.camper_nf',array('id' => $scriptProperties['id'])));
 }
 
 if (in_array($newstatus,array(0,5))) {
@@ -54,7 +50,7 @@ $camper->set('status',$scriptProperties['newstatus']);
 
 $result = $camper->save();
 if ($result !== true) {
-    return $modx->error->failure('Error storing new status.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));
 }
 
 return $modx->error->success();

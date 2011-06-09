@@ -21,11 +21,12 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
-$brand = $modx->getObject('cmBrand',$scriptProperties['owner']);
-if (!empty($brand)) {
+$brand = $modx->getObject('cmBrand',$scriptProperties['brand']);
+if ($brand instanceof cmBrand) {
     $brand->remove();
-    if ($brand->save()) { return $modx->error->success('Deleted'); }
-    else { return $modx->error->failure('Error removing'); }
+    if ($brand->save()) { return $modx->error->success(); }
+    else { return $modx->error->failure($modx->lexicon('campermgmt.error.undefined')); }
 } else {
-    return $modx->error->failure('Brand not found.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.brand_nf',$scriptProperties['brand']));
 }
+?>

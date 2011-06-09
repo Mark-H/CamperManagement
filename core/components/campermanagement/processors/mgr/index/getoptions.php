@@ -31,6 +31,7 @@ $results = array();
 
 $query = $modx->newQuery('cmOption');
 $query->sortby($sort,$dir);
+if ($sort != 'id') { $query->sortby('id',$dir); }
 
 $count = $modx->getCount('cmOption',$query);
 

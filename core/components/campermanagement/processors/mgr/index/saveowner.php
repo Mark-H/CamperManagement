@@ -31,9 +31,6 @@ $owner->fromArray($scriptProperties);
 $result = $owner->save();
 
 if ($result) {
-    return $modx->toJSON(array(
-        'success' => true,
-        'message' => $owner->get('id'),
-        'data' => array()));
+    return $modx->error->success($owner->get('id'));
 }
-return $modx->error->failure('Error.');
+return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));

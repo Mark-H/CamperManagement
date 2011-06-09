@@ -31,6 +31,6 @@ $brand->fromArray($scriptProperties);
 $result = $brand->save();
 
 if ($result) {
-    return $modx->error->success('Database updated.');
+    return $modx->error->success($brand->get('id'));
 }
-return $modx->error->failure('Error.');
+return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));

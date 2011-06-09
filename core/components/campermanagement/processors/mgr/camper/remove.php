@@ -22,21 +22,24 @@
  *
  */
 
-$cid = $modx->getOption('id',$scriptProperties,-1);
-if ($cid <= 0) {
-    return $modx->error->failure('Geen geldige camper gevonden.');
+if (empty($scriptProperties['id'])) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.noid'));
+}
+if (!is_numeric($scriptProperties['id'])) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.id_invalid'));
 }
 
-$cObj = $modx->getObject('cmCamper',$cid);
+
+$cObj = $modx->getObject('cmCamper',$scriptProperties['id']);
 
 if (!($cObj instanceof cmCamper)) {
-    return $modx->error->failure('Camper '.$cid.' bestaat niet in het systeem.');
+    return $modx->error->failure($modx->lexicon('campermgmt.error.camper_nf',array('id' => $scriptProperties['id'])));
 }
 
 $result = $cObj->remove();
-if ($result) {
-    return $modx->error->success('Removed camper '.$cid.'.');
-} else {
-    return $modx->error->failure();
+if ($result !== true) {
+    return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));
 }
+
+return $modx->error->success();
 ?>

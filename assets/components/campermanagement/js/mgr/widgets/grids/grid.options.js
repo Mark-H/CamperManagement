@@ -85,12 +85,12 @@ CamperMgmt.optionsGrid = function(config) {
                     },{
                         text: _('delete'),
                         handler: function() {
-                            owner = Ext.getCmp('options-grid').getSelectionModel().getSelected().data.id;
+                            option = Ext.getCmp('options-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({
                                 url: CamperMgmt.config.connectorUrl
                                 ,params: {
                                     action: 'mgr/index/deleteoption'
-                                    ,owner: owner
+                                    ,option: option
                                 }
                                 ,listeners: {
                                     'success': {fn:function(r) {
