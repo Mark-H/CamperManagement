@@ -95,7 +95,20 @@ if ($reqSearch) {
         if (count($searchStatus) > 0) {
             $status = $searchStatus;
         }
+        $o = array();
+        foreach ($searchStatus as $ss){
+            $o[] = $statusnames[$ss];
+        }
+        $modx->setPlaceholder('statusfilter',implode(", ",$o));
+        unset ($o);
     }
+    if (!empty($_REQUEST['sort'])){
+        $allowSort = array('added','brand','price');
+        if (in_array($_REQUEST['sort'],$allowSort)) {
+            $sort = $_REQUEST['sort'];
+        }
+    }
+    if ($_REQUEST['sortdir'] != $dir) { $dir = ($dir == 'desc') ? 'asc' : 'desc'; }
 }
 if (count($status) > 1) {
     $query->where(array(
