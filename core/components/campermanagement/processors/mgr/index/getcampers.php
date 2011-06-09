@@ -38,9 +38,9 @@ $query = $modx->newQuery('cmCamper');
 $query->sortby($sort,$dir);
 
 if ($archiveOnly) {
-    $findStatus = array(0,5);
+    $findStatus = array(5);
 } else {
-    $findStatus = array(1,2,3,4);
+    $findStatus = array(0,1,2,3,4);
 }
 $query->where(array(
     'status:IN' => $findStatus
