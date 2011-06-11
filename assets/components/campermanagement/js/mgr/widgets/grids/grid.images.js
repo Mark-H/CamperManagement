@@ -20,23 +20,23 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
-CamperMgmt.imagesGrid = function(config) {
+CamperMgmt.imagesGrid = function (config) {
     config = config || {};
-    Ext.applyIf(config,{
+    Ext.applyIf(config, {
 		url: CamperMgmt.config.connectorUrl,
 		id: 'images-grid',
 		baseParams: { action: 'mgr/index/getimages', cid: CamperMgmt.cid },
-		fields: ['id','image','path'],
+		fields: ['id', 'image', 'path'],
 		paging: true,
 		remoteSort: true,
 		tbar: [{
 			text: _('campermgmt.image.upload'),
-			handler: function(btn,e) {
+			handler: function (btn, e) {
                 if (CamperMgmt.cid > 0) {
                     if (!this.uploader) {
                         this.uploader = new Ext.ux.UploadDialog.Dialog({
                             id: 'campermgmt-uploader',
-                            url: MODx.config.connectors_url+'browser/file.php',
+                            url: MODx.config.connectors_url + 'browser/file.php',
                             base_params: {
                                 action: 'upload',
                                 prependPath: '',
@@ -49,64 +49,64 @@ CamperMgmt.imagesGrid = function(config) {
                             width: 550,
                             cls: 'ext-ux-uploaddialog-dialog modx-upload-window'
                         });
-                        this.uploader.on('click',function(n,e) {
+                        this.uploader.on('click', function (n, e) {
                             n.select();
                             this.cm.activeNode = n;
-                        },this);
-                        this.uploader.on('show',this.beforeUpload,this);
-                        this.uploader.on('uploadsuccess',this.uploadSuccess,this);
-                        this.uploader.on('uploaderror',this.uploadError,this);
-                        this.uploader.on('uploadfailed',this.uploadFailed,this);
+                        }, this);
+                        this.uploader.on('show', this.beforeUpload, this);
+                        this.uploader.on('uploadsuccess', this.uploadSuccess, this);
+                        this.uploader.on('uploaderror', this.uploadError, this);
+                        this.uploader.on('uploadfailed', this.uploadFailed, this);
                     }
                     this.uploader.show(btn);
                 } else {
-                    Ext.Msg.alert(_('error'),_('campermgmt.image.requiressave'))
+                    Ext.Msg.alert(_('error'), _('campermgmt.image.requiressave'));
                 }
 			}
-		}]
-		,columns: [{
+		}],
+        columns: [{
 			header: _('campermgmt.field.id'),
 			dataIndex: 'id',
 			sortable: true,
 			width: 1
-		},{
+		}, {
 			header: _('campermgmt.image'),
 			dataIndex: 'image',
 			sortable: true,
 			width: 4,
             renderer: this.renderImage
-		},{
+		}, {
 			header: _('campermgmt.image.path'),
 			dataIndex: 'path',
 			sortable: true,
 		    width: 5,
 			hidden: true
-		}]
-		,listeners: {
+		}],
+		listeners: {
             // @TODO: Make this work
-            render: function() { alert('ok'); },
-            "rowcontextmenu": function(grid, rowIndex,e) {
+            render: function () { alert('ok'); },
+            "rowcontextmenu": function (grid, rowIndex, e) {
                 alert('trigger');
 
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
                         text: _('delete'),
-                        handler: function() {
-                            imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
+                        handler: function () {
+                            var imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
                             MODx.Ajax.request({
-                                url: CamperMgmt.config.connectorUrl
-                                ,params: {
-                                    action: 'mgr/image/remove'
-                                    ,image: imgid
-                                }
-                                ,listeners: {
-                                    'success': {fn:function(r) {
+                                url: CamperMgmt.config.connectorUrl,
+                                params: {
+                                    action: 'mgr/image/remove',
+                                    image: imgid
+                                },
+                                listeners: {
+                                    'success': {fn: function (r) {
                                         Ext.getCmp('images-grid').getSelectionModel().clearSelections(true);
                                         Ext.getCmp('images-grid').refresh();
-                                    },scope:this},
-                                    'failure': {fn:function(r) {
+                                    }, scope: this},
+                                    'failure': {fn: function (r) {
                                         Ext.getCmp('images-grid').refresh();
-                                    },scope:this}
+                                    }, scope: this}
                                 }
                             });
                             return true;
@@ -117,42 +117,42 @@ CamperMgmt.imagesGrid = function(config) {
             }
 		}
     });
-    CamperMgmt.imagesGrid.superclass.constructor.call(this,config);
+    CamperMgmt.imagesGrid.superclass.constructor.call(this, config);
     this.addEvents({
-        'beforeUpload': true
-        ,'afterUpload': true
-        ,'fileBrowserSelect': true
+        'beforeUpload': true,
+        'afterUpload': true,
+        'fileBrowserSelect': true
     });
 };
-Ext.extend(CamperMgmt.imagesGrid,MODx.grid.Grid,{
-    uploadError: function(dlg,file,data,rec) {},
-    uploadFailed: function(dlg,file,rec) {},
+Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
+    uploadError: function (dlg, file, data, rec) {},
+    uploadFailed: function (dlg, file, rec) {},
 
-    uploadSuccess:function() {
+    uploadSuccess: function () {
         Ext.getCmp('images-grid').refresh();
     },
-    beforeUpload: function() {
+    beforeUpload: function () {
         var path;
         if (this.uploader.base_params.path) {
             path = this.uploader.base_params.path;
         } else { path = '/'; }
 
         this.uploader.setBaseParams({
-            action: 'upload'
-            ,prependPath: this.uploader.base_params.prependPath || null
-            ,prependUrl: this.uploader.base_params.prependUrl || null
-            ,basePath: this.uploader.base_params.basePath || ''
-            ,basePathRelative: this.uploader.base_params.basePathRelative || null
-            ,baseUrl: this.uploader.base_params.baseUrl || ''
-            ,baseUrlRelative: this.uploader.base_params.baseUrlRelative || null
-            ,path: path
-            ,wctx: MODx.ctx || ''
-            ,cid: CamperMgmt.cid
+            action: 'upload',
+            prependPath: this.uploader.base_params.prependPath || null,
+            prependUrl: this.uploader.base_params.prependUrl || null,
+            basePath: this.uploader.base_params.basePath || '',
+            basePathRelative: this.uploader.base_params.basePathRelative || null,
+            baseUrl: this.uploader.base_params.baseUrl || '',
+            baseUrlRelative: this.uploader.base_params.baseUrlRelative || null,
+            path: path,
+            wctx: MODx.ctx || '',
+            cid: CamperMgmt.cid
         });
-        this.fireEvent('beforeUpload',this.uploader);
+        this.fireEvent('beforeUpload', this.uploader);
     },
-    renderImage: function(val) {
-        return '<img src="'+MODx.config.connectors_url+'system/phpthumb.php?src='+CamperMgmt.config.assetsUrl+'uploads/'+val+'&w=250&h=200" />';
+    renderImage: function (val) {
+        return '<img src="' + MODx.config.connectors_url + 'system/phpthumb.php?src=' + CamperMgmt.config.assetsUrl + 'uploads/' + val + '&w=250&h=200" />';
     }
 });
-Ext.reg('campermgmt-grid-images',CamperMgmt.imagesGrid);
+Ext.reg('campermgmt-grid-images', CamperMgmt.imagesGrid);
