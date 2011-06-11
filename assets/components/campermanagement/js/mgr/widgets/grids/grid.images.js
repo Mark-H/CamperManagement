@@ -68,14 +68,12 @@ CamperMgmt.imagesGrid = function(config) {
 			header: _('campermgmt.field.id'),
 			dataIndex: 'id',
 			sortable: true,
-			width: 1,
-			hidden: false
+			width: 1
 		},{
 			header: _('campermgmt.image'),
 			dataIndex: 'image',
 			sortable: true,
 			width: 4,
-			hidden: false,
             renderer: this.renderImage
 		},{
 			header: _('campermgmt.image.path'),
@@ -86,7 +84,10 @@ CamperMgmt.imagesGrid = function(config) {
 		}]
 		,listeners: {
             // @TODO: Make this work
-            'rowcontextmenu': function(grid, rowIndex,e) {
+            render: function() { alert('ok'); },
+            "rowcontextmenu": function(grid, rowIndex,e) {
+                alert('trigger');
+
                 var _contextMenu = new Ext.menu.Menu({
                     items: [{
                         text: _('delete'),
