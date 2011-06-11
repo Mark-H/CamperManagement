@@ -124,12 +124,19 @@ Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
         return '<img src="' + MODx.config.connectors_url + 'system/phpthumb.php?src=' + CamperMgmt.config.assetsUrl + 'uploads/' + val + '&w=250&h=200" />';
     },
     onContextMenu: function (e) {
+        var grid = this;
         e.preventDefault();
+        var imgrecord = grid.getSelectionModel().getSelected();
+        if (imgrecord === undefined) {
+            // @TODO Find a fix for this
+            alert('Please select an image before right clicking.');
+            return;
+        }
+        var imgid = imgrecord.data.id;
         var ctxmenu = new Ext.menu.Menu({
             items: [{
                 text: _('delete'),
                 handler: function () {
-                    var imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
                     MODx.Ajax.request({
                         url: CamperMgmt.config.connectorUrl,
                         params: {
