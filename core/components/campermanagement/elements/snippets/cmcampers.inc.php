@@ -86,7 +86,7 @@ if ($reqSearch) {
         $searchStatus1 = explode(",", $_REQUEST['status']);
         $searchStatus = array();
         foreach ($searchStatus1 as $k => $sId) {
-            if (in_array($sId,array(1,2,3,4))) {
+            if (in_array($sId,$status)) {
                 $searchStatus[] = $sId;
             }
         }
@@ -131,7 +131,16 @@ $query->limit($limit,$start);
 
 // If the money_format function doesn't exist, let's declare it now cause we'll need it.
 if (!function_exists('money_format')) { require_once $campermgmt->config['corePath'] . '/classes/function.money_format.php'; }
-
+$num = $modx->getCount('cmCamper',$query);
+if ($num < 1) {
+    if ($scriptProperties['toPlaceholder']) {
+        $modx->setPlaceholder($scriptProperties['toPlaceholder'],'No matches found');
+        return '';
+    }
+    else {
+        return 'No matches found';
+    }
+}
 $campers = $modx->getCollection('cmCamper',$query);
 $results = array();
 foreach ($campers as $camper) {
@@ -210,7 +219,7 @@ foreach ($campers as $camper) {
 
 $o = $campermgmt->getChunk($tpl['Outer'],array('items' => implode("\n",$results)));
 if (!empty($scriptProperties['toPlaceholder'])) {
-    $modx->toPlaceholder($scriptProperties['toPlaceholder']);
+    $modx->setPlaceholder($scriptProperties['toPlaceholder'],$o);
 } else {
     return $o;
 }
