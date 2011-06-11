@@ -83,38 +83,7 @@ CamperMgmt.imagesGrid = function (config) {
 			hidden: true
 		}],
 		listeners: {
-            // @TODO: Make this work
-            render: function () { alert('ok'); },
-            "rowcontextmenu": function (grid, rowIndex, e) {
-                alert('trigger');
-
-                var _contextMenu = new Ext.menu.Menu({
-                    items: [{
-                        text: _('delete'),
-                        handler: function () {
-                            var imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
-                            MODx.Ajax.request({
-                                url: CamperMgmt.config.connectorUrl,
-                                params: {
-                                    action: 'mgr/image/remove',
-                                    image: imgid
-                                },
-                                listeners: {
-                                    'success': {fn: function (r) {
-                                        Ext.getCmp('images-grid').getSelectionModel().clearSelections(true);
-                                        Ext.getCmp('images-grid').refresh();
-                                    }, scope: this},
-                                    'failure': {fn: function (r) {
-                                        Ext.getCmp('images-grid').refresh();
-                                    }, scope: this}
-                                }
-                            });
-                            return true;
-                        }
-                    }]
-                });
-                _contextMenu.showAt(e.getXY());
-            }
+           rowcontextmenu: this.onContextMenu
 		}
     });
     CamperMgmt.imagesGrid.superclass.constructor.call(this, config);
@@ -153,6 +122,35 @@ Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
     },
     renderImage: function (val) {
         return '<img src="' + MODx.config.connectors_url + 'system/phpthumb.php?src=' + CamperMgmt.config.assetsUrl + 'uploads/' + val + '&w=250&h=200" />';
+    },
+    onContextMenu: function (e) {
+        e.preventDefault();
+        var ctxmenu = new Ext.menu.Menu({
+            items: [{
+                text: _('delete'),
+                handler: function () {
+                    var imgid = Ext.getCmp('images-grid').getSelectionModel().getSelected().data.id;
+                    MODx.Ajax.request({
+                        url: CamperMgmt.config.connectorUrl,
+                        params: {
+                            action: 'mgr/image/remove',
+                            image: imgid
+                        },
+                        listeners: {
+                            'success': {fn: function (r) {
+                                Ext.getCmp('images-grid').getSelectionModel().clearSelections(true);
+                                Ext.getCmp('images-grid').refresh();
+                            }, scope: this},
+                            'failure': {fn: function (r) {
+                                Ext.getCmp('images-grid').refresh();
+                            }, scope: this}
+                        }
+                    });
+                }
+            }]
+        });
+        ctxmenu.showAt(e.getXY());
+        return false;
     }
 });
 Ext.reg('campermgmt-grid-images', CamperMgmt.imagesGrid);
