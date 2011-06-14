@@ -149,6 +149,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
         deferredRender: false,
         forceLayout: true,
         baseCls: 'modx-formpanel',
+        width: '98%',
         items: [{
             xtype: 'modx-tabs',
             border: true,
@@ -157,7 +158,7 @@ CamperMgmt.panel.NewCamperContent = function(config) {
                 labelWidth: 150,
                 autoHeight: true,
                 hideMode: 'offsets',
-                bodyStyle: 'margin: 15px',
+                bodyStyle: 'padding: 15px',
                 border: false,
                 xtype: 'modx-panel',
                 deferredRender: false
