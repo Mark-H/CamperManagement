@@ -18,7 +18,7 @@ set_time_limit(0);
 define('PKG_NAME','CamperManagement');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
 define('PKG_VERSION','0.8.2');
-define('PKG_RELEASE','alpha1');
+define('PKG_RELEASE','alpha2');
 
 $root = dirname(dirname(__FILE__)).'/';
 $sources= array (
