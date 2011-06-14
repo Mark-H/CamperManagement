@@ -80,7 +80,7 @@ $query = $modx->newQuery('cmCamper');
 
 // Check the status
 // Check if we're supposed to be searching based on request vars
-$reqSearch = $modx->getOption('searchFromRequest',$scriptProperties,true);
+$reqSearch = $modx->getOption('searchFromRequest',$scriptProperties,0);
 if ($reqSearch) {
     if (!empty($_REQUEST['status'])) {
         $searchStatus1 = explode(",", $_REQUEST['status']);
