@@ -94,6 +94,8 @@ $statusnames = array($modx->lexicon('campermgmt.status0'),$modx->lexicon('camper
 
 // If the money_format function doesn't exist, let's declare it now cause we'll need it.
 if (!function_exists('money_format')) { require_once $campermgmt->config['corePath'] . '/classes/function.money_format.php'; }
+$loc = $modx->getOption('locale',$scriptProperties,'it_IT');
+setlocale(LC_MONETARY,$loc);
 
     $array = array();
     $array = $camper->toArray();
@@ -103,7 +105,7 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
     $array['added'] = ($array['added'] > 0) ? strftime('%d/%m/%Y',$array['added']) : '';
     $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
-    $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);
+    $array['price'] = ($array['price'] > 0) ? money_format('%!.2n', $array['price']) : money_format('%!.2n',0);
 
     // Fetch brand name
     if ($includeBrand) {

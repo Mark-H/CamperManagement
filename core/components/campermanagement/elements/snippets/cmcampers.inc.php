@@ -131,6 +131,9 @@ $query->limit($limit,$start);
 
 // If the money_format function doesn't exist, let's declare it now cause we'll need it.
 if (!function_exists('money_format')) { require_once $campermgmt->config['corePath'] . '/classes/function.money_format.php'; }
+$loc = $modx->getOption('locale',$scriptProperties,'it_IT');
+setlocale(LC_MONETARY,$loc);
+
 $num = $modx->getCount('cmCamper',$query);
 if ($num < 1) {
     if ($scriptProperties['toPlaceholder']) {
@@ -153,7 +156,7 @@ foreach ($campers as $camper) {
     $array['archived'] = ($array['archived'] > 0) ? strftime('%d/%m/%Y',$array['added']) : '';
     $array['periodiccheck'] = ($array['periodiccheck'] > 0) ? strftime('%d/%m/%Y',$array['periodiccheck']) : '';
 
-    $array['price'] = ($array['price'] > 0) ? money_format('%+!#10n', $array['price']) : money_format('%+!#10n',0);
+    $array['price'] = ($array['price'] > 0) ? money_format('%!.2n', $array['price']) : money_format('%!.2n',0);
 
     $array['url'] = $modx->makeUrl($target,'',array('cid' => $array['id']));
 
