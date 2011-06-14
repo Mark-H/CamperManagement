@@ -24,9 +24,11 @@ CamperMgmt.imagesGrid = function (config) {
     config = config || {};
     Ext.applyIf(config, {
 		url: CamperMgmt.config.connectorUrl,
+        save_action: 'mgr/image/updaterank',
+        autosave: true,
 		id: 'images-grid',
 		baseParams: { action: 'mgr/index/getimages', cid: CamperMgmt.cid },
-		fields: ['id', 'image', 'path'],
+		fields: ['id', 'image', 'rank'],
 		paging: true,
 		remoteSort: true,
 		tbar: [{
@@ -76,11 +78,11 @@ CamperMgmt.imagesGrid = function (config) {
 			width: 4,
             renderer: this.renderImage
 		}, {
-			header: _('campermgmt.image.path'),
-			dataIndex: 'path',
+			header: _('campermgmt.image.rank'),
+			dataIndex: 'rank',
 			sortable: true,
 		    width: 5,
-			hidden: true
+            editor: { xtype: 'numberfield', minValue: 0 }
 		}],
 		listeners: {
            rowcontextmenu: this.onContextMenu

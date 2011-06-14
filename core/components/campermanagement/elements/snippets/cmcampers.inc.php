@@ -144,6 +144,12 @@ if ($num < 1) {
         return 'No matches found';
     }
 }
+
+if ($includeImages) {
+  $imgCriteria = $modx->newQuery('cmImages');
+  $imgCriteria->sortby('rank','asc');
+}
+
 $campers = $modx->getCollection('cmCamper',$query);
 $results = array();
 foreach ($campers as $camper) {
@@ -174,7 +180,7 @@ foreach ($campers as $camper) {
 
     // Fetch images
     if (($includeImages) && ($numimages > 0)) {
-        $tImages = $camper->getMany('Images');
+        $tImages = $camper->getMany('Images',$imgCriteria);
         if (!empty($tImages)) {
             $array['images'] = array();
             $imgcounter = 0;

@@ -97,6 +97,11 @@ if (!function_exists('money_format')) { require_once $campermgmt->config['corePa
 $loc = $modx->getOption('locale',$scriptProperties,'it_IT');
 setlocale(LC_MONETARY,$loc);
 
+if ($includeImages) {
+  $imgCriteria = $modx->newQuery('cmImages');
+  $imgCriteria->sortby('rank','asc');
+}
+
     $array = array();
     $array = $camper->toArray();
     $array['statusname'] = $statusnames[$array['status']];
@@ -121,7 +126,7 @@ setlocale(LC_MONETARY,$loc);
 
     // Fetch images
     if (($includeImages) && ($numimages > 0)) {
-        $tImages = $camper->getMany('Images');
+        $tImages = $camper->getMany('Images',$imgCriteria);
         if (!empty($tImages)) {
             $array['images'] = array();
             $imgcounter = 0;
