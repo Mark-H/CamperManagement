@@ -44,7 +44,7 @@ CamperMgmt.indexGrid = function(config) {
         tbar.add({
             text: _('campermgmt.print.overview'),
             handler: function(grid,rowindex,e) {
-                window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.windowId, 'windowsheet');
+                window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.overviewId, 'windowsheet');
             }
         })
     }
