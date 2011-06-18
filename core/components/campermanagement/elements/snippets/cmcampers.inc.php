@@ -218,7 +218,7 @@ foreach ($campers as $camper) {
             }
         }
         if (count($array['options']) > 0)
-            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
+            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode($modx->getOption('optionsSeparator',$scriptProperties,', '),$array['options'])));
         else
             unset($array['options']);
     }
