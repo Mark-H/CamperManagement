@@ -98,7 +98,8 @@ $_lang['campermgmt.field.phone2'] = 'Telefoon (2)';
 $_lang['campermgmt.field.country'] = 'Land';
 $_lang['campermgmt.field.country.default'] = 'Nederland';
 $_lang['campermgmt.field.bank'] = 'Rekeningnummer';
-$_lang['campermgmt.pdf.window'] = 'Genereer raambiljet';
+$_lang['campermgmt.print.window'] = 'Genereer raambiljet';
+$_lang['campermgmt.print.overview'] = 'Genereer voorraad overzicht';
 $_lang['campermgmt.showarchived'] = 'Bekijk gearchiveerde voertuigen';
 $_lang['campermgmt.hidearchived'] = 'Bekijk actieve voertuigen';
 

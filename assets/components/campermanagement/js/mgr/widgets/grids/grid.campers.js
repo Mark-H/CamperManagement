@@ -25,6 +25,29 @@ Index Campers & Caravans Grid
  */
 CamperMgmt.indexGrid = function(config) {
     config = config || {};
+    var tbar = new Ext.Toolbar();
+    tbar.addButton({
+        text: _('campermgmt.camper.new'),
+        handler: function() {
+            window.location.href = '?a='+CamperMgmt.action+'&action=newcamper';
+        }
+    });
+    tbar.addSeparator();
+    tbar.addButton({
+        text: _('campermgmt.showarchived'),
+        handler: this.toggleArchive,
+        enableToggle: true,
+        scope: this
+    });
+    if (CamperMgmt.config.overviewId > 0) {
+        tbar.addSeparator();
+        tbar.add({
+            text: _('campermgmt.print.overview'),
+            handler: function(grid,rowindex,e) {
+                window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.windowId, 'windowsheet');
+            }
+        })
+    }
     Ext.applyIf(config,{
 		url: CamperMgmt.config.connectorUrl,
 		id: 'index-grid',
@@ -37,17 +60,7 @@ CamperMgmt.indexGrid = function(config) {
 		paging: true,
 		autosave: false,
 		remoteSort: true,
-		tbar: [{
-			text: _('campermgmt.camper.new'),
-			handler: function() {
-				window.location.href = '?a='+CamperMgmt.action+'&action=newcamper';
-			}
-		},'-',{
-            text: _('campermgmt.showarchived'),
-            handler: this.toggleArchive,
-            enableToggle: true,
-            scope: this
-        }],
+		tbar: tbar,
 		columns: [{
 			header: _('campermgmt.field.id'),
 			dataIndex: 'id',
@@ -113,12 +126,6 @@ CamperMgmt.indexGrid = function(config) {
                             });
                             statuswindow.show();
                         }
-                    },{
-                        text: _('campermgmt.pdf.window'),
-                        handler: function(grid,rowindex,e) {
-                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
-                            window.open(MODx.config.site_url+'index.php?id=13&cid='+cid,'raambiljet');
-                        }
                     },'-',{
                         text: _('campermgmt.camper.delete'),
                         handler: function(btn, e) {
@@ -130,6 +137,16 @@ CamperMgmt.indexGrid = function(config) {
                         }
                     }]
                 });
+                if (CamperMgmt.config.windowId > 0) {
+                    _contextMenu.addSeparator();
+                    _contextMenu.add({
+                        text: _('campermgmt.print.window'),
+                        handler: function(grid,rowindex,e) {
+                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
+                            window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.windowId + '&cid=' + cid,'windowsheet');
+                        }
+                    })
+                }
                 _contextMenu.showAt(e.getXY());
 			}
 		}

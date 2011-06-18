@@ -44,6 +44,8 @@ class CamperManagement {
             'connectorUrl' => $assetsUrl.'connector.php',
             'originalfolders' => true,
             'imgprefix' => 'cm',
+            'windowId' => (is_numeric($modx->getOption('campermanagement.print.window'))) ? $modx->getOption('campermanagement.print.window') : null,
+            'overviewId' => (is_numeric($modx->getOption('campermanagement.print.overview'))) ? $modx->getOption('campermanagement.print.overview') : null,
         ),$config);
     }
     
