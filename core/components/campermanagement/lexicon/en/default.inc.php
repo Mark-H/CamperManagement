@@ -98,8 +98,9 @@ $_lang['campermgmt.field.phone2'] = 'Phone (2)';
 $_lang['campermgmt.field.country'] = 'Country';
 $_lang['campermgmt.field.country.default'] = 'United Kingdom';
 $_lang['campermgmt.field.bank'] = 'Bank';
-$_lang['campermgmt.print.window'] = 'Generate window sheet';
-$_lang['campermgmt.print.overview'] = 'Generate inventory sheet';
+$_lang['campermgmt.ctxmenu1'] = 'Generate window sheet';
+$_lang['campermgmt.ctxmenu2'] = 'Generate contract';
+$_lang['campermgmt.overview'] = 'Generate inventory sheet';
 $_lang['campermgmt.showarchived'] = 'Show archived vehicles';
 $_lang['campermgmt.hidearchived'] = 'Show active vehicles';
 

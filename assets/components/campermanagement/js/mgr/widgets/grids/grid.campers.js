@@ -42,7 +42,7 @@ CamperMgmt.indexGrid = function(config) {
     if (CamperMgmt.config.overviewId > 0) {
         tbar.addSeparator();
         tbar.add({
-            text: _('campermgmt.print.overview'),
+            text: _('campermgmt.overview'),
             handler: function(grid,rowindex,e) {
                 window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.overviewId, 'windowsheet');
             }
@@ -137,13 +137,24 @@ CamperMgmt.indexGrid = function(config) {
                         }
                     }]
                 });
-                if (CamperMgmt.config.windowId > 0) {
+                if (CamperMgmt.config.ctxmenu1 > 0) {
                     _contextMenu.addSeparator();
                     _contextMenu.add({
-                        text: _('campermgmt.print.window'),
+                        text: _('campermgmt.ctxmenu1'),
                         handler: function(grid,rowindex,e) {
                             var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
-                            window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.windowId + '&cid=' + cid,'windowsheet');
+                            window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.ctxmenu1 + '&cid=' + cid,'windowsheet');
+                        }
+                    })
+                }
+
+                if (CamperMgmt.config.ctxmenu2 > 0) {
+                    _contextMenu.addSeparator();
+                    _contextMenu.add({
+                        text: _('campermgmt.ctxmenu2'),
+                        handler: function(grid,rowindex,e) {
+                            var cid = Ext.getCmp('index-grid').getSelectionModel().getSelected().id;
+                            window.open(MODx.config.site_url + 'index.php?id=' + CamperMgmt.config.ctxmenu2 + '&cid=' + cid,'windowsheet');
                         }
                     })
                 }

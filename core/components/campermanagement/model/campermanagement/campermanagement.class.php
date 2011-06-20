@@ -44,8 +44,9 @@ class CamperManagement {
             'connectorUrl' => $assetsUrl.'connector.php',
             'originalfolders' => true,
             'imgprefix' => 'cm',
-            'windowId' => (is_numeric($modx->getOption('campermanagement.print.window'))) ? $modx->getOption('campermanagement.print.window') : null,
-            'overviewId' => (is_numeric($modx->getOption('campermanagement.print.overview'))) ? $modx->getOption('campermanagement.print.overview') : null,
+            'ctxmenu1' => (is_numeric($modx->getOption('campermanagement.ctxmenu1'))) ? $modx->getOption('campermanagement.ctxmenu1') : null,
+            'ctxmenu2' => (is_numeric($modx->getOption('campermanagement.ctxmenu2'))) ? $modx->getOption('campermanagement.ctxmenu2') : null,
+            'overviewId' => (is_numeric($modx->getOption('campermanagement.overview'))) ? $modx->getOption('campermanagement.overview') : null,
         ),$config);
     }
     
