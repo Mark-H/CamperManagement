@@ -57,6 +57,7 @@ $_lang['campermgmt.error.option_nf'] = 'Optie met id [[+id]] kan niet gevonden w
 $_lang['campermgmt.error.brand_nf'] = 'Merk met id [[+id]] kan niet gevonden worden.';
 $_lang['campermgmt.error.brand_invalid'] = 'Geen correct merk ontvangen. Heeft u het veld ingevuld?';
 $_lang['campermgmt.error.brand_undefined'] = 'Er is iets fout gegaan bij het aanmaken van een nieuw merk.';
+$_lang['campermgmt.error.select_image'] = 'Selecteer eerst een afbeelding met de linkermuisknop.';
 $_lang['campermgmt.button.backtooverview'] = 'Terug naar overzicht';
 $_lang['campermgmt.title.edit'] = 'Voertuig bewerken';
 $_lang['campermgmt.title.new'] = 'Nieuw voertuig toevoegen';

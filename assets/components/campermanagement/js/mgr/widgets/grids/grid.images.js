@@ -130,8 +130,8 @@ Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
         e.preventDefault();
         var imgrecord = grid.getSelectionModel().getSelected();
         if (imgrecord === undefined) {
-            // @TODO Find a fix for this
-            alert('Please select an image before right clicking.');
+            // @TODO Find a fix for this??
+            alert(_('campermgmt.error.select_image'));
             return;
         }
         var imgid = imgrecord.data.id;
