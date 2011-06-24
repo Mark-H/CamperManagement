@@ -24,7 +24,7 @@
 CamperMgmt.newOwnerWindow = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        title: 'Eigenaar',
+        title: _('campermgmt.owner.new'),
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
             action: 'mgr/index/saveowner'

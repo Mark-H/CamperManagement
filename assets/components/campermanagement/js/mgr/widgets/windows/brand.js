@@ -24,7 +24,7 @@
 CamperMgmt.newBrandWindow = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        title: _('campermgmt.brand'),
+        title: _('campermgmt.brand.new'),
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
             action: 'mgr/index/savebrand'

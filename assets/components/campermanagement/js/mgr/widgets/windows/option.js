@@ -24,7 +24,7 @@
 CamperMgmt.newOptionWindow = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        title: 'Optie',
+        title: _('campermgmt.option.new'),
         url: CamperMgmt.config.connectorUrl,
         baseParams: {
             action: 'mgr/index/saveoption'
