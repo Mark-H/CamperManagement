@@ -1,7 +1,8 @@
 CamperManagement is a third party component for MODX Revolution.
 
 It has been developed for Vuist Campers (www.vuistcampers.nl) and has been
-released to the public as a generic camper (the vehicle kind) inventory management tool.
+released to the public as a generic camping car inventory management tool, for managing
+camping cars and caravans that are for sale.
 
 CamperManagement is licensed under the GPL v2 (or later) and you are
 free to customize, extend or crush as long as you give proper attribution

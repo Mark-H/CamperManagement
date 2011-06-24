@@ -1,7 +1,11 @@
 # CamperManagement
-CamperManagement is a custom addon for MODX Revolution, developed for Vuist Campers.
+CamperManagement is a third party component for MODX Revolution.
 
-Currently in development by Mark Hamstra (http://www.markhamstra.nl)
+It has been developed for Vuist Campers (www.vuistcampers.nl) and has been
+released to the public as a generic camping car inventory management tool, for managing
+camping cars and caravans that are for sale.
+
+Camper Management has been developed by Mark Hamstra (http://www.markhamstra.nl)
 
 See http://rtfm.modx.com/display/ADDON/CamperManagement for documentation and instructions.
 
