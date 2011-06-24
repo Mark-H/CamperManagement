@@ -1,5 +1,11 @@
 CamperManagement Changelog
 
-Version 1.0.0-rc1
+Version 1.0.0-pl
 ==========================
+Add German & French translations (Thanks Anselm & Romain!)
+Fix a few hardcoded strings
+Fix "new" windows not properly resetting after updating a record
+
+Version 1.0.0-rc1, June 24 2011
+===============================
 Initial public release.
