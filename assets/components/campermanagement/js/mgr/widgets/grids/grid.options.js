@@ -36,15 +36,13 @@ CamperMgmt.optionsGrid = function(config) {
 		tbar: [{
 			text: _('campermgmt.option.new'),
 			handler: function(btn,e) {
-                if (!CamperMgmt.window.newOption) {
-                    CamperMgmt.window.newOption = MODx.load({
-                        xtype: 'campermgmt-newoptionwindow',
-                        listeners: {
-                            'success': function() { Ext.getCmp('options-grid').refresh()},
-                            'failure': function() { Ext.getCmp('options-grid').refresh()}
-                        }
-                    });
-                }
+                CamperMgmt.window.newOption = MODx.load({
+                    xtype: 'campermgmt-newoptionwindow',
+                    listeners: {
+                        'success': function() { Ext.getCmp('options-grid').refresh()},
+                        'failure': function() { Ext.getCmp('options-grid').refresh()}
+                    }
+                });
                 CamperMgmt.window.newOption.show(e.target);
 			}
 		}]

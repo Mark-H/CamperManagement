@@ -35,14 +35,12 @@ CamperMgmt.ownerGrid = function(config) {
 		tbar: [{
 			text: _('campermgmt.owner.new'),
 			handler: function(btn,e) {
-                if (!CamperMgmt.window.newOwner) {
-                    CamperMgmt.window.newOwner = MODx.load({
-                        xtype: 'campermgmt-newownerwindow',
-                        listeners: {
-                            'success': {fn:this.refresh,scope:this}
-                        }
-                    }); 
-                }
+                CamperMgmt.window.newOwner = MODx.load({
+                    xtype: 'campermgmt-newownerwindow',
+                    listeners: {
+                        'success': {fn:this.refresh,scope:this}
+                    }
+                });
                 CamperMgmt.window.newOwner.show(e.target);
 			}
 		}]

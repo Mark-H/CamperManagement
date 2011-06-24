@@ -34,15 +34,13 @@ CamperMgmt.brandsGrid = function(config) {
 		tbar: [{
 			text: _('campermgmt.brand.new'),
 			handler: function(btn,e) {
-                if (!CamperMgmt.window.newBrand) {
-                    CamperMgmt.window.newBrand = MODx.load({
-                        xtype: 'campermgmt-newbrandwindow',
-                        listeners: {
-                            'success': function() { Ext.getCmp('brands-grid').refresh()},
-                            'failure': function() { Ext.getCmp('brands-grid').refresh()}
-                        }
-                    });
-                }
+                CamperMgmt.window.newBrand = MODx.load({
+                    xtype: 'campermgmt-newbrandwindow',
+                    listeners: {
+                        'success': function() { Ext.getCmp('brands-grid').refresh()},
+                        'failure': function() { Ext.getCmp('brands-grid').refresh()}
+                    }
+                });
                 CamperMgmt.window.newBrand.show(e.target);
 			}
 		}]
