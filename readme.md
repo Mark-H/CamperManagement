@@ -5,7 +5,9 @@ It has been developed for Vuist Campers (www.vuistcampers.nl) and has been
 released to the public as a generic camping car inventory management tool, for managing
 camping cars and caravans that are for sale.
 
-Camper Management has been developed by Mark Hamstra (http://www.markhamstra.nl)
+Camper Management has been developed by Mark Hamstra (http://www.markhamstra.nl). If you need
+this addon with slight modifications, it would be appreciated if you can contact me directly
+via business@markhamstra.nl for commercial support.
 
 See http://rtfm.modx.com/display/ADDON/CamperManagement for documentation and instructions.
 
