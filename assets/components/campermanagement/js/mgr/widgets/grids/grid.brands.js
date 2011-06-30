@@ -30,6 +30,7 @@ CamperMgmt.brandsGrid = function(config) {
 		paging: true,
         clicksToEdit: 2,
 		autosave: true,
+        save_action: 'mgr/brands/savefromgrid',
 		remoteSort: true,
 		tbar: [{
 			text: _('campermgmt.brand.new'),
@@ -56,8 +57,7 @@ CamperMgmt.brandsGrid = function(config) {
 			sortable: true,
 			width: 14,
 			hidden: false,
-            editable: true
-            // @TODO: make inline editing functional
+            editor: { xtype: 'textfield', allowBlank: false }
 		}]
 		,listeners: {
             'rowcontextmenu': function(grid, rowIndex,e) {

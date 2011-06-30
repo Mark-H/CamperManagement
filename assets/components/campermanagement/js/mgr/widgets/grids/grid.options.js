@@ -33,6 +33,8 @@ CamperMgmt.optionsGrid = function(config) {
         clicksToEdit: 2,
 		autosave: true,
 		remoteSort: true,
+        autosave: true,
+        save_action: 'mgr/options/savefromgrid',
 		tbar: [{
 			text: _('campermgmt.option.new'),
 			handler: function(btn,e) {
@@ -58,8 +60,7 @@ CamperMgmt.optionsGrid = function(config) {
 			,sortable: true
 			,width: 14
 			,hidden: false
-            ,editable: true
-            // @TODO: make inline editing functional
+            ,editor: { xtype: 'textfield', allowBlank: false }
 		}],
 		listeners: {
             'rowcontextmenu': function(grid, rowIndex,e) {
