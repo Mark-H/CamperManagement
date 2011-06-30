@@ -1,4 +1,7 @@
 CamperManagement Changelog
+Version 1.0.1-pl,
+=================
+Fix bug with options grid not pre-selecting properly.
 
 Version 1.0.0-pl, June 27 2011
 ==============================
