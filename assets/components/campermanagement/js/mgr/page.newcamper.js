@@ -34,16 +34,14 @@ Ext.onReady(function() {
         Ext.getCmp('options-grid').store.on('load', function(){
             var grid = Ext.getCmp('options-grid');
             var options = CamperMgmt.values.options.split(",");
-            //console.log('opts',options);
+            var optArr = new Array;
             for (var i in options) {
                 var index = grid.store.indexOfId(Number(options[i]));
                 if (index > -1) {
-                    //console.log('index',index);
-                    var optionIndices = (optionIndices) ? optionIndices+','+Number(index) : Number(index);
+                    optArr[i] = index;
                 }
             }
-            console.log(optionIndices);
-            grid.getSelectionModel().selectRows(optionIndices);
+            grid.getSelectionModel().selectRows(optArr);
         }, this, {
             single: true
         });
