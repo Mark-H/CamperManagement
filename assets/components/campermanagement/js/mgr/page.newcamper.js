@@ -34,12 +34,15 @@ Ext.onReady(function() {
         Ext.getCmp('options-grid').store.on('load', function(){
             var grid = Ext.getCmp('options-grid');
             var options = CamperMgmt.values.options.split(",");
+            //console.log('opts',options);
             for (var i in options) {
                 var index = grid.store.indexOfId(Number(options[i]));
-                if (Number(index) > 0) {
+                if (index > -1) {
+                    //console.log('index',index);
                     var optionIndices = (optionIndices) ? optionIndices+','+Number(index) : Number(index);
                 }
             }
+            console.log(optionIndices);
             grid.getSelectionModel().selectRows(optionIndices);
         }, this, {
             single: true
@@ -408,11 +411,17 @@ CamperMgmt.gridSelectOptions = function(config) {
             }
         }],
         columns: [
-            this.sm,
+            this.sm,{
+                header: _('id'),
+                dataIndex: 'id',
+                sortable: true,
+                width: 50,
+                hidden: true
+            },
             {
                 header: _('campermgmt.option'),
                 dataIndex: 'name',
-                sortable: false,
+                sortable: true,
                 width: 200
             }
         ]
