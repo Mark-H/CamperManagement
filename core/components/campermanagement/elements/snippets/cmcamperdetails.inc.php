@@ -52,7 +52,7 @@ if (!($camper instanceof cmCamper)) {
 $array = $camper->toArray();
 $hideInactive = $modx->getOption('hideInactive',$scriptProperties,false);
 if (in_array($array['status'],array(0,5)) && $hideInactive) {
-    $cidInactiveRedirect = (int)$modx->getOption('cidInvalidAction',$scriptProperties,1); // @todo disable in pkg
+    $cidInactiveRedirect = (int)$modx->getOption('cidInactiveAction',$scriptProperties,1); // @todo disable in pkg
     if ($cidInactiveRedirect > 0) {
         $url = $modx->makeUrl($cidInactiveRedirect,'',array('from' => $cid));
         return $modx->sendRedirect($url);
@@ -62,8 +62,8 @@ if (in_array($array['status'],array(0,5)) && $hideInactive) {
 }
 
 $includeBrand = (boolean)$modx->getOption('includeBrand',$scriptProperties,true);
-$includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,true);
-$includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,false);
+$includeOwner = (boolean)$modx->getOption('includeOwner',$scriptProperties,false);
+$includeImages = (boolean)$modx->getOption('includeImages',$scriptProperties,true);
 $includeOptions = (boolean)$modx->getOption('includeOptions',$scriptProperties,true);
 
 $numimages = $modx->getOption('numimages',$scriptProperties,100);
