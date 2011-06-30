@@ -1,6 +1,6 @@
 CamperManagement Changelog
-Version 1.0.1-pl,
-=================
+Version 1.0.1-pl, June 30 2011
+==============================
 Changed a few defaults in the cmCamperDetails snippet to make more sense.
 #3 Add inline editing for options & campers on index
 Fix bug with options grid not pre-selecting properly.
