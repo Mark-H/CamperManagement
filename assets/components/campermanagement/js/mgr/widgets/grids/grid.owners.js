@@ -83,15 +83,14 @@ CamperMgmt.ownerGrid = function(config) {
                     items: [{
                         text: _('update'),
                         handler: function(grid, rowIndex) {
-                            if (!CamperMgmt.window.newOwner) {
-                                CamperMgmt.window.newOwner = MODx.load({
-                                    xtype: 'campermgmt-newownerwindow',
-                                    listeners: {
-                                        'success': function() { Ext.getCmp('owner-grid').refresh()},
-                                        'failure': function() { Ext.getCmp('owner-grid').refresh()}
-                                    }
-                                });
-                            }
+                            CamperMgmt.window.newOwner = MODx.load({
+                                xtype: 'campermgmt-newownerwindow',
+                                listeners: {
+                                    'success': function() { Ext.getCmp('owner-grid').refresh()},
+                                    'failure': function() { Ext.getCmp('owner-grid').refresh()}
+                                },
+                                title: _('update')
+                            });
                             record = Ext.getCmp('owner-grid').getSelectionModel().getSelected().json;
                             CamperMgmt.window.newOwner.setValues(record);
                             CamperMgmt.window.newOwner.show(e.target);
