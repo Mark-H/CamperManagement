@@ -65,17 +65,15 @@ CamperMgmt.brandsGrid = function(config) {
                     items: [{
                         text: _('update'),
                         handler: function(grid, rowIndex) {
-                            if (!CamperMgmt.window.newBrand) {
-                                CamperMgmt.window.newBrand = MODx.load({
-                                    xtype: 'campermgmt-newbrandwindow',
-                                    listeners: {
-                                        'success': function() { Ext.getCmp('brands-grid').refresh()},
-                                        'failure': function() { Ext.getCmp('brands-grid').refresh()}
-                                    }
-                                });
-                            }
-                            record = Ext.getCmp('brands-grid').getSelectionModel().getSelected().json;
-                            CamperMgmt.window.newBrand.setValues(record);
+                            CamperMgmt.window.newBrand = MODx.load({
+                                xtype: 'campermgmt-newbrandwindow',
+                                listeners: {
+                                    'success': function() { Ext.getCmp('brands-grid').refresh()},
+                                    'failure': function() { Ext.getCmp('brands-grid').refresh()}
+                                },
+                                title: _('update'),
+                                record: Ext.getCmp('brands-grid').getSelectionModel().getSelected().json
+                            });
                             CamperMgmt.window.newBrand.show(e.target);
                         }
                     },{

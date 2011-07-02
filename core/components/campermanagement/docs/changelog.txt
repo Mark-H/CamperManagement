@@ -1,4 +1,8 @@
 CamperManagement Changelog
+Version 1.0.1-pl2, July 2 2011
+==============================
+Fix title on update dialog for brands and options (on index).
+
 Version 1.0.1-pl, June 30 2011
 ==============================
 Changed a few defaults in the cmCamperDetails snippet to make more sense.

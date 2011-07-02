@@ -68,15 +68,14 @@ CamperMgmt.optionsGrid = function(config) {
                     items: [{
                         text: _('update'),
                         handler: function(grid, rowIndex) {
-                            if (!CamperMgmt.window.newOption) {
-                                CamperMgmt.window.newOption = MODx.load({
-                                    xtype: 'campermgmt-newoptionwindow',
-                                    listeners: {
-                                        'success': function() { Ext.getCmp('options-grid').refresh()},
-                                        'failure': function() { Ext.getCmp('options-grid').refresh()}
-                                    }
-                                });
-                            }
+                            CamperMgmt.window.newOption = MODx.load({
+                                xtype: 'campermgmt-newoptionwindow',
+                                listeners: {
+                                    'success': function() { Ext.getCmp('options-grid').refresh()},
+                                    'failure': function() { Ext.getCmp('options-grid').refresh()}
+                                },
+                                title: _('update')
+                            });
                             record = Ext.getCmp('options-grid').getSelectionModel().getSelected().json;
                             CamperMgmt.window.newOption.setValues(record);
                             CamperMgmt.window.newOption.show(e.target);
