@@ -74,7 +74,7 @@ foreach ($campers as $camper) {
 
 $returnArray = array(
     'success' => true,
-    'total' => count($results),
+    'total' => $count,
     'results' => $results
 );
 return $modx->toJSON($returnArray);

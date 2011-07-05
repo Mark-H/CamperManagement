@@ -1,4 +1,8 @@
 CamperManagement Changelog
+Version 1.0.2-pl, July 5 2011
+=============================
+Fix critical bug with the camper listing not paginating properly.
+
 Version 1.0.1-pl2, July 2 2011
 ==============================
 Fix title on update dialog for brands, options & owners (on index).
