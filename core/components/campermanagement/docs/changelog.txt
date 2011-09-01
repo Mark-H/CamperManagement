@@ -1,4 +1,8 @@
 CamperManagement Changelog
+Version 1.0.3-pl
+=============================
+#5 Use English terms in the default chunk.
+
 Version 1.0.2-pl, July 5 2011
 =============================
 Fix critical bug with the camper listing not paginating properly.
