@@ -68,6 +68,8 @@ $includeOptions = (boolean)$modx->getOption('includeOptions',$scriptProperties,t
 
 $numimages = $modx->getOption('numimages',$scriptProperties,100);
 
+$optionsSep = $modx->getOption('optionsSeparator',$scriptProperties,", \n");
+
 if ($includeImages) {
     $tplprop['ImageOuter'] = $modx->getOption('tplImageOuter',$scriptProperties,'cmDefaultTplImageOuter');
     $tplprop['ImageItem'] = $modx->getOption('tplImageItem',$scriptProperties,'cmDefaultTplImageItemDetail');
@@ -162,7 +164,7 @@ if ($includeImages) {
             }
         }
         if (count($array['options']) > 0)
-            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode(", ",$array['options'])));
+            $array['options'] = $campermgmt->getChunk($tpl['OptionsOuter'],array('options' => implode($optionsSep,$array['options'])));
         else
             unset($array['options']);
     }
