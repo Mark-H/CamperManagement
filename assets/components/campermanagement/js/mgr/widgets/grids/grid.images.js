@@ -33,38 +33,7 @@ CamperMgmt.imagesGrid = function (config) {
 		remoteSort: true,
 		tbar: [{
 			text: _('campermgmt.image.upload'),
-			handler: function (btn, e) {
-                if (CamperMgmt.cid > 0) {
-                    if (!this.uploader) {
-                        this.uploader = new Ext.ux.UploadDialog.Dialog({
-                            id: 'campermgmt-uploader',
-                            url: MODx.config.connectors_url + 'browser/file.php',
-                            base_params: {
-                                action: 'upload',
-                                prependPath: '',
-                                prependUrl: '',
-                                path: 'uploads/',
-                                basePath: CamperMgmt.config.assetsPath,
-                                basePathRelative: 0
-                            },
-                            reset_on_hide: true,
-                            width: 550,
-                            cls: 'ext-ux-uploaddialog-dialog modx-upload-window'
-                        });
-                        this.uploader.on('click', function (n, e) {
-                            n.select();
-                            this.cm.activeNode = n;
-                        }, this);
-                        this.uploader.on('show', this.beforeUpload, this);
-                        this.uploader.on('uploadsuccess', this.uploadSuccess, this);
-                        this.uploader.on('uploaderror', this.uploadError, this);
-                        this.uploader.on('uploadfailed', this.uploadFailed, this);
-                    }
-                    this.uploader.show(btn);
-                } else {
-                    Ext.Msg.alert(_('error'), _('campermgmt.image.requiressave'));
-                }
-			}
+			handler: this.uploadImages
 		}],
         columns: [{
 			header: _('campermgmt.field.id'),
@@ -96,6 +65,38 @@ CamperMgmt.imagesGrid = function (config) {
     });
 };
 Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
+    uploadImages: function (btn, e) {
+         if (CamperMgmt.cid > 0) {
+               if (!this.uploader) {
+                     this.uploader = new Ext.ux.UploadDialog.Dialog({
+                            id: 'campermgmt-uploader',
+                            url: MODx.config.connectors_url + 'browser/file.php',
+                            base_params: {
+                                action: 'upload',
+                                prependPath: '',
+                                prependUrl: '',
+                                path: 'uploads/',
+                                basePath: CamperMgmt.config.assetsPath,
+                                basePathRelative: 0
+                            },
+                            reset_on_hide: true,
+                            width: 550,
+                            cls: 'ext-ux-uploaddialog-dialog modx-upload-window'
+                        });
+                        this.uploader.on('click', function (n, e) {
+                            n.select();
+                            this.cm.activeNode = n;
+                        }, this);
+                        this.uploader.on('show', this.beforeUpload, this);
+                        this.uploader.on('uploadsuccess', this.uploadSuccess, this);
+                        this.uploader.on('uploaderror', this.uploadError, this);
+                        this.uploader.on('uploadfailed', this.uploadFailed, this);
+                    }
+                    this.uploader.show(btn);
+         } else {
+               Ext.Msg.alert(_('error'), _('campermgmt.image.requiressave'));
+         }
+    },
     uploadError: function (dlg, file, data, rec) {},
     uploadFailed: function (dlg, file, rec) {},
 
@@ -124,42 +125,21 @@ Ext.extend(CamperMgmt.imagesGrid, MODx.grid.Grid, {
     },
     renderImage: function (val) {
         return '<img src="' + MODx.config.connectors_url + 'system/phpthumb.php?src=' + CamperMgmt.config.assetsUrl + 'uploads/' + val + '&w=250&h=200" />';
-    },
-    onContextMenu: function (e) {
-        var grid = this;
-        e.preventDefault();
-        var imgrecord = grid.getSelectionModel().getSelected();
-        if (imgrecord === undefined) {
-            // @TODO Find a fix for this??
-            alert(_('campermgmt.error.select_image'));
-            return;
-        }
-        var imgid = imgrecord.data.id;
-        var ctxmenu = new Ext.menu.Menu({
-            items: [{
-                text: _('delete'),
-                handler: function () {
-                    MODx.Ajax.request({
-                        url: CamperMgmt.config.connectorUrl,
-                        params: {
-                            action: 'mgr/image/remove',
-                            image: imgid
-                        },
-                        listeners: {
-                            'success': {fn: function (r) {
-                                Ext.getCmp('images-grid').getSelectionModel().clearSelections(true);
-                                Ext.getCmp('images-grid').refresh();
-                            }, scope: this},
-                            'failure': {fn: function (r) {
-                                Ext.getCmp('images-grid').refresh();
-                            }, scope: this}
-                        }
-                    });
-                }
-            }]
+    }
+    ,removeImages: function(btn,e) {
+        if (!this.menu.record) return false;
+        MODx.msg.confirm({
+            title: _('delete')
+            ,text: _('delete')
+            ,url: this.config.url
+            ,params: {
+                action: 'mgr/image/remove'
+                ,id: this.menu.record.id
+            }
+            ,listeners: {
+                'success': {fn:function(r) { this.refresh(); },scope:this}
+            }
         });
-        ctxmenu.showAt(e.getXY());
-        return false;
     }
 });
 Ext.reg('campermgmt-grid-images', CamperMgmt.imagesGrid);
