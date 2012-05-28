@@ -25,7 +25,8 @@ require_once dirname(dirname(__FILE__)) . '/model/campermanagement/campermanagem
 $campermgmt = new CamperManagement($modx);
 $campermgmt->initialize('mgr');
 
-if (is_numeric($_GET['cid'])) {
+$values = '';
+if (isset($_GET['cid']) && is_numeric($_GET['cid'])) {
     $cid = trim($_GET['cid']);
     $camper = $modx->getObjectGraph('cmCamper','{ "Brand":{}, "Owner": {}, "CamperOptions":{"Options":{}}}',$cid);
 
@@ -61,8 +62,8 @@ Ext.onReady(function() {
 </script>');
 
 $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/campermanagement.js');
-
-switch ($_GET['action']) {
+$action = $modx->getOption('action', $_GET, 'index');
+switch ($action) {
     case 'newcamper':
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/page.newcamper.js');
         $modx->regClientStartupScript($campermgmt->config['jsUrl'].'mgr/widgets/windows/owner.js');

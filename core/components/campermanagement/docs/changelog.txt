@@ -1,4 +1,6 @@
 CamperManagement Changelog
+Fix E_NOTICE errors in back-end component.
+
 Version 1.0.3-pl
 =============================
 #5 Use English terms in the default chunk.
