@@ -66,7 +66,9 @@ foreach ($campers as $camper) {
     $array['owner'] = ($camper->Owner) ? $camper->Owner->get('lastname').', '.$camper->Owner->get('firstname').' ('.$camper->Owner->get('id').')' : 'n/a';
     $array['options'] = array();
     foreach ($camper->CamperOptions as $opt) {
-        $array['options'][] = $opt->Options->get('name');
+        if (isset($opt->Options)) {
+            $array['options'][] = $opt->Options->get('name');
+        }
     }
     $array['options'] = implode(", ",$array['options']);
     $results[] = $array;
