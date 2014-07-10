@@ -1,3 +1,8 @@
+# CamperManagement is no longer supported!
+
+It's broken in MODX 2.2 and no longer supported by me. If anyone wants to take it, patch it up and support it in the future, please do. 
+
+
 # CamperManagement
 CamperManagement is a third party component for MODX Revolution.
 
