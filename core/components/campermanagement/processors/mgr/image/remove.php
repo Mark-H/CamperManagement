@@ -21,21 +21,11 @@
  * Suite 330, Boston, MA 02111-1307 USA
  *
  */
+ 
+if (empty($scriptProperties['id'])) return $modx->error->failure($modx->lexicon('campermgmt.error.noid'));
+$item = $modx->getObject('cmImages',$scriptProperties['id']);
+if (!$item) return $modx->error->failure($modx->lexicon('campermgmt.error.image_nf'));
 
-$cid = (int)$modx->getOption('image',$scriptProperties,-1);
-if (($cid <= 0) || empty($cid)) {
-    return $modx->error->failure($modx->lexicon('campermgmt.error.noid'));
-}
-
-$cObj = $modx->getObject('cmImages',$cid);
-
-if (!($cObj instanceof cmImages)) {
-    return $modx->error->failure($modx->lexicon('campermgmt.error.image_nf',array('id' => $cid)));
-}
-
-$result = $cObj->remove();
-if ($result !== true) {
+if ($item->remove() == false) {
     return $modx->error->failure($modx->lexicon('campermgmt.error.undefined'));
 }
-return $modx->error->success();
-?>
